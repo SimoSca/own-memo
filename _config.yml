@@ -31,9 +31,10 @@ markdown: kramdown
 theme: minima
 
 ########################### From now to end Added by Simone Scardoni
-#name: Own Memo
+name: Own Memo
 # markdown: redcarpet
-highlighter: true
+# github compatibylity
+highlighter: 'rouge'
 baseurl: /own-memo
 
 include: ['_pages']
