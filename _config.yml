@@ -13,15 +13,15 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Your awesome title
+title: Own Memo
 email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 # Commented by Simone Scardoni
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://example.com" # the base hostname & protocol for your site
+# baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://simosca.github.io" # the base hostname & protocol for your site
 twitter_username: jekyllrb
 github_username:  jekyll
 
@@ -30,8 +30,29 @@ github_username:  jekyll
 markdown: kramdown
 theme: minima
 
-# Added by Simone Scardoni
-# name: Own Memo
+########################### From now to end Added by Simone Scardoni
+#name: Own Memo
 # markdown: redcarpet
-# highlighter: true
-# baseurl: /own-memo
+highlighter: true
+baseurl: /own-memo
+
+include: ['_pages']
+
+repoUrl: "https://github.com/SimoSca/own-memo/tree/gh-pages/_codes"
+
+# Using default to pass values to scoped/typed
+defaults:
+    -
+        scope:
+            path: "" # an empty string here means all files in the project
+            type: "pages" # only pages have default layout
+        values:
+            layout: "default"
+
+# can also use collection
+collections:
+    codes:
+        output: true
+        relative_directory: "_codes"
+
+# see https://jekyllrb.com/docs/datafiles/ to extend config more completetely
