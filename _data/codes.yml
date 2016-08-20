@@ -5,3 +5,5 @@ tree:
   bash: {}
   javascript:
     hellotest: 
+  multi-context:
+    webSocket-ruby-javascript: 

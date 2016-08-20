@@ -1,5 +1,11 @@
-### prerequisites and definitions
+###
+# Run separate shell, and in order:
+# => bundle exec ruby scripts/websocketServer
+# => bundle exec guard
+# => bundle exec jekyll serve --watch
+###
 
+### prerequisites and definitions
 require "yaml"
 
 ### Di una tree prendo solo le directory e le ritorno in formato Hash
@@ -21,12 +27,20 @@ def treeDir startDir, maxDeep = 1 , actualDeep = 0
 end
 
 
-
 ########### TASKS ###########
 
 task :'my-jekyll' => [:codesTree] do
-    # ruby "test/unittest.rb"
-    #puts "now..."
+    puts "ping to autoreload page..."
+    require "enomis/websocket"
+    EM.run do
+        ws = Enomis::Websocket::Client.connect
+        ws.onopen  { ws.send('hi');  }
+        ws.onerror { puts "onerror" ; }
+        EM.add_timer(5) do
+            puts "BOOM"
+            EM.stop_event_loop
+        end
+    end
 end
 
 task :codesTree do
@@ -60,3 +74,8 @@ task :codesTree do
     end
 
 end
+
+# could emprove server and other intial tasks as daemon...
+# task :init do
+#
+# end

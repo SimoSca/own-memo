@@ -9,7 +9,7 @@ ruby RUBY_VERSION
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-# gem "jekyll", "3.2.1"
+gem "jekyll"
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "minima"
@@ -24,7 +24,16 @@ group :jekyll_plugins do
   gem "jekyll-github-metadata", "~> 1.0"
 end
 
+# personal watcher
 gem 'guard'
+# custom rake tasks
 gem 'guard-rake'
+# reload jekyll server
+# not true in windows, due to fork() system function unexists
+# gem 'guard-jekyll-plus'
 
-# gem 'wdm', '>= 0.1.1' if Gem.win_platform?
+# windows polyfill
+gem 'wdm', '>= 0.1.1' if Gem.win_platform?
+
+# to make personal autoreload webslocket based
+gem "enomis-websocket", github: "black/enomis-websocket", branch: "master"

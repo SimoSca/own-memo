@@ -68,6 +68,12 @@ h1.side-vspace{
     visibility: hidden;
 }
 
+.side-active{
+    color: $grey-color-light !important;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
 $cont-margin: 10px;
 #container{
     margin: $cont-margin;
