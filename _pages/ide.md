@@ -21,6 +21,7 @@ risulta pertanto possibile creare `moduli` e `netbean application` per sfruttare
 
 Di seguito raccolgo i link utili a tal fine:
 
+- [nbm-projecttype-last](https://platform.netbeans.org/tutorials/nbm-projecttype.html) , il migliore per partire
 - [nbm-projecttype](https://platform.netbeans.org/tutorials/71/nbm-projecttype.html)
 - [hack-your-own-custom-project-t](https://dzone.com/articles/hack-your-own-custom-project-t)
 - [nbm-quick-start](https://platform.netbeans.org/tutorials/nbm-quick-start.html)
@@ -28,7 +29,9 @@ Di seguito raccolgo i link utili a tal fine:
 - [platform-features](https://netbeans.org/features/platform/features.html)
 - [import-3rd-party](https://netbeans.org/kb/articles/freeform-import.html)
 
+Predisposizione typescript:
 
+- [https://jaxenter.com/typescript-angular-2-and-netbeans-ide-an-unbeatable-trio-125443.html](https://jaxenter.com/typescript-angular-2-and-netbeans-ide-an-unbeatable-trio-125443.html)
 
 
 Sublime Text 3
