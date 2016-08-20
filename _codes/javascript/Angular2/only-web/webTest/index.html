@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular 2 without node</title>
+    <!-- 1. Load libraries -->
+ <!--<script src="https://code.angularjs.org/2.0.0-beta.8/angular2-polyfills.js"></script>-->
+    <script src="https://npmcdn.com/systemjs@0.19.6/dist/system.src.js"></script>
+    <script src="https://code.angularjs.org/tools/typescript.js"></script>
+    <script src="system.config.js"></script>
+    <link rel="stylesheet" type="text/css" href="app.css"/>
+
+</head>
+
+
+<body>
+
+	<hello>Loading...</hello>
+
+	<ng-menu>Menu...</ng-menu>
+	
+	<my-one-child>One Child...</my-one-child>
+	
+	<my-two-way>Two Way Binding...</my-two-way>
+	
+	<my-for-list>For List...</my-for-list>
+
+<script>
+    System.import('app');
+</script>
+</body>
+
+</html>
