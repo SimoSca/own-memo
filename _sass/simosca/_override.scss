@@ -26,3 +26,13 @@ blockquote {
         margin-bottom: 0;
     }
 }
+
+
+/**
+ * Syntax highlighting styles
+ */
+.highlight {
+    .highlighter-rouge & {
+      background: lighten($background-color, 20%);;
+    }
+}

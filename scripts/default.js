@@ -1,6 +1,10 @@
 $(document).ready(function(){
     // open links in new tab
-    $('a').each(function(){
+    jQuery.expr[':'].parents = function(a,i,m){
+        return jQuery(a).parents(m[3]).length < 1;
+    };
+
+    $('a').filter(':parents(#sidebar)').each(function(){
         $(this).attr('target', '_blank');
     });
 });

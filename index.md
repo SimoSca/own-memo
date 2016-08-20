@@ -21,15 +21,15 @@ per permettere l'aggiornamento automatico della **tree** di `_codes` ho scelto d
 
 dunque per il watch risulta necessario dare il comando
 
-````
+`````
 guard
-````
+`````
 
 Risulta in ogni caso comodo aprire in un altro terminale oppure in modalita' detach anche il sito locale, cosa realizzabile con
 
-````
+```
 bundle exec jekyll serve --watch
-````
+```
 
 oppure mediante qualche linksimbolico via `apache` o `xampp`.
 

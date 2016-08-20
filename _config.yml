@@ -40,6 +40,7 @@ baseurl: /own-memo
 include: ['_pages']
 
 repoUrl: "https://github.com/SimoSca/own-memo/tree/gh-pages/_codes"
+gitRepo: "https://github.com/SimoSca/own-memo/"
 
 # Using default to pass values to scoped/typed
 defaults:

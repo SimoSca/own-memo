@@ -83,10 +83,28 @@ $cont-margin: 10px;
     position: relative;
     overflow: auto;
     z-index: 1;
+
+    h1, h2, h3, h4, h5, h6{
+        color: tomato;
+    }
+
+    h1, h2{
+        border-bottom: 1px solid lighten($background-color, 25%);
+    }
+
 }
 
 // allineamento orizzontale centrato
 #container-autoalign{
     margin: auto;
     max-width: 900px;
+    padding: 10px;
+}
+
+#footer{
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid lighten($background-color, 25%);
+    font-style: italic;
+    font-size: 0.9em;
 }

@@ -24,16 +24,20 @@ group :jekyll_plugins do
   gem "jekyll-github-metadata", "~> 1.0"
 end
 
-# personal watcher
-gem 'guard'
-# custom rake tasks
-gem 'guard-rake'
-# reload jekyll server
-# not true in windows, due to fork() system function unexists
-# gem 'guard-jekyll-plus'
+group :development do
+    # personal watcher
+    gem 'guard'
+    # custom rake tasks
+    gem 'guard-rake'
+    # reload jekyll server
+    # not true in windows, due to fork() system function unexists
+    # gem 'guard-jekyll-plus'
 
-# windows polyfill
-gem 'wdm', '>= 0.1.1' if Gem.win_platform?
+    # windows polyfill
+    gem 'wdm', '>= 0.1.1' if Gem.win_platform?
 
-# to make personal autoreload webslocket based
-gem "enomis-websocket", github: "black/enomis-websocket", branch: "master"
+    # to make personal autoreload webslocket based
+    gem "enomis-websocket", github: "black/enomis-websocket", branch: "master"
+    # to call server, both http and websocket, as daemon
+    gem 'daemons' # not working in windows
+end
