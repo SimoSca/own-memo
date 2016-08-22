@@ -1,6 +1,6 @@
 ---
 title:      Ide
-permalink:  /ide/
+permalink:  /developer/ide/
 ---
 
 
@@ -38,3 +38,35 @@ Sublime Text 3
 ---------------
 
 vedi [https://www.sitepoint.com/essential-sublime-text-javascript-plugins/](https://www.sitepoint.com/essential-sublime-text-javascript-plugins/)
+
+
+
+PhpStorm
+-----------------
+
+inizialmente ci ho messo un po per farlo funzionare con `XDebug`, utilizzando una `Vagrant VM` come server,
+pertanto riporto di seguito i passaggi piu importanti, senza giustificarli:
+
+
+### File > Settings
+
+#### sezione Languages & Frameworks
+
+- in `PHP`  creo un nuovo interpete di tipo `Vagrant` e lo faccio puntare alla directory della mia `VM`
+
+- in `PHP > Debug` alla voce `Xdebug` inserisco la porta 9000 e spunto tutto in quella sezione
+
+#### sezione Build, Execution, Deployment
+
+- in `debugger` sotto la voce `Built-in server` inserisco la porta .... (che non sia quella che uso per accedere al server della `VM`)
+
+- in `Deployment` creo un nuovo item, e poi per questo imposto:
+
+`Connection`
+	- `Type` : `Local or mounted folder`
+	- `upload/download` , `Folder` : inserisco il folder del mio progetto
+	- `web server root Url`: l'url per raggiungere il main del mio progetto (ad es `http://localhost:8888/joomlagram`)
+
+`Mappings`
+	- `Local Path`: sempre la root
+	-poi solo slash e backslash

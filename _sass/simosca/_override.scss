@@ -25,6 +25,11 @@ blockquote {
     > :last-child {
         margin-bottom: 0;
     }
+
+    /** by S.S. */
+    .highlighter-rouge{
+        background-color: #2b211f;
+    }
 }
 
 
@@ -34,5 +39,13 @@ blockquote {
 .highlight {
     .highlighter-rouge & {
       background: lighten($background-color, 20%);;
+    }
+}
+
+/** by S.S. */
+figure.highlight pre{
+    background-color: #2b211f;
+    code{
+        background-color: inherit;
     }
 }

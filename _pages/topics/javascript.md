@@ -1,7 +1,7 @@
 ---
 layout:     default
 title:      Javascript
-permalink:  /javascript/
+permalink:  /topics/javascript/
 ---
 
 

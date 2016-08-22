@@ -1,6 +1,6 @@
 ---
 title:      Ruby
-permalink:  /ruby/
+permalink:  /topics/ruby/
 ---
 
 Ruby risulta piuttosto complesso, pertanto non e' mia intenzione scrivere un tutorial su di esso,

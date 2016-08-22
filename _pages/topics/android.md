@@ -1,6 +1,6 @@
 ---
 title:      Android
-permalink:  /android/
+permalink:  /topics/android/
 ---
 
 elenco di trick per android.
@@ -90,3 +90,12 @@ http://www.howtogeek.com/104278/how-to-use-wireshark-to-capture-filter-and-inspe
 
 * `adb forward --list`, per vedere l'elenco di tutte le forward create
 * `adb forward --remove-all`, per cancellare tutte le forward ivi impostate
+
+
+
+#### Wireshark Torubleshoots
+
+Quando uso wireshark ho il problema di monitor in `loopback`, ossia di quando provo a monitorare del traffico locale, come il `localhost`.
+
+Per ovviare a questo rimpiazzo `WinPcap` con `NPcap`:
+installando quest'ultimo devo spuntare sia la parte del `loopback` che quella del `wincap compatibility mode`

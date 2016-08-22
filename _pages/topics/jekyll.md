@@ -1,6 +1,6 @@
 ---
 title:      Jekyll Templating
-permalink:  /jekyll/
+permalink:  /topics/jekyll/
 ---
 
 

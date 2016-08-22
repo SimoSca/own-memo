@@ -1,6 +1,6 @@
 ---
 title:      Reti e Terminologia
-permalink:  /reti-e-terminologia/
+permalink:  /developer/reti-e-terminologia/
 ---
 
 Breve riassunto sulle reti e i principali termini che si possono incontrare nel forum.
@@ -85,9 +85,9 @@ Ricapitolando quest'ultimo (rivango la terminolgia):
 
 #### Ethernet
 
-Un computer con scheda di rete Ethernet può inviare i pacchetti di dati solo quando nessun altro pacchetto sta viaggiando sulla rete, ovverosia quando la rete è “tranquilla”. In caso contrario, aspetta a trasmettere come quando, durante una conversazione, una persona deve attendere che l’altra smetta prima di parlare a sua volta.
+Un computer con scheda di rete Ethernet può inviare i pacchetti di dati solo quando nessun altro pacchetto sta viaggiando sulla rete, ovverosia quando la rete è “tranquilla��?. In caso contrario, aspetta a trasmettere come quando, durante una conversazione, una persona deve attendere che l’altra smetta prima di parlare a sua volta.
 
-Se più computer percepiscono contemporaneamente un momento “tranquillo” e iniziano ad inviare i dati nello stesso momento, si verifica una “collisione” dei dati sulla rete, che non implica errori ma la necessità di altri tentativi.
+Se più computer percepiscono contemporaneamente un momento “tranquillo��? e iniziano ad inviare i dati nello stesso momento, si verifica una “collisione��? dei dati sulla rete, che non implica errori ma la necessità di altri tentativi.
 Ogni computer, infatti, attende per un certo  periodo e prova a inviare nuovamente il pacchetto di dati.
 
 
@@ -102,7 +102,7 @@ Gli indirizzi IP oltre a identificare il nodo, aiutano anche a capire il livello
 
 La soluzione standard per collegarsi ad altre reti o a Internet, o per permettere agli utenti remoti di collegarsi alla propria rete centralizzata, è la normale linea telefonica analogica. Basta quindi collegare un modem al computer e alla presa del telefono per collegarsi ad un Internet Service Provider o ad una filiale.
 
-Un modem può supportare solo una “conversazione” remota alla volta e ogni computer che vuole collegarsi con l’esterno deve disporre di un proprio modem. 10 computer richiedono perciò 10 modem, ma in questo caso vi è una soluzione più efficiente per una connessione WAN: il router.
+Un modem può supportare solo una “conversazione��? remota alla volta e ogni computer che vuole collegarsi con l’esterno deve disporre di un proprio modem. 10 computer richiedono perciò 10 modem, ma in questo caso vi è una soluzione più efficiente per una connessione WAN: il router.
 
 Il router utilizza linee ISDN (digitali) e collega tutti i computer della rete locale: basta un router e 10 (o più) computer possono navigare sul web o collegarsi ad una filiale. Inoltre il router offre maggior protezione da accessi indesiderati, è più rapido nell’effettuare la connessione e nello staccare la linea telefonica quando l’attività di rete cessa.
 
@@ -246,3 +246,13 @@ UDP Server - Client
 ottimo esempio java in
 
 http://michieldemey.be/blog/network-discovery-using-udp-broadcast/
+
+
+
+
+Proxy Server
+------------
+
+ottimo esempio su [http://www.linuxfocus.org/Italiano/March2000/article147.html](http://www.linuxfocus.org/Italiano/March2000/article147.html).
+
+Ad esempio `Browsersync` usa proprio dei proxy server!

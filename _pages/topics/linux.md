@@ -1,6 +1,6 @@
 ---
 title:      Linux
-permalink:  /linux/
+permalink:  /topics/linux/
 ---
 
 

@@ -1,6 +1,6 @@
 ---
 title:      DB
-permalink:  /data-base/
+permalink:  /developer/data-base/
 ---
 
 Risulta utile conoscere alcune tipologie di `DB` per incrementare la mia visione.

@@ -1,52 +1,7 @@
 ---
-title:      Developer
-permalink:  /developer/
+title:      Security
+permalink:  /developer/web-security
 ---
-
-Informazioni generali da tenere presente in quanto sviluppatore.
-
-
-
-
-Design Pattern
----------------
-
-Indubbiamente importanti! Dato che ve ne sono un'infinita' al piu numerabile, elenco solo quelli che reputo piu importanti:
-
-- `reactor` , implementato ad esempio nella gemma `EventMachine` di `ruby`
-- `setter injection` e `interface injection`
-- factory pattern
-- singleton pattern
-- strategy pattern
-
-Vedi questo tutorial semplice e immediato:
-
-http://it.phptherightway.com/pages/Design-Patterns.html
-
-Altri path interessanti sono visualizzabili al link
-
-[https://sourcemaking.com/design_patterns/memento](https://sourcemaking.com/design_patterns/memento)
-
-[http://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
-
-
-
-
-Funzionalita' Web
-------------------
-
-#### Rendering
-
-ricordare sempre come avviene il processo di rendering del browser al fine di ottimizzare le prestazioni lavorando poco sul DOM e sfruttando la GPU.
-
-Ottimo articolo:
-
-* http://www.html5rocks.com/en/tutorials/internals/howbrowserswork/
-
-
-
-Web Security
-------------
 
 La sicurezza web, ma non solo, consta di tanti piccoli accorgimenti e prevenzioni, per le quali bisogna mostrare accortezza.
 
@@ -111,7 +66,7 @@ Pertanto posso utilizzare il token sia come auto-segnatura del server, che come 
 `JWE` scheme encrypts the content instead of signing it. The content being encrypted here are JWT claims. JWE, thus brings Confidentiality. The JWE can be signed and enclosed in a JWS. Now, you get both encryption and signature (thus getting Confidentiality, Integrity, Authentication).
 
 
-### Riassumo il TUTTO
+## Riassumo il TUTTO
 
 sul web vi sono molti tutorial, e ciascuno ha delle piccole differenze di implementazione, pertanto per trovare una traduzione univoca dovrei leggere l' RFC ufficiale del JWT, cosa che non ho fatto.
 
@@ -132,27 +87,3 @@ a questo punto il server-token verifica la firma digitale del token con la sua s
 Questa sarebbe la sua utilita' in linea di principio: quindi il JWT con questa impostazione **serve al server-token per se stesso**: lui crea il token, lui lo verifica, lui lo ricrea se vuole! in aggiunta al JWT-claims potrei aggiungere un tokenId (jit) se salvassi nel DB del server-token o del server-authentication dati importanti: il `jit` mi potrebbe servire per verificare il token e recuperare l'utente dal DB.
 
 Sempre con questo giro, il JWT non serve assolutamente a trasmettere i messaggi tra client e server! quest'ultima potrebbe essere verificata mediante algoritmo simmetrico se client e server si sono scambiati in modo sicuro una secret.
-
-
-Sviluppatore
--------------
-
-#### Google Crhome
-
-* http://www.hwupgrade.it/news/sistemi-operativi/google-mostra-come-funzionano-le-app-android-su-chrome-os-video_63031.html
-
-
-#### CSS Source Maps
-
-sapere cosa sono le source maps, come generarle e come debuggarle per fare un lavoro molto migliore sul controlli css via browser.
-
-Tutorial: http://blog.teamtreehouse.com/introduction-source-maps
-
-
-#### Colori
-
-link utili riguardanti colori e tavole:
-
-* http://paletton.com/#uid=74w0A0k159O4Ffm1Q7s2J4Z5l3C
-* https://color.adobe.com/it/create/color-wheel/?base=2&rule=Custom&selected=0&name=Vintage&mode=rgb&rgbvalues=0.14901960784313725,0.05940552898516252,0.10029375161259896,0.13872279633958717,0.1342562504055906,0.34901960784313724,0.8919227270996235,0.9137254901960784,0.4606961639198821,0.32320123607017154,0.7176470588235294,0.5094540493922375,0.5294117647058824,0.3736557561401454,0.1704415636018165&swatchOrder=0,1,2,3,4
-* http://www.dtelepathy.com/blog/inspiration/beautiful-color-palettes-for-your-next-web-project

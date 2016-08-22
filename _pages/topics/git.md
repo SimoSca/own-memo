@@ -1,7 +1,7 @@
 ---
 layout:     default
 title:      Git
-permalink:  /git/
+permalink:  /topics/git/
 ---
 
 ### Sources:

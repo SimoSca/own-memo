@@ -61,6 +61,7 @@ $side-with: 200px;
     height: 100%;
     border-right: 2px solid $text-color;
     padding-left: 10px;
+    overflow: auto;
 }
 
 // invisible element: to align the sidebar content verticall
@@ -69,7 +70,7 @@ h1.side-vspace{
 }
 
 .side-active{
-    color: $grey-color-light !important;
+    color: tomato !important;
     font-size: 1.1em;
     font-weight: bold;
 }

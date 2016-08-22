@@ -4,6 +4,7 @@ name: raccolta codici
 tree:
   bash: {}
   javascript:
+    Angular2: 
     hellotest: 
   multi-context:
     webSocket-ruby-javascript: 

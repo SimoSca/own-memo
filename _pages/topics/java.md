@@ -1,6 +1,6 @@
 ---
 title:      Java
-permalink:  /java/
+permalink:  /topics/java/
 ---
 
 Raccolta info utili su Java

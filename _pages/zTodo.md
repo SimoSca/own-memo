@@ -18,3 +18,8 @@ http://svnbook.red-bean.com/en/1.7/svn.webdav.basic.html
 
 
 ### git e CDN
+
+
+### mini pc
+
+provare [Remix OS](http://www.html.it/articoli/remix-os-prova-su-strada/?utm_source=newsletter&utm_medium=email&utm_campaign=Newsletter:+HTML.it&utm_content=22-08-2016+remix-os-prova-su-strada)

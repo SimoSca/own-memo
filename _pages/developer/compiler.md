@@ -1,10 +1,9 @@
 ---
 title:      Compiler
-permalink:  /compiler-transpiller/
+permalink:  /developer/compiler-transpiller/
 ---
 
 > NB: cercare differenza tra compiler and transpiller
-
 
 
 ### SASS
