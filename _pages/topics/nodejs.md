@@ -8,6 +8,94 @@ Per la ruggine, consiglio di leggere l'articolo
 [https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make](https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make).
 
 
+
+Nozioni Specifiche
+------------------
+
+### export vs module.exports
+
+Sostanzialmente quando carico una pagina javascript (`require`) in `Nodejs` questa pagina viene considerata come modulo e implicitamente viene eseguito il comando:
+
+````
+var exports = module.exports = {};
+````
+
+ora... la cosa importante da ricordarsi e' che `exports` da sola non e' l'oggetto modulo, ma contiene un `riferimento` (un puntatore) a quell'oggetto sopra creato, pertanto finche' gli aggiungo proprieta' non succede nulla, ma se sovrascrivo la variabile locale `exports` assegnandogli un nuovo valore (stringa, numero, o in generale la referenza a un altro oggetto), questa non avra' piu nulla a che fare con `module.exports`, e per inciso e' proprio `module.exports` che viene usato da `Nodejs` per caricare il modulo!
+
+Riferimento:
+
+- [understanding-module-exports-exports-node-js](https://www.sitepoint.com/understanding-module-exports-exports-node-js/)
+
+
+### event-driven, non-blocking I/O
+
+questa e' la vera peculiarita' di `Nodejs` e capirla non e' facile.
+
+La spiegazione sarebbe lunga pertanto elenco degli ottimi siti:
+
+- [understanding-node-js](https://www.codeschool.com/blog/2014/10/30/understanding-node-js/), con qualche riga di codice, ed indirettamente affronta l' `Event Loop`
+- [http://www.baloo.io/blog/2013/11/30/node-event-driven-programming/](http://www.baloo.io/blog/2013/11/30/node-event-driven-programming/), fa capire la differenza, considerando anche i tempi dei processi
+- [why-should-i-use-node-js-the-non-blocking-event-io-framework](http://developers.redhat.com/blog/2016/08/16/why-should-i-use-node-js-the-non-blocking-event-io-framework/), fatto bene, e con un paio di codici che riescono a far capire la differenza
+- [node-js-doctors-offices-and-fast-food-restaurants-understanding-event-driven-programming/](http://code.danyork.com/2011/01/25/node-js-doctors-offices-and-fast-food-restaurants-understanding-event-driven-programming/), fa capire con analogie su ristoranti e reception: molto rapido
+
+In ogni caso la parte piu importante da capire nel confronto multi-threads/multi-processes vs event-drivent... consta nella gestione del `context switching time` e nel fatto che il `non-blocking I/O` sostanzialmente e' un mezzo per fare in modo che il Processo (programma) sfrutti a pieno il tempo di clock che il Sistema Operativo concede a quel processo prima di stopparlo per passare a un altro (multi-tasking).
+
+Una frase da tenere a mente:
+
+> Event-driven applications are themselves multiplexing CPU time between clients.
+
+**NB**
+
+In realta' i thread non sono completamente abbandonati, ma viene usato un `Thread Pool` per le operazioni di I/O, tipicamente l'accesso ai socket e i files descriptor (__epool__ ad esempio per monitorare lo stato dei files descriptor)(Vedi [wikipedia](https://it.wikipedia.org/wiki/Thread_pool).).
+
+Infatti si legge sempre che il `non-blocking I/O` vuol dire che appena si incontrano operazioni di I/O `si lascia in sospeso` quella parte e si passa alla callback o al loop successivo. Il `sil lascia in sospeso` vuol dire proprio che si assegna quell'operazione ad un thread del `thread pool` (o eventualmente lo si crea), e sara' questo thread a far sapere al processo `Nodejs` che ora quell' "I/O" ha finito, e conseguentemente e' possibile riprendere tale callback.
+
+
+
+#### Event loop
+
+- [understanding-the-nodejs-event-loop](https://nodesource.com/blog/understanding-the-nodejs-event-loop/)
+- [mozilla-event-loop](https://developer.mozilla.org/it/docs/Web/JavaScript/EventLoop) , semplicissimo e spiega delle accortezze su `Stack`, `Queue` e `Heap` in meno di 30 secondi!
+
+Risulta utile anche confrontare questo con l' `EventMachine` di `Ruby` (siamo sempre su un `Reactor Pattern`), in particolare le pagine:
+
+- [starting-with-eventmachine-iii](http://javieracero.com/blog/starting-with-eventmachine-iii)
+- [starting-with-eventmachine-iv](http://javieracero.com/blog/starting-with-eventmachine-iv)
+
+spiegano bene come l'eventmachine inizializza il blocco che ruby legge con `yeld` , e fa anche un semplicissimo esempio in cui fa vedere che effettivamente le singole callback sono `synchronous`.
+
+
+Risulta utile farsi un idea della differenza tra **Thread** e **Process**
+
+#### Threads vs Processes
+
+Premettendo che ancora mi e' chiara a livello concettuale, ma non l'ho ancora ben assimilata, la riassumo velocemente:
+
+quando apro un programma, viene eseguito il processo ad esso viene associato un processo, e il processo consta nella creazione di una zona virtuale in cui lui istanziera' risorse e svolgera' i suoi compiti. La cosa importante e' che un processo apre sempre un thread, chiamato `main thread`. Il thread puo' essere considerato come un unita' di esecuzione di un processo. La differenza fondamentale tra avere molti thread o molti processi e' che quando sdoppio un processo creandone un `fork()` sto facendo un operazione molto pensante, perche' devo sostanzialmente creare una nuova zona virtuale. La differenza quindi e' che processi differenti lavorano su zone proprie e distinte, mentre thread differente appartengono allo stesso processo e di conseguenza hanno accesso alla stessa zona (shared memory), ed in quest'ultimo caso bisogna implementare dei semafori (ricordati di `CUDA`).
+
+Ora... questa distinzione non e' utilissima per capire il `non blocking I/O event driven`, ma quando si legge su di esso spesso si cita questa distinzione, ed averla e' sempre utile.
+
+> Ricorda: se consideri un processo come una scatola contenente altre scatole (zone di memoria private etc), allora sei sicuro che almeno una di queste scatole e' un thread (il main thread).
+
+Links:
+
+- [https://www.youtube.com/watch?v=O3EyzlZxx3g](https://www.youtube.com/watch?v=O3EyzlZxx3g) , esempio con giornale: veloce e simpatico
+-[https://www.youtube.com/watch?v=hsERPf9k54U](https://www.youtube.com/watch?v=hsERPf9k54U), questo e' + complicato ma very completo
+-[lecture.php?topic=process](http://web.stanford.edu/class/cs140/cgi-bin/lecture.php?topic=process), lettura schematica e veloce
+-[What-is-the-difference-between-a-process-and-a-thread](https://www.quora.com/What-is-the-difference-between-a-process-and-a-thread)
+-[os_multi_threading](http://www.tutorialspoint.com/operating_system/os_multi_threading.htm) **SUGGERITO**, spiega schematicamente e contiene anche disegni facili da interpretare
+
+
+
+
+Tools
+------
+
+Raccolta di esempi da semplici a complicati:
+
+- [nodejs-by-example](http://amirrajan.net/nodejs-by-example/)
+- [nodetuts.com](http://nodetuts.com/), raccolta di tutorial fatti molto bene: lo suggerisco!
+
 In ogni caso i tools che e' bene conoscere sono
 
 - `express`, come framework per applicazioni nodejs

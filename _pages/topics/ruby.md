@@ -25,7 +25,7 @@ e
 http://stackoverflow.com/questions/1740046/whats-the-difference-between-a-proc-and-a-lambda-in-ruby
 
 
-### hashes
+### Hashes
 
 https://www.sitepoint.com/guide-ruby-collections-ii-hashes-sets-ranges/
 
@@ -39,6 +39,13 @@ Come alternative esistono diverse implementazioni, tra cui le piu gettonate:
 - JRuby
 
 che naturalmente portano sia a pro e contro.
+
+
+### Threads vs Processes
+
+buonissima guida:
+
+- [ruby-concurrency-and-parallelism-a-practical-primer](https://www.toptal.com/ruby/ruby-concurrency-and-parallelism-a-practical-primer)
 
 
 # GEM
@@ -60,6 +67,7 @@ molto utile per il design pattern `reactor`.
 
 Non vi sono molti tutorial, ma ho trovato questi per iniziare:
 
+- [starting-with-eventmachine-i](http://javieracero.com/blog/starting-with-eventmachine-i) , serie di 4 mini tutorial, VERAMENTE UTILI
 - [ruby-eventmachine-the-speed-demon](https://www.igvita.com/2008/05/27/ruby-eventmachine-the-speed-demon/)
 - [eventmachine-introductions](http://everburning.com/news/eventmachine-introductions.html), in particolare il pdf della presentazione!
 
