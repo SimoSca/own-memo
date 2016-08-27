@@ -38,6 +38,7 @@ highlighter: 'rouge'
 baseurl: /own-memo
 
 include: ['_pages']
+exclude: ['_codes/provisioning/Ansible/OSX']
 
 repoUrl: "https://github.com/SimoSca/own-memo/tree/gh-pages/_codes"
 gitRepo: "https://github.com/SimoSca/own-memo/"

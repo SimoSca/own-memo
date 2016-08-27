@@ -1,1 +1,2 @@
+cd ..
 bundle exec guard
