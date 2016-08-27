@@ -7,6 +7,14 @@ Per la ruggine, consiglio di leggere l'articolo
 
 [https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make](https://www.airpair.com/node.js/posts/top-10-mistakes-node-developers-make).
 
+Tutorial step x step
+
+- [http://www.nodelabs.org](http://www.nodelabs.org)
+
+Free Host Nodejs
+
+- [cloudno](https://cloudno.de/)
+
 
 
 Nozioni Specifiche
@@ -90,6 +98,19 @@ Links:
 
 Tools
 ------
+
+
+### Apps x Nodejs
+
+Gestire Nodejs
+
+- [api-platform](https://strongloop.com/node-js/api-platform/)
+
+- [creating-desktop-applications-with-node-webkit](https://strongloop.com/strongblog/creating-desktop-applications-with-node-webkit/) , e articolo che segnala [questo browser](http://nwjs.io/), la cui peculiarita' e' di avere `Nodejs` come Engine, permettendo anche operazioni di salvataggio e creazione files, cosa che in javascript non si puo' fare in un normale browser!
+
+
+### Scripts
+
 
 Raccolta di esempi da semplici a complicati:
 

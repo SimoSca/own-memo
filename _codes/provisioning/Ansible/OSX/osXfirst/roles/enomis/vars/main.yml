@@ -1,0 +1,6 @@
+---
+applications: # .dmg, .app, .zip type applications via brew-cask
+  - google-chrome
+  - cleanmymac
+  - flavours
+  - sublime-text

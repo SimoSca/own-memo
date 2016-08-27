@@ -30,6 +30,20 @@ Altri path interessanti sono visualizzabili al link
 [http://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
 
 
+IOT
+----
+
+per il momento un semplice riferimento hardware a
+
+[intel-joule-la-piattaforma-per-iot-e-sempre-piu-potente-e-senziente_64036](http://www.hwupgrade.it/news/sistemi/intel-joule-la-piattaforma-per-iot-e-sempre-piu-potente-e-senziente_64036.html)
+
+mentre invece potrebbe risultare utile questo Embedded OS:
+
+[brillo](https://developers.google.com/brillo/)
+
+e per soluzioni  Wireless/Mobile
+
+[wave](https://developers.google.com/weave/)
 
 
 Funzionalita' Web

@@ -6,6 +6,13 @@ permalink:  /developer/ide/
 
 Raccolta di nozioni per i miei Ide preferiti.
 
+Temi:
+
+in generale dei color scheme di mio gradimento sono:
+
+- `Obsidian`
+- `DarkRoomContrast`
+
 
 NetBeans
 ---------
@@ -37,7 +44,36 @@ Predisposizione typescript:
 Sublime Text 3
 ---------------
 
+Mie configurazioni:
+
+````
+{
+	"color_scheme": "Packages/User/Solarized (Dark) (SL).tmTheme",
+	"default_line_ending": "unix",
+	"font_size": 8,
+	"ignored_packages":
+	[
+		"Markdown"
+	],
+	"show_panel_on_build": false,
+	"tab_size": 4,
+	"theme": "Soda SolarizedDark.sublime-theme"
+}
+````
+
+Coliri zona testo:
+
+plugin `ColorSublime` che consente di switchare velocemente il tema per avere un riscontro immediato (come `ScrollColor` di `Vim`), e installa anche una serie di temi di default.
+
+
 vedi [https://www.sitepoint.com/essential-sublime-text-javascript-plugins/](https://www.sitepoint.com/essential-sublime-text-javascript-plugins/)
+
+Temi installati (presi direttamente dal package control.io, sezione temi)
+
+- `https://packagecontrol.io/packages/Theme%20-%20Freesia` , con text `Kalopsia dark` o `capo dark` o `DarkRoomContrast`
+- `https://packagecontrol.io/packages/Theme%20-%20DefaultPlus` , non installato
+- `https://packagecontrol.io/packages/Theme%20-%20Aprosopo` , interessante ma non installato
+- `https://packagecontrol.io/packages/Theme%20-%20Afterglow` , very easy
 
 
 

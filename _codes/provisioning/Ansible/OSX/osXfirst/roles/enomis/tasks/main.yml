@@ -1,0 +1,15 @@
+---
+- name: Install libraries with Homebrew
+  homebrew: name={{ item }} state=present
+  with_items:
+    - wget 
+- name: Check forinstalled apps
+  shell: brew cask list | grep {{ item }}
+  register: installed_applications
+  with_items: '{{applications}}'
+  ignore_errors: true
+
+- name: Install apps with brew-cask
+  shell: brew cask install {{ item }}
+  with_items: '{{applications}}'
+  when: item not in installed_applications.results|map(attribute='stdout')
