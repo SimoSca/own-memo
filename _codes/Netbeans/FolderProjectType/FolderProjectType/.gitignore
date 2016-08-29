@@ -1,0 +1,10 @@
+build.xml
+manifest.mf
+
+/.projectKnowledge/
+/build/
+/nbproject/
+/test/
+
+/src/org/foldertype/project/Bundle.properties
+/src/org/foldertype/project/samples/

@@ -1,0 +1,17 @@
+{
+    "name": "black/namespace",
+    "description": "Simply Test of Namespacing",
+    "type": "library",
+    "require": {},
+    "autoload":{
+    	"classmap":[
+    		"App/TestClassmap"
+    	],
+    	"psr-0":{
+    		"Psr0": "App/TestPsr0/Sub"
+    	},
+    	"psr-4":{
+    		"Psr4\\": "App/TestPsr4"
+    	}
+    }
+}

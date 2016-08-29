@@ -1,0 +1,8 @@
+a = 45;
+b = a;
+print a;
+d = a + b + a;
+c = "Foo bar baz";
+print "Baz bar foo";
+print d;
+print c;

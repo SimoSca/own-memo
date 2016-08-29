@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  	<!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+</head>
+
+<body>
+
+
+
+<style>
+
+body{
+	background-color: hsla(113, 86%, 50%, 0.06);
+}
+
+canvas{
+	display: block;
+	width: 150;
+	height: 150;
+	background-color: beige;
+}
+
+</style>	
+
+
+tronco STORTO:
+<canvas id="start">Piramide Iniziale</canvas>
+
+
+ora traslo il vertice nell'origine
+<canvas id="translate-vertex"></canvas>
+
+ed ora applico uno shear per simmetrizzare il tutto
+<canvas id="simmetrize-shear"></canvas>
+
+
+
+adesso lo "cubizzo"
+<canvas id="to-cube"></canvas>
+
+ora centro
+<canvas id="to-center"></canvas>
+
+scalo
+<canvas id="to-scale"></canvas>
+
+Finish! tutto funzia come volevo!!
+
+<!-- test
+<canvas id="canvas-test"></canvas> -->
+
+
+<script src="math2D.js"></script>
+<script src="frustum.js"></script>
+
+
+
+</body>
+</html>

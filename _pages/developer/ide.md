@@ -80,11 +80,19 @@ Temi installati (presi direttamente dal package control.io, sezione temi)
 PhpStorm
 -----------------
 
-inizialmente ci ho messo un po per farlo funzionare con `XDebug`, utilizzando una `Vagrant VM` come server,
+`XDebug` e `PHPStorm` comunicano in due modi:
+
+- direttamente, mediante una chiamata esplicita di PHPStorm (premendo il pulsante del BUG, inteso come scarafaggio)
+- mettendo PHPStorm in ascolto di una connessione diretta con XDebug
+
+> per entrambe e' necessario recarsi in  `File > Settings`
+
+
+### Direttamente
+
+Inizialmente ci ho messo un po per farlo funzionare con `XDebug`, utilizzando una `Vagrant VM` come server,
 pertanto riporto di seguito i passaggi piu importanti, senza giustificarli:
 
-
-### File > Settings
 
 #### sezione Languages & Frameworks
 
@@ -106,3 +114,24 @@ pertanto riporto di seguito i passaggi piu importanti, senza giustificarli:
 `Mappings`
 	- `Local Path`: sempre la root
 	-poi solo slash e backslash
+
+
+### A CONNESSIONE
+
+in
+
+`Languages & Frameworks > PHP > Debug > DBGp Proxy`
+
+imposto:
+
+- `IDE key` : ad esempio `PHPStorm`
+- `Host` : `localhost:<myPort>`
+- `Prt`: ho lasciato la default `9001`
+
+in questo modo mi basta cliccare sul simbolo della cornetta dell'editor per aprire una connessione, e se voglio utilizzarlo mi basta appendere la query string:
+
+````
+http://localhost:30003/joomlagram/?XDEBUG_SESSION_START=PHPStorm
+````
+
+Cosi' facendo questa funziona sempre, e rirunna tutto anche quando uso `broser-sync` come `proxy`.

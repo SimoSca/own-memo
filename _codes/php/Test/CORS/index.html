@@ -1,0 +1,128 @@
+<!DOCTYPE>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h3>Test Cors</h3>
+<div>Provo a effettuare chiamate CORS via jQuery ajax.</div>
+
+<div id="this-dom">
+	Qui il dominio e' <span class="dom"></span> e chiamando una pagina dello stesso dominio il responso e' <div class="response"></div>
+	Nell'header-request di questa chiamata non e' presente alcun <b>Origin</b> e nell'header-response non e' presente alcun <b>Allow-Origin</b>.
+</div>
+
+<div id="ext-dom-nocors">
+	Se invece provo una chiamata al dominio <span class="dom"></span>, che e' differente da questo (e' un virtual host da me impostato) il responso e' <div class="response"></div>
+	Nell'header-request di questa chiamata e' automaticamente aggiunto <b>Origin</b> (impostato a questo DOMINIO) e nell'header-response non e' presente alcun <b>Access-Control-Allow-Origin</b>, oppure se presente non matcha questo DOMINIO: di conseguenza ottengo l'errore "not allowed access" e il browser pertanto non puo' reperire i dati, poiche' il server che voglio contattare non mi fornisce i permessi.
+</div>
+
+<div id="ext-dom-cors">
+	Qui il dominio e' <span class="dom"></span> e chiamando una pagina dello stesso dominio il responso e' <div class="response"></div>
+	Nell'header-request di questa chiamata e' automaticamente aggiunto <b>Origin</b> (impostato a questo DOMINIO) e nell'header-response e' presente alcun <b>Access-Control-Allow-Origin</b>.
+</div>
+
+<div id="why">
+Riassumendo:
+	<div>Se la chiamata viene effettuata sullo stesso DOMINIO non avviene nulla di particolare, sia nei request che response headers.</div>
+	<div>Se la chiamata viene effettuata su un DOMINIO differente allora nell'header-request viene aggiunto questo stesso dominio come <b>Origin</b>.<br/>
+	A questo punto tutto dipende dal server a cui svolgo la chiamata: 
+		<div>Se il server a cui effettuo la chiamata non riconosce l'origine (ovvero questo dominio) allora non mi ritorna alcun dato nel corpo, si limita a ritornare un header senza <b>Access-Control-Allow-Origin</b>, oppure lo ritorna ma con un valore diverso da questo dominio: in entrambi i casi il browser capisce che il CORS ha riscontrato incongruenze e ritorna un errore di CORS.</div>
+		<div>Se il server a cui effettuo la chiamata riconosce l'origine (ovvero questo dominio) allora mi ritorna quello che desidero e nell'header-response aggiunge <b>Access-Control-Allow-Origin: (questo_dominio oppure *)</b>  e quindi tutto e' filato liscio.</div>
+	</div>
+	Pertanto la parte fondamentale del CORS e' che <b>Access-Control-Allow-Origin</b> sia impostato nel response e inoltre che coincida con l'origine, ossia questo dominio.
+</div>
+
+<div id="warn">
+Un ultimo avviso:
+	<div>Il CORS non permette l'impiego di protocolli misti, di conseguenza se l'origine e' usa http, anche le ajax devono usare il protocollo http, e stesso per https: dominio https implica CORS solo su ajax https.</div>
+</div>
+
+</body>
+
+<style type="text/css">
+	body{
+		background-color: rgba(118,187,164,0.5);
+		max-width: 900px;
+		margin: 0 auto;
+	}
+	.dom{
+		font-weight: bold;
+	}
+	div{
+		margin: 1.5em;
+	}
+	.response-success, .response-error, .url{
+		padding: 0.5em;
+	}
+	.url{
+		border-left: 3px solid purple;
+	}
+	.response-success{
+		border-left: 3px solid green;
+	}
+	.response-error{
+		border-left: 3px solid red;
+	}
+	#why{
+		background-color: rgba(118,107,164,0.5);	
+	}
+	#warn{
+		background-color: rgba(8,107,4,0.5);	
+	}
+</style>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	function extractDomain(url) {
+	    var domain;
+	    //find & remove protocol (http, ftp, etc.) and get domain
+	    if (url.indexOf("://") > -1) {
+	        domain = url.split('/')[2];
+	    }
+	    else {
+	        domain = url.split('/')[0];
+	    }
+
+	    //find & remove port number
+	    domain = domain.split(':')[0];
+
+	    return domain;
+	}
+
+
+	function testCors(obj){
+		var dom = obj.dom || extractDomain(obj.url);
+		$(obj.$box.find('.dom')).html(dom);
+		var $resp = obj.$box.find('.response');
+		var link = obj.url;
+		var s = '<div class="url">Url: <br/><br/>' + link +'</div>';
+		$.ajax({
+			method: "GET",
+			url: link,
+			success: function(data, textStatus, request){
+				s += '<div class="response-success">Responso:<br/><br/> ' + data + '</div>';
+				$resp.html(s);
+			},
+			error: function(xhr, ajaxOptions, thrownError){
+				s += '<div class="response-error">Responso:<br/><br/>' + xhr.responseText + '</div>';
+				$resp.html(s);	
+			}
+		})
+	}
+
+	var calls = [
+		{$box: $('#this-dom'), dom: window.location.origin , url: 'thisSite.php'},
+		{$box: $('#ext-dom-nocors'), url: 'http://host.localenomis/Test/CORS/?action=nocors'},
+		{$box: $('#ext-dom-cors'), url: window.location.protocol+'//host.localenomis/Test/CORS/?action=cors'},
+	];
+
+	calls.map(testCors);
+
+});
+</script>
+
+</html>

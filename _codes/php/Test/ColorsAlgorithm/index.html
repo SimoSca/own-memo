@@ -1,0 +1,256 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="random color test">
+  <meta name="author" content="SitePoint">
+  <meta name="title" content="Pastel Colors">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<style>
+	.box{
+		min-width: 120px;
+		min-height: 30px;
+		margin: 10px;
+		padding: 5px;
+	}
+</style>
+
+</head>
+
+<body>
+
+Schemi utili a 
+<ul>
+	<li><a href="http://hslpicker.com">http://hslpicker.com/#4000ff</a></li>
+	<li><a href="https://color.adobe.com/it/create/color-wheel">https://color.adobe.com/it/create/color-wheel</a></li>
+</ul>
+
+<h2 id="equispaziati">Equispaziati</h2>
+
+
+<h2 id="complementari">Complementari</h2>
+<p>
+I complementari sono affiancati: colonna di Sx come base e colonna di Dx come complementare.<br>
+Ciascuna colonna invece gestisce una scala cromatica equispaziata e crescente.
+</p>
+
+
+<h2 id="comp_non_in_scala">Complementari Colonna non Cromatica</h2>
+<p>
+I complementari sono affiancati: colonna di Sx come base e colonna di Dx come complementare.<br>
+Ciascuna colonna invece gestisce una scala cromatica equispaziata e alternata secondo metodo di triangolazione.
+</p>
+
+
+<h2 id="triangolazione">Triangolazione</h2>
+<p>
+Con la triangolazione continuo a ciclare su un passo di 3 per ottenere il massimo di spaziatura angolare di un colore sia col suo precedente che col successivo
+</p>
+
+
+</body>
+</html>
+
+
+<script>
+	$('body').css({'background-color':"steelblue"});
+
+	var num = 6;
+
+	// parte colori equispaziati
+	for(var i=0; i < num; i++){
+
+		h =  i * (360/num) ;
+		s = '33%' ; 	// principalmente e' la saturazione ad influire sull'effetto pastello
+		l =  '50%' ;
+		a = '1.0'
+
+
+
+		var hsla = [  h , s , l , a ].join(',');
+
+		hsla = 'hsla(' + hsla + ')' ;
+
+
+		$('<div/>',{
+			'class': "box",
+			'html': hsla
+		}).css({"background-color": hsla}).insertAfter("#equispaziati");
+		
+	}
+
+
+	// parte colori complementari
+	//
+	// ne genero due alla volta: uno, e il suo diametralmente opposto
+	var table = $('<table/>').insertAfter('#complementari + p'); // adiacent siblings selector
+	num = 7;
+	for(var i=0; i < num; i++){
+
+		var row = $('<tr/>');
+
+		// genero il primo
+		h =  i * Math.floor(180/num) ;
+		s = '33%' ; 	// principalmente e' la saturazione ad influire sull'effetto pastello
+		l =  '60%' ;
+		a = '1.0'
+
+
+
+		var hsla = [  h , s , l , a ].join(',');
+
+		hsla = 'hsla(' + hsla + ')' ;
+
+		var tag = '<td/>' ;
+		// var tag = '<div/>' ;
+		
+		$(tag,{
+			'class': "box",
+			'html': hsla
+		}).css({"background-color": hsla}).appendTo(row);
+
+
+		// genero il complementare
+		hc =  h + 180 ;
+		sc = '33%' ; 	// principalmente e' la saturazione ad influire sull'effetto pastello
+		lc =  '60%' ;
+		ac = '1.0'
+		var hsla = [  hc , sc , lc , ac ].join(',');
+		hsla = 'hsla(' + hsla + ')' ;
+
+		$(tag,{
+			'class': "box",
+			'html': hsla
+		}).css({"background-color": hsla}).appendTo(row);
+
+		row.appendTo(table);		
+	}
+	
+
+	// parte colori complementari non in scala cromatica su una colonna
+	//
+	// ne genero due alla volta: uno, e il suo diametralmente opposto
+	// NB: i complementari sono a 180, e per equispaziarli svolgo un lavoro a triangolazione
+	
+	var table2 = $('<table/>').insertAfter('#comp_non_in_scala + p'); // adiacent siblings selector
+	num = 7;
+	var i = 0
+	var passo = 3;
+	var step = (num + passo - 1)/passo;
+
+	while(i < step ){
+
+		// creo l'elemento e il suo complementare
+		var creaD = function(count,h,s,l,a, row, comp){
+			console.log(count +' '+ num +' '+ step +' '+ i)
+			if(count >= num) return;
+
+			var hsla = [  h , s , l , a ].join(',');
+			hsla = 'hsla(' + hsla + ')' ;
+			var tag = '<td/>' ;
+			// var tag = '<div/>' ;
+			$(tag,{
+				'class': "box",
+				'html': hsla
+			}).css({"background-color": hsla}).appendTo(row);
+			row.appendTo(table2);			
+
+			// genero il complementare
+			if( comp === undefined){
+				var hc = h + 180 ;
+				creaD(count, hc,s,l,a, row, true);
+			}
+
+		}
+
+		// step in gradi
+		var grad = 180 / 3 ;
+
+		// genero il primo
+		var row = $('<tr/>');
+		h =  i * Math.floor(180/num) ;
+		count = i*step;
+		s = '33%' ; 	// principalmente e' la saturazione ad influire sull'effetto pastello
+		l =  '60%' ;
+		a = '1.0';
+		creaD(count,h,s,l,a, row);
+
+		var row1 = $('<tr/>');
+		var h1 = h + grad;
+		count++;
+		creaD(count,h1,s,l,a, row1);
+
+		var row2 = $('<tr/>');
+		var h2 = h + 2*grad ;
+		count++;
+		creaD(count,h2,s,l,a, row2);		
+
+		i++;
+		
+	}
+
+
+	// parte di triangolazione
+	//
+	// ne genero due alla volta: uno, e il suo diametralmente opposto
+	// NB: i complementari sono a 180, e per equispaziarli svolgo un lavoro a triangolazione
+	
+	var table3 = $('<table/>').insertAfter('#triangolazione + p'); // adiacent siblings selector
+	num = 20;
+	i = 0;
+	var row = $('<tr/>');
+	var passoo = 3;
+	var stepp = (num + passoo - 1)/passoo;
+	
+	while(i < stepp ){
+
+
+		// creo l'elemento e il suo complementare
+		function creaDiv(count,h,s,l,a){
+			if( count%2 == 0 ) row = $('<tr/>');
+			// console.log(count +' '+ num +' '+ step +' '+ i)
+			if(count >= num) return;
+
+			var hsla = [  h , s , l , a ].join(',');
+			hsla = 'hsla(' + hsla + ')' ;
+			var tag = '<td/>' ;
+			// var tag = '<div/>' ;
+			$(tag,{
+				'class': "box",
+				'html': hsla
+			}).css({"background-color": hsla}).appendTo(row);
+			if( count%2 == 1) row.appendTo(table3);
+
+		}
+
+
+		// step in gradi
+		var grad = 360 / 3 ;
+
+
+
+		// genero il primo
+		h =  i * 360/num ;
+		s = '33%' ; 	// principalmente e' la saturazione ad influire sull'effetto pastello
+		l =  '60%' ;
+		a = '1.0';
+		var count = i*passoo;
+		creaDiv(count,h,s,l,a);
+
+		h1 = grad + h;
+		creaDiv(++count,h1,s,l,a);
+
+		h2 = 2* grad + h;
+		creaDiv(++count,h2,s,l,a);
+
+		i++;
+		
+	}
+
+
+</script>
