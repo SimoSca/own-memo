@@ -1,0 +1,23 @@
+EXTRAB="$SCRIPTDIR/extraBash.sh"
+if [ -n "$BASH_VERSION" ]; then
+	if [ -f "$EXTRAB" ];
+    then
+        if [ ! -x "$EXTRAB" ]; then
+            chmod 777 "$EXTRAB"
+            chmod -R 777 "$SCRIPTDIR/miei_script"
+            echo "reso eseguibile il file: $EXTRAB"
+        fi
+	. "$EXTRAB"
+	else
+	echo "no such $EXTRAB"
+	fi
+fi
+
+if [ -z ${SCREEN+x} ]; then
+# check "parameter expansion" for understand the if before
+    #echo "var is unset"
+    export SCREEN=9
+    screen
+#else
+    #echo "var is set to '$SCREEN'"
+fi

@@ -1,0 +1,15 @@
+Qui di seguito riporto l'elenco dei programmi che utilizzo su ubuntu, onde ricordarmi immediatamente quali installare dopo formattazioni o simili:
+
+1) build essential, per compilare in c e cpp
+2) xautomation ,che comprende xte, utilizzato per simulare la pressione e digitazione da tastiera
+	(forse un omonimo e' keutouch_editor)
+3) vim , come editor testuale
+4) screen , per aprire piu shell contemporaneamente
+5) w3m , browser per terminale
+6) curlftpfs , per usare localmente cartelle di connessioni ftp remote (sostanzialmente per siti web)
+7) cmus , music player per la console
+8) cone , client mail
+9) pmount, per montare e smontare periferiche USB (script pmounter preso da lcm)
+10) xte, per simulare i movimenti su tastiera e mouse
+11) expect , utile per script bash, in particolare gli ssh
+12) installato evince per leggere i pdf

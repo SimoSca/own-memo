@@ -1,0 +1,15 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda7 during installation
+UUID=fc84bf15-6ee1-40fd-bcb5-93b20435c467 /               ext3    errors=remount-ro 0       1
+# swap was on /dev/sda6 during installation
+UUID=9a00af5c-8b37-4b6e-8207-f4dbcef0153d none            swap    sw              0       0
+# monto ninja di /sda5
+UUID=C2D0-2D76 /media/ninja	vfat	defaults,utf8,umask=007,uid=0,gid=46,auto,rw,nouser 0 0
+# monto cartella nella home per riuscire a condividerla con ubuntu one
+/media/ninja/Arti_Marziali/dispense-arti-marziali   /home/keltron/dispense-arti-marziali   bind   defaults,bind   0   0

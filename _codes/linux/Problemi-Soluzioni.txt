@@ -1,0 +1,4 @@
+Non riuscivo a utilizzare il browser IceWeasel con la wifi di casa.
+Per risolverlo:
+
+about:config , poi cerco lo status con ipv6 e lo cambio da false a true

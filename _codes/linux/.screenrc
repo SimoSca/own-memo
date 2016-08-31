@@ -1,0 +1,22 @@
+startup_message off
+#screen -t rtorrent rtorrent
+#screen -t irssi irssi
+#screen -t centerim centerim
+#screen -t ncmpc ncmpc -c
+screen -t Keryshan
+screen -t Shukou
+altscreen on
+term screen-256color
+bind ',' prev
+bind '.' next
+
+
+#change the hardstatus settings to give an window list at the bottom of the
+#screen, with the time and date and with the current window highlighted
+hardstatus alwayslastline
+#hardstatus string '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-}'
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W}%c %{g}]'
+vbell on
+#defscrollback 1024
+autodetach on
+#defutf8 on

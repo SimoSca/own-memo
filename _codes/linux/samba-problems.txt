@@ -1,0 +1,24 @@
+Avevo dei problemi con samba, in particolare coi serivizi.
+Li ho risolti usando la seguente prassi:
+
+
+- usato i seguenti comandi per backup:
+$ sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.bak
+$ sudo cp -a /usr/share/samba/smb.conf /etc/samba/
+
+- riavviato samba 
+$ sudo service smbd restart
+
+a questo punto ho provato a dare i permessi alle cartelle di nautilus, avendolo aperto in modalita' root.
+
+In caso non funzioni posso provare:
+
+- installata interfaccia grafica:
+$ install system-config-samba
+
+- aprire l'interfaccia grafica di nautilus:
+$ gksu system-config-samba
+
+e poi provare
+
+"settings->server-settings->security you can choose the user for the guest account. It said no guest account. I changed it to nobody and restarted smbd. After this I didn't get the error any longer and sharing from nautilus worked like expected."

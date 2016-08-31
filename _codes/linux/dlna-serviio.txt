@@ -1,0 +1,23 @@
+DLNA
+e' la tecnologia per connettere piu' media center in modo da svolgere lo share dei files in streaming.
+
+Per Ubuntu uso serviio, che e' molto buono.
+
+In ubuntu 14.04 per avviarlo vado nella cartella di serviio/bin e poi eseguo i comandi:
+$ sudo ./serviio.sh &
+$ ./serviio-console.sh
+
+e si dovrebbe aprire dopo qualche tempo la gui. 
+In genere per essere visto devo stoppiare e riavviare il servizio.
+
+Dato che ho problemi con la visualizzazione degli mp4, ho fatto in aggiunta questo:
+
+anzitutto seguendo il wiki
+http://wiki.serviio.org/doku.php?id=build_ffmpeg_linux
+NB: per quanto concerne l'installazione di ffmpeg tramite i repo di questa quida, sul ./configure mi dava errore libx264 not found.
+l'ho risolto aggiungendo --prefix=/usr dopo ./configure
+
+
+$ sudo apt-add-repository ppa:mc3man/trusty-media && sudo apt-get update
+
+$ sudo apt-get install ffmpeg gstreamer0.10-ffmpeg gstreamer0.10-fluendo-mp3 gstreamer0.10-gnonlin gstreamer0.10-plugins-bad-multiverse gstreamer0.10-plugins-bad gstreamer0.10-plugins-ugly totem-plugins-extra gstreamer-tools ubuntu-restricted-extras libxine1-ffmpeg gxine mencoder mpeg2dec vorbis-tools id3v2 mpg321 mpg123 libflac++6 totem-mozilla icedax tagtool easytag id3tool lame nautilus-script-audio-convert libmad0 libjpeg-progs flac faac faad sox ffmpeg2theora libmpeg2-4 uudeview flac libmpeg3-1 mpeg3-utils mpegdemux liba52-0.7.4-dev libquicktime2

@@ -1,0 +1,51 @@
+Procedure per creare connessione locale Lan tra Ubuntu e Windows xp, 
+condividendo la connessione a internet che va su windows xp (in questo caso chiavetta 3):
+
+ip windows: 192.168.110.2
+ip ubuntu: 192.168.110.1
+
+1) su UBUNTU
+ network manager > aggiungo nuova rete ethernet, a questo punto:
+- gli do un nome
+- connessione automatica
+- scheda ipv4 settings, 
+	- metodo: manuale
+	- adress: 192.168.110.1
+	- netmask: 255.255.255.0
+	- gateway (pc windows): 192.168.110.2
+
+	- dns servers: 8.8.8.8
+	- dns domains: 8.8.8.8
+- spunta su "available to all users"
+
+2) pc windows:
+start > connetti a > mostra tutte le connessioni
+- tasto destro su connessione alla rete locale lan > proprietà > protocollo internet(TCP/IP)> proprietà
+	- ip statico: 192.168.110.2
+	- subnet mask: 255.255.255.0
+	- gateway predefinito: (vuoto)
+
+	- server dns predefinito: 8.8.8.8
+
+ora vado sulla connessione a internet che uso (chiavetta tre in questo caso)
+- tasto destro sulla connessione > proprietà , scheda Avanzate:
+	- spunta su: "consenti ad altri utenti..." e poi "Connessione alla rete locale Lan" (che è quella che uso per collegare tra loro i pc)
+	- devo avere la spunta anche sulle due opzioni consecutive
+
+Salvo, e il gioco è fatto!
+
+
+**************************************************************************************************
+
+Ambiente desktop:
+display manager: /etc/init.d
+per il momento i miei opzionali sono: kdm e lightdm
+di default: kdm
+
+
+http://ubuntufast.blogspot.it/2012/07/indice-guida-allinstallazione-minimale.html
+
+http://askubuntu.com/questions/203122/how-do-i-do-a-minimal-install-without-an-internet-connection
+
+
+
