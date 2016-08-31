@@ -52,7 +52,7 @@ $on-laptop:        800px !default;
     margin: 0 auto;
 }
 
-$side-with: 200px;
+$side-with: 250px;
 
 #sidebar{
     background-color: darken($background-color, 25%);
@@ -62,7 +62,13 @@ $side-with: 200px;
     border-right: 2px solid $text-color;
     padding-left: 10px;
     overflow: auto;
+
+    li{
+        font-size:0.8em;
+    }
+
 }
+
 
 // invisible element: to align the sidebar content verticall
 h1.side-vspace{

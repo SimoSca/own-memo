@@ -1,6 +1,6 @@
 ---
 title:      Tutorial
-permalink:  /tutorial/
+permalink:  /note/tutorial/
 ---
 
 letture

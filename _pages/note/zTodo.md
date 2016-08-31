@@ -1,6 +1,6 @@
 ---
 title:      Todo
-permalink:  /ztodo/
+permalink:  /note/ztodo/
 ---
 
 

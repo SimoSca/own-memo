@@ -5,15 +5,17 @@
         <h1 class="side-vspace"> Phantom </h1>
         <h1><a href="{{site.baseurl}}/">Home</a></h1>
         <nav>
-            <h3>Pagine:</h3>
-            <ul>
-                {% for node in site.pages %}
-                    {% if node.title != nil and node.url != '/' %}
-                        {% capture nodediff %}{{ page.url | remove:node.url }}{% endcapture %}
-                        <li><a {% if nodediff != page.url %}class="side-active" {% endif %}href="{{site.baseurl}}{{ node.url }}">{{ node.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+            <div id="pages-box">
+                <!-- <h3>Pagine:</h3> -->
+                <!-- <ul id="page-list"> -->
+                    {% for node in site.pages %}
+                        {% if node.title != nil and node.url != '/' %}
+                            {% capture nodediff %}{{ page.url | remove:node.url }}{% endcapture %}
+                            <li><a {% if nodediff != page.url %}class="side-active" {% endif %}href="{{site.baseurl}}{{ node.url }}">{{ node.title }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                <!-- </ul> -->
+            </div>
 
             <h3>Categorie:</h3>
             <li><a href="{{site.baseurl}}{{ site.data.codes.main }}">{{ site.data.codes.name }}</a></li>

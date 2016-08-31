@@ -1,6 +1,6 @@
 ---
 title:      Remember
-permalink:  /zremember/
+permalink:  /note/zremember/
 ---
 
 Tante piccole cose da ricordare... che sia un ToDo o una semplice banca dati.

@@ -2,11 +2,20 @@
 main: "/code/"
 name: raccolta codici
 tree:
-  bash: {}
+  c#: {}
+  cpp:
+    polimorfismo: 
   javascript:
     Angular2: 
     hellotest: 
+  linux: {}
   multi-context:
     webSocket-ruby-javascript: 
+  Netbeans:
+    FolderProjectType: 
+  php:
+    Test: 
+    vh-host_localenomis: 
   provisioning:
     Ansible: 
+  ruby: {}
