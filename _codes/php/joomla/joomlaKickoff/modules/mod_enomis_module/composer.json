@@ -1,0 +1,13 @@
+{
+    "name": "enomis/joomlatest",
+    "description": "Simple Test",
+    "type": "joomla module",
+    "license": "MIT",
+    "minimum-stability": "alpha",
+    "require": {},
+    "autoload":{
+        "psr-4": {
+            "": "libs"
+        }
+    }
+}

@@ -53,7 +53,21 @@ sostanzialmente vi sono due operazioni che voglio automatizzare:
 ### Testing
 
 Tenendo aperto un terminale, voglio che ad ogni salvataggio di una classe `phpUnit` esegua il test su quella classe,
-e naturalmente voglio visualizzare il risultato sul terminale per poter subito capire se mi sto muovendo bene
+e naturalmente voglio visualizzare il risultato sul terminale per poter subito capire se mi sto muovendo bene.
+Il progetto si basera' su un folder `libs` che conterra' tutte le classi di supporto, e i test verranno sviluppati
+nel folder `test` (da creare).
+
+Per rendere automatizzare l'esecuzione dei test mediante un'opzione di **watch** (vedi `gulpfile`) usero':
+
+- `composer` , in particolare in `psr4` per poter sfruttare il suo autoload (ricordare comando `composer dump-autoload`)
+- convenzione sui nomi: i test dovranno avere il postfisso `Test`
+
+Grazie a questo un prototipo di comando `phpunit` sara'
+
+````
+phpunit --bootstrap vendor\autoload.php test\libs\<MyClass>Test.php
+````
+
 
 ### Browser Refresh
 
@@ -132,13 +146,30 @@ In questo tutorial la `Vagrant VM` viene utilizzata solo come server, ed i files
 Dato che il mio `IDE` risiede sul mio pc normale (`Vagrant Host`), i files e le loro modifiche li trattero' come locali, e quindi in questo caso mi basta avere installato `nodejs` e i relativi plugin solamente sul pc, e non sulla macchina virtuale.
 
 
-### Joomla
+# Joomla
 
 Dopo aver inizializzato la `VM`, dentro la directory `src` creo la directory di lavoro, in questo caso `joomlagram`, e qui inseriro' la mia installazione di joomla.
 
 Non entro nel dettaglio ma mi limito a specificare che in fase di installazione ho scelto `MySql PDO` come connettore.
 
 
+### Trick
 
-Kick Start!!!
-=============
+#### aggiornare plugin
+capita quando si modifica il relativo `file.xml`: per fare in modo che le sue modifiche vengano aggiornate andare in
+`Extensions > Manage > Manage` , selezionare il plugin e poi `Refresh Cache`.
+
+
+
+KickOff!!!
+==========
+
+Directory utili:
+
+- `modules`
+- `plugins`
+
+
+Nella home del mio progetto inserisco un file `build.xml` da runnare con **ant**:
+il suo scopo sara' solamente quello di svolgere operanzioni utili come copiare tutte le directory che creo in `joomla` in un altra directory,
+consentendomi un poco piu di ordine mentale, specie ai fini del backup.

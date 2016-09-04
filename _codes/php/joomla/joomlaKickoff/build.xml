@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<project name="KickOff copy Joomla" default="info">
+    <property file="build.properties"/>
+    <target name="info" depends="module,plugin,library">
+		<echo>Hello ${testName}</echo>
+    </target>
+    <target name="module">
+		<copy todir="${dir.modDest}">
+	    	<fileset dir="${dir.modSrc}">
+				<exclude name="${dir.exclude1}" />
+				<exclude name="${dir.exclude2}" />
+	    	</fileset>
+		</copy>
+    </target>
+    <target name="plugin">
+		<copy todir="${dir.plugDest}">
+	    	<fileset dir="${dir.plugSrc}">
+	    	</fileset>
+		</copy>
+    </target>
+    <target name="library">
+		<copy todir="${dir.libDest}">
+	    	<fileset dir="${dir.libSrc}">
+	    	</fileset>
+		</copy>
+    </target>
+</project>

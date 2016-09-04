@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.2" type="plugin" group="enomis" method="upgrade">
+    <name>plg_enomis</name>
+    <author>Simo Sca</author>
+    <creationDate>Sept. 2016</creationDate>
+    <copyright>Copyright (C) ... . All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.3</version>
+    <description>Test plugin for enomis</description>
+    <files>
+        <filename plugin="enomisplugin">enomisplugin.php</filename>
+        <filename>index.html</filename>
+    </files>
+</extension>

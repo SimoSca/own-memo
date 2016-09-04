@@ -1,0 +1,15 @@
+{
+    "name": "black/logotel-challenge-simo-sca",
+    "description": "Bot Password Test",
+    "authors": [
+        {
+            "name": "Simone Scardoni",
+            "email": "scardoni.simone@gmail.com"
+        }
+    ],
+    "autoload":{
+        "psr-4":{
+            "Logotel\\": "libs"
+        }
+    }
+}
