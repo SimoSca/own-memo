@@ -30,6 +30,13 @@ Altri path interessanti sono visualizzabili al link
 [http://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
 
 
+#### Vari esempi
+
+qui si possono trovare validi esempi di design pattern e refactor:
+
+- [https://sourcemaking.com/](https://sourcemaking.com/) 
+
+
 IOT
 ----
 

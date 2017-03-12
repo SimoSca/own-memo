@@ -135,3 +135,16 @@ oppure
 netstat -b
 ````
 se voglio vedere tutti i processi in listen.
+
+
+THEORY
+======
+
+### Dependency Injection & Inverion Of Control
+
+example at [http://krasimirtsonev.com/blog/article/Dependency-Injection-in-PHP-example-how-to-DI-create-your-own-dependency-injection-container](http://krasimirtsonev.com/blog/article/Dependency-Injection-in-PHP-example-how-to-DI-create-your-own-dependency-injection-container)
+
+
+### MVC
+
+example at [https://www.sitepoint.com/the-mvc-pattern-and-php-1/](https://www.sitepoint.com/the-mvc-pattern-and-php-1/)
