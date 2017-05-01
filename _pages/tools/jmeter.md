@@ -1,6 +1,7 @@
-JMETER
-======
-
+---
+title:      JMETER
+permalink:  /tools/jmeter/
+---
 
 tool per check di network, in particolare utilizzato per chiamate http.
 

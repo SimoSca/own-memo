@@ -1,6 +1,7 @@
-DevOps
-======
-
+---
+title:      DevOps
+permalink:  /developer/devops/
+---
 
 
 SyStemist

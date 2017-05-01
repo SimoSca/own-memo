@@ -1,5 +1,8 @@
-Network
-=======
+---
+title:      Networks
+permalink:  /developer/networks-commands/
+---
+
 
 semplice elenco di comandi che possono tornare utili per gestire/controllare i network
 

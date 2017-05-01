@@ -1,3 +1,10 @@
+---
+title:      HyV
+permalink:  /tools/hyperv/hyper-v/
+---
+
+
+
 Attivazione di HyV
 ==================
 

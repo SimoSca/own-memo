@@ -1,3 +1,8 @@
+---
+title:      Sublime Text
+permalink:  /tools/sublime-text/
+---
+
 Installed Plugins
 =================
 
