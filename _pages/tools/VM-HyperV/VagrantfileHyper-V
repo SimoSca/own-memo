@@ -1,0 +1,42 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "withinboredom/Trusty64"
+  #config.vm.boot_timeout = 240
+
+  # bug in mysql 5.6 see http://askubuntu.com/questions/679775/installing-clean-trusty-tar-with-mysql-5-6-might-contain-corrupt-package
+  config.vm.provider "hyperv" do |hv|
+    hv.vmname = "Cicerone"
+    hv.cpus = 2
+    hv.memory = 1024
+    hv.differencing_disk = true # use differencing disk instead copying whole image
+  end
+
+  # Create a private network, which allows host-only access to the machine using a specific IP.
+  #config.vm.network "private_network", ip: "192.168.33.22"
+
+  # Share an additional folder to the guest VM. The first argument is the path on the host to the actual folder.
+  # The second argument is the path on the guest to mount the folder.
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder "./", "/var/www/html/proj",
+    smb_username: "Account del PC",
+    smb_password: "Tua password",
+    owner: "vagrant",
+    group: "www-data",
+    mount_options: ["vers=2.1","dir_mode=0777","file_mode=0777","forceuid","noperm","nobrl","mfsymlinks"]
+
+  # Define the bootstrap file: A (shell) script that runs after first setup of your box (= provisioning)
+  config.vm.provision :shell, path: "./Vagrant/startup_scripts/vagrant_bootstrap.sh"
+  # config.vm.provision :shell, path: "./Vagrant/startup_scripts/vagrant_oracle_instantclient.sh"
+
+  # leave it as last
+  config.vm.provision :shell, path: "./Vagrant/startup_scripts/vagrant_last.sh"
+
+end
+

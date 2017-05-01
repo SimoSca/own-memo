@@ -44,6 +44,29 @@ Io ho provato questo:
 ma ve ne sono altri interessanti come [questo box](https://vagrantcloud.com/jitb/boxes/box).
 
 
+### Composer
+
+
+#### TOKEN
+
+
+token to access libraries, i.e. composer when attempt to add `MyRepo\Libraries` and ask for token:
+
+````
+da550a914d8840da6f7fdbef1a.....
+````
+
+aggiungerlo localmente mediante (genera il file `auth.json` nella directory da cui lancio il comando):
+````
+composer config github-oauth.github.com da550a914d8840da6f7fdbef1a.....
+````
+
+o globalmente:
+````
+composer config -g github-oauth.github.com da550a914d8840da6f7fdbef1a.....
+````
+
+
 ### XDebug
 
 e' un plugin Apache-Php utilissimo per gestire l'ambiente di lavoro.
@@ -137,6 +160,10 @@ netstat -b
 se voglio vedere tutti i processi in listen.
 
 
+
+
+
+
 THEORY
 ======
 
@@ -148,3 +175,4 @@ example at [http://krasimirtsonev.com/blog/article/Dependency-Injection-in-PHP-e
 ### MVC
 
 example at [https://www.sitepoint.com/the-mvc-pattern-and-php-1/](https://www.sitepoint.com/the-mvc-pattern-and-php-1/)
+

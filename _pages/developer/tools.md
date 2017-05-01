@@ -43,6 +43,7 @@ Dei plguin utili risultano essere
 - [berkshelf](http://berkshelf.com/) , per l'automazione con `Chef` (scaricare il client di `Chef` nominato: `ChefDK`)
 - `hostmanager` , receip per automatismi sull'host
 - `omnibus` , per controllare la versione di `Chef` installata
+- `vbguest`, to autoupdate virtualbox guest additions
 
 #### Confronto tra provisioning
 

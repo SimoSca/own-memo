@@ -3,6 +3,60 @@ title:      MySql
 permalink:  /topics/mysql/
 ---
 
+Usefull
+=======
+
+
+````
+SELECT table_schema "DB Name", 
+   Round(Sum(data_length + index_length) / 1024 / 1024, 1) "DB Size in MB" 
+FROM   information_schema.tables 
+GROUP  BY table_schema; 
+````
+
+### GENERAL examples
+
+[http://www.thegeekstuff.com/2014/11/mysql-insert-command](http://www.thegeekstuff.com/2014/11/mysql-insert-command)
+
+
+MYSQL
+=====
+
+
+About `mysql` there's few cases that I wanna take count.
+
+Simple explanation:
+
+- [https://www.tutorialspoint.com/mysql/mysql-handling-duplicates.htm](https://www.tutorialspoint.com/mysql/mysql-handling-duplicates.htm)
+
+
+
+### RENAME TABLE
+````
+mysql> ALTER TABLE tmp RENAME TO person_tbl;
+````
+
+
+### COMPLEX MODIFY TABLE
+````
+mysql> CREATE TABLE tmp SELECT last_name, first_name, sex
+    ->                  FROM person_tbl;
+    ->                  GROUP BY (last_name, first_name);
+mysql> DROP TABLE person_tbl;
+mysql> ALTER TABLE tmp RENAME TO person_tbl;
+mysql> ALTER IGNORE TABLE person_tbl
+    -> ADD PRIMARY KEY (last_name, first_name);
+````
+
+
+### COALESCE
+
+not example here, but `COALESCE` is very usefull to manage data on runtima
+
+
+### POINTER
+
+
 Comandi utili
 -------------
 

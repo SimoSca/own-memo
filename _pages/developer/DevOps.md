@@ -1,0 +1,68 @@
+DevOps
+======
+
+
+
+SyStemist
+---------
+
+### Manage User's Groups
+
+- [https://serverfault.com/questions/390096/acl-multiple-default-groups](https://serverfault.com/questions/390096/acl-multiple-default-groups)
+
+
+### Files Permissions:
+
+Question: **Can a script be executable but not readable?**
+
+Answer:
+
+The issue is that the script is not what is running, but the interpreter (bash, perl, python, etc.). And the interpreter needs to read the script. This is different from a "regular" program, like ls, in that the program is loaded directly into the kernel, as the interpreter would. Since the kernel itself is reading program file, it doesn't need to worry about read access. The interpreter needs to read the script file, as a normal file would need to be read.
+
+From:
+
+[https://unix.stackexchange.com/questions/34202/can-a-script-be-executable-but-not-readable](Can a script be executable but not readable?)
+
+
+
+### Environment
+
+Use environment variables into scripts:
+
+- to enable variables TO ALL USERS and to all MODES (interactive, login, and so on): put all you need into `/etc/bash.bashrc`.
+
+
+When scripts are runned from external processes:
+
+-> **cronjob:** fare un load a mano direttamente dal cron
+
+-> **supervisor:** ok per le variabili da dentro lo script che viene eseguito; per usarle nel file di configurazione usare un costrutto del tipo `%(ENV_nome-della-variabile)s`
+
+
+
+### Send Mail
+
+Various links
+
+- [smtp server](https://unix.stackexchange.com/questions/36982/can-i-set-up-system-mail-to-use-an-external-smtp-server)
+- [configure sendmail inside docker container](http://stackoverflow.com/questions/26215021/configure-sendmail-inside-a-docker-container)
+- [configure sendmail on Ubuntu](http://stackoverflow.com/questions/10359437/sendmail-how-to-configure-sendmail-on-ubuntu)
+
+
+### BASH
+
+
+#### Pipes
+
+- [http://www.linuxjournal.com/article/2156?page=0,1](http://www.linuxjournal.com/article/2156?page=0,1)
+- [http://stackoverflow.com/questions/1507816/with-bash-how-can-i-pipe-standard-error-into-another-process](http://stackoverflow.com/questions/1507816/with-bash-how-can-i-pipe-standard-error-into-another-process)
+
+#### Fifo
+
+potrebbe in generale essere utile il comando `mkfifo` al posto o in congiunzione con i Pipes.
+Cercare un tutorial.
+
+#### Trap
+
+[esempio con trap e nome files temporanei](http://linuxcommand.org/wss0160.php)
+
