@@ -150,3 +150,23 @@ Ho risolto nella maniera piu ignorante possibile, ovvero aggiungendo gli eseguib
 `RubyDevKit/bin` e `RubyDevKit/mingw/bin`
 
 al path di `Windows`, e **funzia!!!**
+
+
+### Update into Macbook
+
+Simply follow the list if you wanna update via `homebrew`:
+
+````bash
+$ brew update
+$ brew install ruby-build
+$ brew install rbenv
+$ rbenv install 2.4.1
+$ rbenv global 2.4.1
+````
+
+But with this, `$ ruby -v` shows still older version, that is put into `.bashrc` or `.profile` :
+
+````bash
+# Initialize rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+````

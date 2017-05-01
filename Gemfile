@@ -36,8 +36,8 @@ group :development do
     # windows polyfill
     gem 'wdm', '>= 0.1.1' if Gem.win_platform?
 
-    # to make personal autoreload webslocket based
-    gem "enomis-websocket", github: "black/enomis-websocket", branch: "master"
+    # to make personal autoreload websocket based
+    gem "enomis-websocket", github: "SimoSca/rubygem-enomis-websocket", branch: "master"
     # to call server, both http and websocket, as daemon
     gem 'daemons' # not working in windows
 end
