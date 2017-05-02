@@ -170,3 +170,19 @@ But with this, `$ ruby -v` shows still older version, that is put into `.bashrc`
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 ````
+
+and more important: after this, rerun
+
+````bash
+gem install bundler
+````
+
+
+**Only as NOTE**
+,and eventually (but in this case doesn't works...):
+
+````bash
+gem install rspec
+rspec --init
+
+````

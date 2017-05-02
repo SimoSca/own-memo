@@ -25,6 +25,15 @@ From:
 [https://unix.stackexchange.com/questions/34202/can-a-script-be-executable-but-not-readable](Can a script be executable but not readable?)
 
 
+### Backup/Sync
+
+See:
+
+- [https://www.digitalocean.com/community/tutorials/how-to-create-an-off-site-backup-of-your-site-with-rsync-on-centos-6](https://www.digitalocean.com/community/tutorials/how-to-create-an-off-site-backup-of-your-site-with-rsync-on-centos-6)
+- [https://www.cyberciti.biz/faq/linux-unix-apple-osx-bsd-rsync-copy-hard-links/](https://www.cyberciti.biz/faq/linux-unix-apple-osx-bsd-rsync-copy-hard-links/)
+- [https://www.linux.com/blog/howto-using-rsync-move-mountain-data](https://www.linux.com/blog/howto-using-rsync-move-mountain-data)
+- [http://jc.coynel.net/2013/08/secure-remote-backup-with-openvpn-rsync-and-encfs/](http://jc.coynel.net/2013/08/secure-remote-backup-with-openvpn-rsync-and-encfs/)
+
 
 ### Environment
 
@@ -48,6 +57,16 @@ Various links
 - [smtp server](https://unix.stackexchange.com/questions/36982/can-i-set-up-system-mail-to-use-an-external-smtp-server)
 - [configure sendmail inside docker container](http://stackoverflow.com/questions/26215021/configure-sendmail-inside-a-docker-container)
 - [configure sendmail on Ubuntu](http://stackoverflow.com/questions/10359437/sendmail-how-to-configure-sendmail-on-ubuntu)
+
+
+### Backups
+
+usefull articles:
+
+- []()
+- []()
+- []()
+- []()
 
 
 ### BASH
