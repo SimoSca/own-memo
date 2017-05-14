@@ -59,15 +59,6 @@ Various links
 - [configure sendmail on Ubuntu](http://stackoverflow.com/questions/10359437/sendmail-how-to-configure-sendmail-on-ubuntu)
 
 
-### Backups
-
-usefull articles:
-
-- []()
-- []()
-- []()
-- []()
-
 
 ### BASH
 
@@ -86,3 +77,25 @@ Cercare un tutorial.
 
 [esempio con trap e nome files temporanei](http://linuxcommand.org/wss0160.php)
 
+
+#### Specific commands:
+
+- [htop](http://www.thegeekstuff.com/2011/09/linux-htop-examples/), with examples
+- [strace](http://hokstad.com/5-simple-ways-to-troubleshoot-using-strace), with examples
+
+- `SIGTERM`
+
+### Comandi utili
+
+- `uname -a && cat /etc/*release` find VPS OS
+- `ps auxwww | grep sshd` , listo gli utenti ssh connessi
+- `sed -i.bak '$d' ~/.ssh/known_hosts` , elimino l'ultima riga di un file 
+- `netstat -lnpt` , lista programmi che occupano le porte tcp (optione t)
+- `ps -aufp 10140` , dal pid posso ricavare dettagli tramite:
+
+
+
+SERVER
+------
+
+- [https://www.digitalocean.com/community/tutorials/how-to-host-multiple-websites-securely-with-nginx-and-php-fpm-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-host-multiple-websites-securely-with-nginx-and-php-fpm-on-ubuntu-14-04)
