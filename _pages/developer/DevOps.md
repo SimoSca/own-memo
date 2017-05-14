@@ -92,7 +92,7 @@ Cercare un tutorial.
 - `sed -i.bak '$d' ~/.ssh/known_hosts` , elimino l'ultima riga di un file 
 - `netstat -lnpt` , lista programmi che occupano le porte tcp (optione t)
 - `ps -aufp 10140` , dal pid posso ricavare dettagli tramite:
-
+- `sudo -E docker ps` , con **-E** carica le variabili d'ambiente
 
 
 SERVER
