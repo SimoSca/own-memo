@@ -60,6 +60,13 @@ mysqlcheck -p${DbPassword} -o --all-databases
 > this can take some time... be patient!!!
 
 
+### DB SIZE
+
+this show how backup and optimize size via `inndbb` engine:
+
+- [http://www.pc-freak.net/blog/fix-mysql-ibdata-file-size-ibdata1-file-growing-large-preventing-ibdata1-eating-disk-space/](http://www.pc-freak.net/blog/fix-mysql-ibdata-file-size-ibdata1-file-growing-large-preventing-ibdata1-eating-disk-space/)
+
+
 ### COALESCE
 
 not example here, but `COALESCE` is very usefull to manage data on runtima
