@@ -144,7 +144,7 @@ In example in my db dump I've:
 
 
 ````
-21706870:FROM `dbEnel`.`joo_users` `us1` where (`us1`.`username` = `us`.`username`)) AS `firstname`,(select substring_index(substring_index(`us2`.`name`,' ',3),' ',-(1)) AS `last_name` from `dbEnel`.`joo_users` `us2` where (`us2`.`username` = `us`.`username`)) AS `lastname` from `dbEnel`.`joo_users` `us` where (not((`us`.`username` collate utf8_general_ci) in (select `enel-moodle`.`mdl_user`.`username` from `enel-moodle`.`mdl_user`)));
+FROM `my_current_db`.`joo_users` `us1` where (`us1`.`username` = `us`.`username`)) AS `firstname`,(select substring_index(substring_index(`us2`.`name`,' ',3),' ',-(1)) AS `last_name` from `my_current_db`.`joo_users` `us2` where (`us2`.`username` = `us`.`username`)) AS `lastname` from `my_current_db`.`joo_users` `us` where (not((`us`.`username` collate utf8_general_ci) in (select `other-db-moodle`.`mdl_user`.`username` from `other-db-moodle`.`mdl_user`)));
 
 ````
 
@@ -156,7 +156,7 @@ egrep -in --color=always  '`.*`\.' test.sql
 I've discovered that this dump requires the presence of external db.table:
 
 ```
-`enel-moodle`.`mdl_user`.`username`
+`other-db-moodle`.`mdl_user`.`username`
 ````
 
 Do this check before import a large db!!
