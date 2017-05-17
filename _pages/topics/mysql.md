@@ -60,12 +60,50 @@ mysqlcheck -p${DbPassword} -o --all-databases
 > this can take some time... be patient!!!
 
 
+Note that with `innoDB` the size is not really reduced, since in `InnoDB` 
+the optimize perform only a `copy` + `drop older` foreach table into DB. 
+This optimize only the allocation of memory, and not it's usage/size!!!
+
+
 ### DB SIZE
 
 this show how backup and optimize size via `inndbb` engine:
 
 - [http://www.pc-freak.net/blog/fix-mysql-ibdata-file-size-ibdata1-file-growing-large-preventing-ibdata1-eating-disk-space/](http://www.pc-freak.net/blog/fix-mysql-ibdata-file-size-ibdata1-file-growing-large-preventing-ibdata1-eating-disk-space/)
 
+In **InnoDB** gain in size you have to:
+
+1. modify mysql configuration to enable `innodb_file_per_table` and `innodb_file_format = barracuda` (thi last to gain compatibility with older versions) 
+
+REFS:
+- [https://www.percona.com/blog/2013/09/25/how-to-reclaim-space-in-innodb-when-innodb_file_per_table-is-on/](https://www.percona.com/blog/2013/09/25/how-to-reclaim-space-in-innodb-when-innodb_file_per_table-is-on/)
+- [https://easyengine.io/tutorials/mysql/enable-innodb-file-per-table/](https://easyengine.io/tutorials/mysql/enable-innodb-file-per-table/)
+
+2. ALTER each TABLE to set ROW_COMPRESSION to **COMPRESS** (and not dymanic). IE using the script:
+
+````bash
+#!/bin/bash
+
+
+DATABASE="enel-moodle"
+
+#ROW_FORMAT=DYNAMIC
+ROW_FORMAT=COMPRESSED
+
+MySql="mysql -u root -pcicciopasticcio"
+
+TABLES=$(echo "SHOW TABLES" | $MySql -s $DATABASE)
+
+for TABLE in $TABLES ; do
+    echo "ALTER TABLE $TABLE ROW_FORMAT=$ROW_FORMAT;"
+    echo "ALTER TABLE $TABLE ROW_FORMAT=$ROW_FORMAT" | $MySql $DATABASE
+done
+````
+
+
+REFS:
+-[https://dev.mysql.com/doc/refman/5.6/en/innodb-row-format-dynamic.html](https://dev.mysql.com/doc/refman/5.6/en/innodb-row-format-dynamic.html)
+ 
 
 ### COALESCE
 
