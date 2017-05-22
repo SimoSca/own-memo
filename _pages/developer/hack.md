@@ -1,3 +1,9 @@
+---
+title:      Hack
+permalink:  /developer/hack/
+---
+
+
 HACK
 ====
 
