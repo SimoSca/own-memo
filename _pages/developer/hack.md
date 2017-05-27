@@ -22,8 +22,16 @@ With `egrep -ril` you can search for:
 - `eval *\(` (and found `@eval(`)
 - `base64` ( but not secure, since I've found strings like ` $lkbpsopyt='ba'.'se'.'64_deco'.'d'.'e'.''; @eval($lkbpsopyt....`)
 - `zip`
+- `gzuncompress(`
 - `&#x2f;` or `\x2f;` che corrispondono al carattere `\` usato ad esempio in 
+- `@include "\x2fvar/\x77ww/t\x69mesc\x61pes/\x77p-co\x6etent\x2fplug\x69ns/r\x6edpst\x32/fav\x69con_\x61ad4a\x30.ico";`
+- `http-equiv="refresh" content="1;URL=http://royal-night.info"/`
 
+
+In general check the files:
+
+- `.htaccess`
+- `index.php`
 
 
 
