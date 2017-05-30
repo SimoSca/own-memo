@@ -36,6 +36,12 @@ Simple explanation:
 mysql> ALTER TABLE tmp RENAME TO person_tbl;
 ````
 
+### Check last modified table
+
+````
+SELECT UPDATE_TIME,TABLE_NAME FROM   information_schema.tables WHERE  TABLE_SCHEMA = 'databaseName' ORDER BY UPDATE_TIME;
+````
+
 
 ### COMPLEX MODIFY TABLE
 ````
