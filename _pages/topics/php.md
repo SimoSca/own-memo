@@ -3,6 +3,11 @@ title:      Php
 permalink:  /topics/php/
 ---
 
+### PHP FPM
+
+- [https://serversforhackers.com/video/php-fpm-process-management](https://serversforhackers.com/video/php-fpm-process-management)
+
+
 ### Service Container
 
 - [https://jtreminio.com/2012/10/an-introduction-to-pimple-and-service-containers/](https://jtreminio.com/2012/10/an-introduction-to-pimple-and-service-containers/)

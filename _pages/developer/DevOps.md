@@ -98,6 +98,11 @@ Cercare un tutorial.
 - `netstat`
 - `netstat -lnpt` , lista programmi che occupano le porte tcp (optione t)
 - `nmap`
+- `nslookup` , piu indicato rispetto a ping
+
+### Firewall
+
+- `iptables` to enable/disable Output, Input and Forward netowrk packages traffic. **See some tutorial!!!**
 
 
 SERVER
