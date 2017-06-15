@@ -19,6 +19,18 @@ GROUP  BY table_schema;
 [http://www.thegeekstuff.com/2014/11/mysql-insert-command](http://www.thegeekstuff.com/2014/11/mysql-insert-command)
 
 
+**Hierarchy**
+
+that is how managing parent, child... also with the use of `Tree Traversal` via `right` and `left`:
+
+- [https://www.sitepoint.com/hierarchical-data-database-2/](https://www.sitepoint.com/hierarchical-data-database-2/)
+
+The follow is generic and very very useful:
+
+- [http://mikehillyer.com/articles/managing-hierarchical-data-in-mysql/](http://mikehillyer.com/articles/managing-hierarchical-data-in-mysql/)
+
+
+
 MYSQL
 =====
 

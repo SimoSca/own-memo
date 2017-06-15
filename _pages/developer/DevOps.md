@@ -92,6 +92,10 @@ Cercare un tutorial.
 - `sed -i.bak '$d' ~/.ssh/known_hosts` , elimino l'ultima riga di un file 
 - `ps -aufp 10140` , dal pid posso ricavare dettagli tramite:
 - `sudo -E docker ps` , con **-E** carica le variabili d'ambiente
+- `htop`
+- `top`
+- `iotop`
+- `docker stats`
 
 ### Comandi Network
 
