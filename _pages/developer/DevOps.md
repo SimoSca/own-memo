@@ -109,6 +109,13 @@ Cercare un tutorial.
 - `iptables` to enable/disable Output, Input and Forward netowrk packages traffic. **See some tutorial!!!**
 
 
+### Check Performance
+
+[https://askubuntu.com/questions/87035/how-to-check-hard-disk-performance
+](https://askubuntu.com/questions/87035/how-to-check-hard-disk-performance
+)
+
+
 SERVER
 ------
 
