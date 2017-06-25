@@ -24,6 +24,13 @@ E qui uno molto importante per capire come creare la lista di voci suggerite da 
 
 
 
+### Output 
+
+Output formats:
+
+- [https://www.alfredapp.com/help/workflows/inputs/script-filter/json/](https://www.alfredapp.com/help/workflows/inputs/script-filter/json/)
+
+
 
 ### Publish My Alfred Workflow
 
