@@ -181,3 +181,11 @@ example at [http://krasimirtsonev.com/blog/article/Dependency-Injection-in-PHP-e
 
 example at [https://www.sitepoint.com/the-mvc-pattern-and-php-1/](https://www.sitepoint.com/the-mvc-pattern-and-php-1/)
 
+
+
+### Compilre and OpCache
+
+See 
+
+- [https://github.com/engineyard/ey-php-performance-tools](https://github.com/engineyard/ey-php-performance-tools)
+- [https://support.cloud.engineyard.com/hc/en-us/articles/205411888-PHP-Performance-I-Everything-You-Need-to-Know-About-OpCode-Caches](https://support.cloud.engineyard.com/hc/en-us/articles/205411888-PHP-Performance-I-Everything-You-Need-to-Know-About-OpCode-Caches)
