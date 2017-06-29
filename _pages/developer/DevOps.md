@@ -104,6 +104,20 @@ Cercare un tutorial.
 - `nmap`
 - `nslookup` , piu indicato rispetto a ping
 
+### Shell
+
+Tasks lunghi lanciati da `SHELL` hanno un grosso problema: se si chiude il terminale in genere i jobs vengono bloccati!!!
+
+In previsione di jobs lunghi possono essere affrontati in due modi:
+
+- **semplice** mediante il comando `$ nohup <command/script with parameter> &` ; in questo modo il comando lanciato non viene associato alla shell 
+(vedi un [esempio](https://www.computerhope.com/unix/unohup.htm))
+
+- **meno semplice** (il mio preferito) mediante il comando `screen`, che pur essendo piu' complicato consente di gestire al suo interno piu' shell 
+e di usare poi la combinazione `ctrl + d` per detachare le shell e quindi consentirci di chiudere il terminale di partenza come `nohup`.
+Il vantaggio e' che con `screen` si puo' svolgere un `retach` e quindi recuperare tutte le sessioni detachate precedentemente
+
+
 ### Firewall
 
 - `iptables` to enable/disable Output, Input and Forward netowrk packages traffic. **See some tutorial!!!**
