@@ -96,6 +96,7 @@ Cercare un tutorial.
 - `top`
 - `iotop`
 - `docker stats`
+- `vmstat`
 
 ### Comandi Network
 
