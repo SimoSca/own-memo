@@ -104,6 +104,9 @@ Cercare un tutorial.
 - `netstat -lnpt` , lista programmi che occupano le porte tcp (optione t)
 - `nmap`
 - `nslookup` , piu indicato rispetto a ping
+- `telnet ip port` , per vedere se e' libera
+- `netstat -a -n | grep 9000` , guardo lo stato delle porte
+
 
 ### Shell
 

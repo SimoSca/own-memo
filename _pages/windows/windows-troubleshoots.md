@@ -53,3 +53,17 @@ Inoltre ho trovato, ma non testato, altre soluzioni:
 [forum ](http://answers.microsoft.com/en-us/windows/forum/windows_7-performance/why-wont-windows-connect-to-the-group-policy/b73107f8-8447-4599-87a5-65ecc6a63aa0?page=2&auth=1)
 
 [vieo 1](https://www.youtube.com/watch?feature=player_embedded&v=4m5KEmckWK4#t=115)
+
+
+
+### INTERNET
+
+#### Internet connesso ma browser non funzionante
+
+Vedi: [http://ccm.net/forum/affich-864669-internet-connected-but-browsers-not-working-windows-10](http://ccm.net/forum/affich-864669-internet-connected-but-browsers-not-working-windows-10)
+
+In sostanza:
+
+- Start --> In run type cmd (as administrator) --> Then "CMD" will be displayed --> 
+- `$ netsh int ip reset resetlog.txt`
+- Reboot your computer
