@@ -25,6 +25,20 @@ From:
 [https://unix.stackexchange.com/questions/34202/can-a-script-be-executable-but-not-readable](Can a script be executable but not readable?)
 
 
+### SSH restrictions
+
+You can limit the commands an ssh user can run by editing the `authorized_keys` file by insert something like `command="<some command>"`;
+
+This is very helpfull if you need to allow a user only make backup, like `$ mysqldump` or `$ cp`.
+
+Read more in:
+
+- [https://unix.stackexchange.com/questions/107541/add-ssh-user-with-minimum-rights-for-backup](https://unix.stackexchange.com/questions/107541/add-ssh-user-with-minimum-rights-for-backup)
+- [https://research.kudelskisecurity.com/2013/05/14/restrict-ssh-logins-to-a-single-command/](https://research.kudelskisecurity.com/2013/05/14/restrict-ssh-logins-to-a-single-command/)
+- [https://sixohthree.com/1458/locking-down-rsync-using-ssh](https://sixohthree.com/1458/locking-down-rsync-using-ssh)
+
+
+
 ### Backup/Sync
 
 See:
