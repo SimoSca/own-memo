@@ -71,3 +71,11 @@ caratteristica di javascript di poter utilizzare alcuni parametri e funzioni anc
 Interessante articolo:
 
 http://adripofjavascript.com/blog/drips/variable-and-function-hoisting
+
+
+
+#### Patterns
+
+Alcuni pattern che possono tornare utili in javascript:
+
+- `Intersection Observer`, some tutorials: [1](https://pawelgrzybek.com/the-intersection-observer-api-explained/) [2](https://jeremenichelli.github.io/2016/04/quick-introduction-to-the-intersection-observer-api/)

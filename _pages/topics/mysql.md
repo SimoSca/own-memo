@@ -21,6 +21,12 @@ GROUP  BY table_schema;
 
 **Hierarchy**
 
+RELAZIONI
+---------
+
+relazioni di tipo padre-figlio si possono esprimere anche usando attributi `rgt` e `lft`, con la condizione che `lft < rgt`. Ad esempio in `Joomla!` abbiamo la `#__groups`.
+
+
 that is how managing parent, child... also with the use of `Tree Traversal` via `right` and `left`:
 
 - [https://www.sitepoint.com/hierarchical-data-database-2/](https://www.sitepoint.com/hierarchical-data-database-2/)
@@ -28,6 +34,13 @@ that is how managing parent, child... also with the use of `Tree Traversal` via 
 The follow is generic and very very useful:
 
 - [http://mikehillyer.com/articles/managing-hierarchical-data-in-mysql/](http://mikehillyer.com/articles/managing-hierarchical-data-in-mysql/)
+
+
+#### Examples
+
+- [http://we-rc.com/blog/2015/07/19/nested-set-model-practical-examples-part-i](http://we-rc.com/blog/2015/07/19/nested-set-model-practical-examples-part-i)
+
+- [https://github.com/werc/TreeTraversal/tree/master/sql](https://github.com/werc/TreeTraversal/tree/master/sql), that's a good repository!!!
 
 
 
