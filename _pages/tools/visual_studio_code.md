@@ -1,5 +1,5 @@
 ---
-title:      Sublime Text
+title:      Visual Studio Code
 permalink:  /tools/visual-studio-code/
 ---
 
