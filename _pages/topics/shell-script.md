@@ -17,6 +17,7 @@ Considerazioni e esempi per l'utilizzo di lock sugli script
 - [pratico, con due esempi semplici](https://dmorgan.info/posts/linux-lock-files/)
 - [Tutorial semplice ma completo con spiegazioni dettagliate](http://www.kfirlavi.com/blog/2012/11/06/elegant-locking-of-bash-program/)
 - [esempi su lock/pid shared/exclusive](https://loonytek.com/2015/01/15/advisory-file-locking-differences-between-posix-and-bsd-locks/)
+- [spiegazione sui PID](http://bencane.com/2015/09/22/preventing-duplicate-cron-job-executions/)
 
 Ora la domanda: a cosa serve lo `shared lock`?
 
