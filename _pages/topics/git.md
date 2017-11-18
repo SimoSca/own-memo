@@ -68,7 +68,7 @@ git reset --hard
 git clean -fd
 
 
-### Trovare branch che sono stati mergiati oppure no
+#### Trovare branch che sono stati mergiati oppure no
 
 git branch --merged master 
 	lists branches merged into master
@@ -80,3 +80,22 @@ git branch --no-merged
 	lists branches that have not been merged
 
 By default this applies to only the local branches. The -a flag will show both local and remote branches, and the -r flag shows only the remote branches.
+
+
+
+LECTURES
+========
+
+
+#### rerere
+
+Per dare regole generali sul merge tra branch: 
+ad esempio se ho un branch locale con un mio `.htaccess` e non voglio che questo `.htaccess` 
+sovrascriva quello di produzione quando lo mergio, posso esplicitarlo mediante `rerere` !!!
+
+- [https://git-scm.com/blog/2010/03/08/rerere.html](https://git-scm.com/blog/2010/03/08/rerere.html) 
+
+
+#### Git Flow + Semantica
+
+- [https://engineering.facile.it/blog/ita/git-flow-semantic-versioning/](https://engineering.facile.it/blog/ita/git-flow-semantic-versioning/)
