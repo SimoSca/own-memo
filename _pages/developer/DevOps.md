@@ -148,6 +148,16 @@ Il vantaggio e' che con `screen` si puo' svolgere un `retach` e quindi recuperar
 )
 
 
+### File Enctrypt/Descrypt
+
+Esempi per chiave asimmetrica `openssl`:
+
+- [http://www.czeskis.com/random/openssl-encrypt-file.html](http://www.czeskis.com/random/openssl-encrypt-file.html)
+- [https://gist.github.com/colinstein/de1755d2d7fbe27a0f1e](https://gist.github.com/colinstein/de1755d2d7fbe27a0f1e)
+- [https://raymii.org/s/tutorials/Encrypt_and_decrypt_files_to_public_keys_via_the_OpenSSL_Command_Line.html](https://raymii.org/s/tutorials/Encrypt_and_decrypt_files_to_public_keys_via_the_OpenSSL_Command_Line.html)
+
+
+
 SERVER
 ------
 
