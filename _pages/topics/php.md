@@ -165,6 +165,15 @@ netstat -b
 se voglio vedere tutti i processi in listen.
 
 
+### CODE
+
+#### Flock
+
+lectures:
+
+- [https://stackoverflow.com/questions/24425247/difference-between-return-value-of-non-blocking-flock-function-and-the-wouldblo](https://stackoverflow.com/questions/24425247/difference-between-return-value-of-non-blocking-flock-function-and-the-wouldblo), to understand the special `wouldblock` parameter
+- [https://stackoverflow.com/questions/19757239/when-is-a-special-lock-file-or-opening-file-in-c-mode-necessary-with-php-flock](https://stackoverflow.com/questions/19757239/when-is-a-special-lock-file-or-opening-file-in-c-mode-necessary-with-php-flock), to understand special `c` __mode__
+
 
 
 
