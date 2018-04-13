@@ -157,6 +157,11 @@ Esempi per chiave asimmetrica `openssl`:
 - [https://raymii.org/s/tutorials/Encrypt_and_decrypt_files_to_public_keys_via_the_OpenSSL_Command_Line.html](https://raymii.org/s/tutorials/Encrypt_and_decrypt_files_to_public_keys_via_the_OpenSSL_Command_Line.html)
 
 
+### Server Backup/Syncronization
+
+- `unison`, aiuta a fare in modo che piu' server siano sostanzialmente il mirror di un server base, con la possibilita' di escludere cartelle o altro
+- `Rsnapshot`, utile per backup: gestisce la sua gerarchia di cartelle e storico con degli hardlink, quindi fondamentalmente mantiene una copia completa dei dati sul daily.0, e solo i file cambiati sui vari daily.1, daily.2, etc. 
+
 
 SERVER
 ------
