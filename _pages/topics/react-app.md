@@ -66,11 +66,12 @@ proposta su come utilizzare Midlleware e separazione di responsabilita' sulle ap
 - [Redux e Thunk](https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3)
 - [Redux Doc + Middleware return](https://redux.js.org/advanced/async-actions), esempi della documentazione ufficiale di redux, 
 che spiega l'utilizzo dei valori ritornati dalle middleware.
-
+- [Webpack + Express (1)](https://blog.hellojs.org/setting-up-your-react-es6-development-environment-with-webpack-express-and-babel-e2a53994ade) , spiega bene il concetto
+- [Webpack + Express (2)](https://medium.com/@johnstew/webpack-hmr-with-express-app-76ef42dbac17) , spiega bene alcuni dettagli
 
 Da questa [issue](https://github.com/GuillaumeSalles/redux.NET/issues/48) si evince il sunto delle middleware:
 
-##### con `next(action)` 
+#### con `next(action)` 
 si fa in modo che l'azione venga successivamente passata alla middleware successiva e cosi' via fino a raggiungere i `reducers` che aggiorneranno lo stato.
 
 #### con `return`
@@ -79,3 +80,5 @@ For example, if one of the middlewares returns `null`, the return value of `Stor
 
 Quindi se una middleware ritorna una promessa, e tutte le precedenti middleware ritornano `next(action)`, allora viene ritornata la Promessa!
 Per esempi vedere la documentazione sopra citata (_middleware return_). 
+
+
