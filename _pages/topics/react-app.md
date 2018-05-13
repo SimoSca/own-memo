@@ -55,7 +55,8 @@ propagheranno i cambiamenti di stato dell'applicazione mediante `actions`.
 
 - [React Native: chat tutorial + EXPO](https://github.com/jevakallio/react-native-chat-tutorial)
 - [React With JWT tokens](https://auth0.com/blog/secure-your-react-and-redux-app-with-jwt-authentication/)
-
+- [Listener Middleware](https://medium.com/@alexandereardon/the-middleware-listener-pattern-better-asynchronous-actions-in-redux-16164fb6186f) , 
+proposta su come utilizzare Midlleware e separazione di responsabilita' sulle api
 
 
 **Nozioni generali**
@@ -63,3 +64,18 @@ propagheranno i cambiamenti di stato dell'applicazione mediante `actions`.
 - [Ecma 6 - Symbols](https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/)
 - [Funzionamento Middleware thunk](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md)
 - [Redux e Thunk](https://medium.com/@stowball/a-dummys-guide-to-redux-and-thunk-in-react-d8904a7005d3)
+- [Redux Doc + Middleware return](https://redux.js.org/advanced/async-actions), esempi della documentazione ufficiale di redux, 
+che spiega l'utilizzo dei valori ritornati dalle middleware.
+
+
+Da questa [issue](https://github.com/GuillaumeSalles/redux.NET/issues/48) si evince il sunto delle middleware:
+
+##### con `next(action)` 
+si fa in modo che l'azione venga successivamente passata alla middleware successiva e cosi' via fino a raggiungere i `reducers` che aggiorneranno lo stato.
+
+#### con `return`
+The `return value` from the middlewares **bubbles up** through the middleware stack, and is ultimately accessible as the `return value` of `Store.Dispatch()`. 
+For example, if one of the middlewares returns `null`, the return value of `Store.Dispatch()` will also be null, whereas if all middlewares return `next(action)`, then the return value will be the returned value of `next` midlleware.
+
+Quindi se una middleware ritorna una promessa, e tutte le precedenti middleware ritornano `next(action)`, allora viene ritornata la Promessa!
+Per esempi vedere la documentazione sopra citata (_middleware return_). 
