@@ -12,6 +12,16 @@ Best topics are `neural network`, `AI` and it's implementations like:
 - Reinforcement Learning (learning through trial and error)
 
 
+Kick Off
+========
+
+Vieo series very very well explained:
+
+- [https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi), theory
+
+- [https://beta.observablehq.com/@mpj/neural-network-from-scratch-part-1](https://beta.observablehq.com/@mpj/neural-network-from-scratch-part-1), example by mpj
+
+
 
 Videos
 ------
