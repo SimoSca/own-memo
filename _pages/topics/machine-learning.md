@@ -21,7 +21,9 @@ Vieo series very very well explained:
 
 - [https://beta.observablehq.com/@mpj/neural-network-from-scratch-part-1](https://beta.observablehq.com/@mpj/neural-network-from-scratch-part-1), example by mpj
 
+Vedi anche libro interessante, con spiegozzo + codice python:
 
+- [http://neuralnetworksanddeeplearning.com/chap1.html](http://neuralnetworksanddeeplearning.com/chap1.html)
 
 Videos
 ------

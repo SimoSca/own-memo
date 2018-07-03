@@ -50,3 +50,15 @@ Altri path interessanti sono visualizzabili al link
 qui si possono trovare validi esempi di design pattern e refactor:
 
 - [https://sourcemaking.com/](https://sourcemaking.com/) 
+
+
+Altro sito ([https://deviq.com](https://deviq.com)):
+
+- [open closed principle](https://deviq.com/open-closed-principle/)
+- [repository-pattern](https://deviq.com/repository-pattern/)
+- [specification pattern](https://deviq.com/specification-pattern/)
+- [strategy design pattern](https://deviq.com/strategy-design-pattern/) -> qui ne cita tanti altri molto importanti
+
+Altro:
+
+- [SOLID](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)

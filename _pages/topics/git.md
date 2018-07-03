@@ -82,6 +82,24 @@ git branch --no-merged
 By default this applies to only the local branches. The -a flag will show both local and remote branches, and the -r flag shows only the remote branches.
 
 
+#### Fare in modo che dato un branch locale...
+
+fare in modo che dato un branch locale, questi venga poi pushato in remoto e contemporaneamente associato al locale:
+
+````bash
+git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+# oppure: git remote add -u https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
+````
+
+#### Fare in modo che dato un branch locale...
+
+fare in modo che dato un branch remot, questi venga poi pullato e seguito associato a un branch locale:
+
+````bash
+git branch --track style origin/style
+````
+
+
 
 LECTURES
 ========
