@@ -62,3 +62,25 @@ Altro sito ([https://deviq.com](https://deviq.com)):
 Altro:
 
 - [SOLID](https://scotch.io/bar-talk/s-o-l-i-d-the-first-five-principles-of-object-oriented-design)
+
+
+
+DESIGN SPECIFICI
+----------------
+
+#### Repository Pattern
+
+Tra le teorie lette, credo che una delle migliori interpretazioni consti nel supporre che questo pattern lavori in ottica di dominio,
+ovvero che i suoi metodi gestiscano le entita', e che quindi esso non debba occuparsi di svolgere direttamente query a DB e serializzazioni:
+per quello potrebbe andar bene un adapter.
+
+- [https://deviq.com/repository-pattern/](https://deviq.com/repository-pattern/)
+- [https://code.tutsplus.com/tutorials/the-repository-design-pattern--net-35804](https://code.tutsplus.com/tutorials/the-repository-design-pattern--net-35804)
+- [https://stackoverflow.com/questions/48805723/repository-and-data-mapper-coupling](https://stackoverflow.com/questions/48805723/repository-and-data-mapper-coupling)
+- [https://stackoverflow.com/questions/16176990/proper-repository-pattern-design-in-php](https://stackoverflow.com/questions/16176990/proper-repository-pattern-design-in-php)
+
+
+#### Command Query Segregation
+
+
+Vedi [https://www.culttt.com/2015/01/14/command-query-responsibility-segregation-cqrs/](https://www.culttt.com/2015/01/14/command-query-responsibility-segregation-cqrs/)
