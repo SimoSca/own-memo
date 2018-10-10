@@ -127,3 +127,34 @@ ssh -R 127.0.0.1:9999:host2:22 user_host1@host1 'rsync -e "ssh -p 9999 -i my_ssh
 ````
 
 > Note single quote in second part!
+
+
+#### SPIEGAZIONE PIU' DETTAGLIATA
+
+
+Se host1 e’ l’host sorgente (contenente i files da copiare) e host2 e’ l’host di destinazione (dove verranno copiati i dati), allora bisogna, e il nostro PC deve fare da bridge, allora bisogna:
+
+##### MIO PC (bridge)
+
+sul nostro pc eseguire il comando (-i e -p solo se sono necessari per connettersi a host1)
+
+````bash
+ssh -i my_ssh_key_for_host1 -p port_host_1 -R 127.0.0.1:9999:host2:22 user_host1@host1 -N
+````
+
+in questo modo apro un tunnel tra host1 e host2, in particolare tutte le richieste su host1:9999 tramite il mio tunnel vengono inoltrate a host2:22 (ovvero via ssh)
+
+##### PC SORGENTE
+
+tramite il nostro tunnel ora il pc sorgente puo’ collegare la sua porta `999` a `host2:22` (via ssh), quindi sostanzialmente deve usare un rsync che da se stesso (127.0.0.1:9999) va alla remota (host2:22), quindi essendo un classico rsync che tenta di accedere a host2, e’ necessario che su host1 vi sia la nostra chiave rsa relativa all’host2.
+
+Il comando e’  
+
+````bash
+rsync -e "ssh -p 9999 -i my_ssh_key_for_host2" /file_path1 user2@127.0.0.1:/file_path2
+````
+
+in questo modo copiando il file locale su `user2@127.0.0.1(porta 9999):/file_path2`, che di fatto dato il bridge viene mappato in `user2@host2(porta 22):/file_path2`
+
+
+
