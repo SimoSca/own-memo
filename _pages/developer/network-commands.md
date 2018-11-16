@@ -36,6 +36,17 @@ $ route -n add -net 10.0.0.0/24 gw 10.0.0.1
 ````
 
 
+#### Check Chiamate in un server 
+
+ad es. Mysql:
+
+````
+netstat -nat |grep <ip server> | awk '{print $6}' | sort | uniq -c | sort -n
+````
+
+> NOTA: sono TCP
+
+
 #### IP from DNS
 
 ````
