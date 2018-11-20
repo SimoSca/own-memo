@@ -99,6 +99,22 @@ Cercare un tutorial.
 
 - `SIGTERM`
 
+#### System Checks
+
+Stato servizi:
+
+````bash
+# listo tutti i servizi (con feedback on/off)
+service --status-all
+
+# for init scripts:
+ls /etc/init.d/
+
+## Servizi automaticamente eseguiti all'avvio
+# for runlevel symlinks:
+ls /etc/rc*.d/
+```` 
+
 ### Comandi utili
 
 - `uname -a && cat /etc/*release` find VPS OS
