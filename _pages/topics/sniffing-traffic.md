@@ -22,7 +22,7 @@ permalink:  /topics/sniffing-traffic/
 
 specificare per il mac:
  
-- specificare il sistema per dirgli di sniffare le chiamate (packet filter): tutte le porte tcp in un certo range vengono inoltrate alla 8080. Ad esempio setto nelle impostazioni network del device l'opzione Proxies, e poi SOCKS PROXY, interendo 127.0.0.1 porta 8080.
+- specificare il sistema per dirgli di sniffare le chiamate (packet filter): tutte le porte tcp in un certo range vengono inoltrate alla 8080. Ad esempio setto nelle impostazioni network del device l'opzione Proxies (tab advanced nel network preference dell'interfaccia di rete che voglio utilizzare), e poi SOCKS PROXY, interendo 127.0.0.1 porta 8080.
 
 - problema: connessioni client-server criptate tramite certificato: ma noi possiamo iniettare i certificati del server in ogni chiamata
 (mitm.it e gli installi il suo certificato, e poi lo installi)
