@@ -18,6 +18,10 @@ Un articolo mooolto buono da leggere e' il seguente:
 
 - [https://jtreminio.com/blog/running-docker-containers-as-current-host-user/#ok-so-what-actually-works](https://jtreminio.com/blog/running-docker-containers-as-current-host-user/#ok-so-what-actually-works)
 
+Sempre relativamente a questo punto, vedere **users map** (nota anche come __users nampespaces__):
+
+- [https://www.linux.com/blog/learn/2017/8/hardening-docker-hosts-user-namespaces](https://www.linux.com/blog/learn/2017/8/hardening-docker-hosts-user-namespaces)
+
 
 #### Generic Build
 
