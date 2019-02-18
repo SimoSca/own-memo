@@ -23,7 +23,7 @@ VBoxManage.exe setextradata "vagrant-box-osx_default_1472223119403_66496" VBoxIn
 
 
 Vagrant
---------------
+-------
 
 avere skills su vagrant e' fondamentale se voglio avere un lavoro portabile e condivisibile con altri sviluppatori.
 
