@@ -1,6 +1,6 @@
 ---
 layout:     default
-title:      AWS AMAZON
+title:      AWS Amazon
 permalink:  /topics/amazon-aws/
 ---
 
