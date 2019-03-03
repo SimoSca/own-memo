@@ -1,0 +1,143 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Stack for managing IAM resources that mandates MFA
+
+
+Resources:
+    
+    AdminMFARole:
+        Type: AWS::IAM::Role
+        Properties:
+            ManagedPolicyArns:
+                - arn:aws:iam::aws:policy/AdministratorAccess
+            RoleName: AdminMFARole
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    -
+                        Sid: AllowAssumeRoleIfMFAIsPresent
+                        # see http://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html#cli-roles-mfa
+                        Effect: Allow
+                        Principal:
+                            AWS: !Ref AWS::AccountId
+                        Action: sts:AssumeRole
+                        Condition:
+                            Bool:
+                                aws:MultiFactorAuthPresent: true
+    
+    
+    AdminMFAGroup:
+        Type: AWS::IAM::Group
+        Properties:
+            GroupName: AdminMFAGroup
+            Policies:
+                
+                -
+                    PolicyName: AllowAssumeAdminMFAPolicy
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                            Sid: AllowUserToAssumeAdminMFARole
+                            Effect: Allow
+                            Action: sts:AssumeRole
+                            Resource: !GetAtt AdminMFARole.Arn
+                
+                -
+                    PolicyName: AdminMFAPolicy
+                    # copy of the arn:aws:iam::aws:policy/AdministratorAccess, but with MFA requirement
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                            Sid: AllowAdminUserToDoAnythingIfMFAIsPresent
+                            Effect: Allow
+                            Action: '*'
+                            Resource: '*'
+                            Condition:
+                                Bool:
+                                    aws:MultiFactorAuthPresent: true
+    
+    
+    S3MFARole:
+        Type: AWS::IAM::Role
+        Properties:
+            ManagedPolicyArns:
+                - arn:aws:iam::aws:policy/AmazonS3FullAccess
+            RoleName: S3MFARole
+            AssumeRolePolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    -
+                        Sid: AllowAssumeRoleIfMFAIsPresent
+                        # see http://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html#cli-roles-mfa
+                        Effect: Allow
+                        Principal:
+                            AWS: !Ref AWS::AccountId
+                        Action: sts:AssumeRole
+                        Condition:
+                            Bool:
+                                aws:MultiFactorAuthPresent: true
+    
+    
+    S3MFAGroup:
+        Type: AWS::IAM::Group
+        Properties:
+            GroupName: S3MFAGroup
+            Policies:
+                
+                -
+                    PolicyName: AllowAssumeS3MFAPolicy
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                            Sid: AllowUserToAssumeS3MFARole
+                            Effect: Allow
+                            Action: sts:AssumeRole
+                            Resource: !GetAtt S3MFARole.Arn
+                
+                -
+                    PolicyName: S3MFAPolicy
+                    # copy of the arn:aws:iam::aws:policy/AmazonS3FullAccess, but with MFA requirement
+                    PolicyDocument:
+                        Version: 2012-10-17
+                        Statement:
+                            Sid: S3FullAccess
+                            Effect: Allow
+                            Action: s3:*
+                            Resource: '*'
+                            Condition:
+                                Bool:
+                                    aws:MultiFactorAuthPresent: true
+    
+    
+    ManageMFAPolicy:
+        Type: AWS::IAM::ManagedPolicy
+        Properties:
+            Description: A policy that allows users to manage their personal MFA configuration
+            Groups:
+                - !Ref AdminMFAGroup
+                - !Ref S3MFAGroup
+                # add more groups that should have MFA requirement
+            ManagedPolicyName: ManageMFAPolicy
+            PolicyDocument:
+                Version: 2012-10-17
+                Statement:
+                    
+                    -
+                        Sid: AllowUsersToManageTheirOwnMFADevice
+                        Effect: Allow
+                        Action:
+                            - iam:CreateVirtualMFADevice
+                            - iam:EnableMFADevice
+                            - iam:ResyncMFADevice
+                        Resource:
+                            # users should only manage their own resources
+                            - !Join ['', ['arn:aws:iam::', !Ref 'AWS::AccountId', ':mfa/${aws:username}']]
+                            - !Join ['', ['arn:aws:iam::', !Ref 'AWS::AccountId', ':user/${aws:username}']]
+                    
+                    -
+                        Sid: AllowUsersToListMFADevicesAndUsers
+                        Effect: Allow
+                        Action:
+                            - iam:ListMFADevices
+                            - iam:ListVirtualMFADevices
+                            - iam:ListUsers
+                        Resource: "*"
