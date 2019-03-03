@@ -1,5 +1,8 @@
-AWS AMAZON
-==========
+---
+layout:     default
+title:      AWS AMAZON
+permalink:  /topics/amazon-aws/
+---
 
 
 IAM
