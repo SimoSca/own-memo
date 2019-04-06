@@ -33,16 +33,17 @@ Indubbiamente importanti! Dato che ve ne sono un'infinita' al piu numerabile, el
 - factory pattern
 - singleton pattern
 - strategy pattern
+- observer pattern e pub/sub pattern (per le differenze vedi [questo breve ma esplicativo articolo](https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c))
 
 Vedi questo tutorial semplice e immediato:
 
-http://it.phptherightway.com/pages/Design-Patterns.html
+[http://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
 
 Altri path interessanti sono visualizzabili al link
 
-[https://sourcemaking.com/design_patterns/memento](https://sourcemaking.com/design_patterns/memento)
+- [https://sourcemaking.com/design_patterns/memento](https://sourcemaking.com/design_patterns/memento)
 
-[http://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
+- [http://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
 
 
 #### Vari esempi
