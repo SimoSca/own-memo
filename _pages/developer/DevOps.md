@@ -73,6 +73,15 @@ Various links
 - [configure sendmail on Ubuntu](http://stackoverflow.com/questions/10359437/sendmail-how-to-configure-sendmail-on-ubuntu)
 
 
+### Online Tools
+
+Strumenti utili per svolgere verifiche relative a esposizioni server e/o IP DNS:
+
+- [https://www.shodan.io/](https://www.shodan.io/), e' un port-scanner in cui posso ad esempio chiedergli di ispezionare le porte aperte su un server
+
+- [https://mxtoolbox.com/](https://mxtoolbox.com/SuperTool.aspx?action=dns%3alogotel.it&run=networktools#), 
+    utile per avere informazioni sui DNS (dns lookup, dns check, whois, etc). Anche [qui](https://mxtoolbox.com/NetworkTools.aspx).
+
 
 ### BASH
 
