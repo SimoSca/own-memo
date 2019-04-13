@@ -87,6 +87,10 @@ per quello potrebbe andar bene un adapter.
 Vedi [https://www.culttt.com/2015/01/14/command-query-responsibility-segregation-cqrs/](https://www.culttt.com/2015/01/14/command-query-responsibility-segregation-cqrs/)
 
 
+
+PHP USAGE
+---------
+
 #### Utilizzo dei Traits
 
 Articolo interessante che illustra come **Laravel** utilizza alcuni `Trait`, 
