@@ -45,3 +45,9 @@ Overview generale su `k8s` e `aws`:
 
 - [migrating-to-kubernetes-with-zero-downtime-the-why-and-how-d64ba9a92619](https://www.manifold.co/blog/migrating-to-kubernetes-with-zero-downtime-the-why-and-how-d64ba9a92619),
     con dei bei grafici
+    
+    
+PERSISTENCE VOLUMES
+-------------------
+
+- [kubernetes-storage-performance-comparison](https://medium.com/vescloud/kubernetes-storage-performance-comparison-9e993cb27271)
