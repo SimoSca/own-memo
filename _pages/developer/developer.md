@@ -38,7 +38,7 @@ qui si possono trovare validi esempi di design pattern e refactor:
 
 
 IOT
-----
+---
 
 per il momento un semplice riferimento hardware a
 
@@ -54,7 +54,7 @@ e per soluzioni  Wireless/Mobile
 
 
 Funzionalita' Web
-------------------
+-----------------
 
 #### Rendering
 
