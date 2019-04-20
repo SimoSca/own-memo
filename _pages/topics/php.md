@@ -198,3 +198,259 @@ See
 
 - [https://github.com/engineyard/ey-php-performance-tools](https://github.com/engineyard/ey-php-performance-tools)
 - [https://support.cloud.engineyard.com/hc/en-us/articles/205411888-PHP-Performance-I-Everything-You-Need-to-Know-About-OpCode-Caches](https://support.cloud.engineyard.com/hc/en-us/articles/205411888-PHP-Performance-I-Everything-You-Need-to-Know-About-OpCode-Caches)
+
+
+
+XDEBUG-DBGPPROXY
+================
+
+
+Alcune casistiche interessanti per un ambiente `Dockerizzato`.
+
+Suppongo di:
+ 
+- avere un container `dbgpproxy` con un server `openssh`, cosi' da poter utilizzare le sue porte mediante tunnel ssh
+
+- che `dbgpproxy` sia eseguito su un server a cui ho accesso `ssh`
+
+- che `dbgpproxy` mappi la porta host `1025` nella ssh `22` e che esponga almeno la porta `9000` per essere raggiunta da xdebug (vedi configurazione sotto),
+    e la porta `9001` per essere raggiunta dal proprio client (`telnet` o `ide`) al momento in cui dovra' registrare la `idekey`.
+
+
+Anzitutto la configurazione `xdebug` sul server sara' della forma:
+
+````apacheconfig
+;remote
+
+xdebug.remote_enable=1
+xdebug.remote_handler=dbgp
+xdebug.remote_port=9000
+xdebug.remote_host=dbgpproxy
+xdebug.remote_log="/var/log/xdebug.log"
+````
+
+Dove devo essere sicuro che `dgbpproxy` sia effettivamente raggiungibile dal network del container (eventualmente come `external_link`).
+Altra cosa: il `remote_log` a seconda del path specificato potrebbe non avere i dovuti permessi e quindi non generarsi: 
+in tal caso generarlo a mano e dare permess `666` o piu' raffinati se necessario; tieni presente che questo log serve solo per debug 
+in caso tu non riesca a connetterti.
+
+
+Ricapitolando, per funzionare `dbgpproxy` e la connessione del proprio pc abbiamo in gioco tre porte:
+
+- porta `9000`, che viene contattata dal server (container) che esegue `PHP` e sul quale e' abilitato `xdebug`
+
+- porta `9001`, che serve per registrare in `dbgpproxy` una coppia `idekey - porta:client` (ad es. `9005`), 
+    dove `porta:client` e' la porta che impostiamo nel nostro pc per rimanere in ascolto di `dgbpproxy`
+    
+- `porta:client` (ad es. `9005`), che e' la porta configurata sul nostro ide e sulla quale si mette in ascolto per ricevere connessioni da `dgbpproxy`,
+    che appunto `proxa` le remote calls di `xdebug` eseguito sul server php
+    
+Fatto questo recap, ora passiamo ai vari tunnel da fare:
+
+- `ssh -L 1025:localhost:1025 remoteuser@dockerhost -N`: visto che suppongo di non avere aperto al mondo il container `dbgpproxy`,
+    allora faccio un tunnel per mappare la mia porta locale 1025 nella porta 1025 del server remoto, che via docker mappa la sua 1025 nella 22 (ssh) di dgbpproxy
+    
+- `ssh -L 9001:localhost:9001 -p 1025 dbgpuser@127.0.0.1 -N -v -v`: ora mappo la porta locale `9001` nella porta `9001` del container `dbgpproxy`
+    (che raggiungo con l'utenza `dbgpuser` alla porta locale `1025` del `127.0.0.1`, perche' cosi' avevo mappato al comando precedente)
+    
+- `ssh -R 9005:localhost:9005 -p 1025 dbgpuser@127.0.0.1 -N`: ora un altra mappatura, ma questa mi servira' per fare in modo che il `dgbpproxy` 
+    possa contattare il client locale (mio pc) alla porta locale `9005`
+    
+Ora supponendo di aver impostato nell'estenzione `xdebug` del mio browser la `idekey` `cicciopasticcio`,
+devo registrarmi a `dgbpproxy` per fargli capire che sono io l'utente interessato alle connessioni `xdebug` con quella chiave.
+Per meglio capire, il flusso e':
+
+1. il browser contatta il server php in cui ho abilitato xdebug, dicendogli _"ciao, attiva xdebug con questa idekey che ti sto passando"_
+
+2. il server php `xdebug` a questo punto contatta il server `dbgpproxy` alla porta `9000` dicendogli _"mi sono attivato perche' ho ricevuto una richiesta con questa `idekey`"_
+
+3. il server `dgbpproxy` controlla i client registrati per vedere se qualcuno matcha la `idekey` (al + uno), ed in tal caso prova a contattarlo alla porta che ha registrato (es `9005`)
+
+4. se il mio client matcha la `idekey`, allora ricevo una connessione da `dbgpproxy` e finalmente il mio ide mi fa vedere il flow di xdebug.
+
+La cosa interessante e' che si possono registrare piu' `idekey` sulla stessa porta, quindi uno svliuppatore puo' monitorare contemporaneamente piu' progetti,
+a patto di personalizzare la `idekey`
+
+> NOTA: questo comportamento dipende dall'ide, ad esempio `PHPStorm` puo' utilizzare direttamente i servername (DNS) per indirizzare `xdebug` sul giusto progetto.
+
+Quindi per registrare il proprio client:
+
+- `telnet 127.0.0.1 9001` (quindi contatto e accedo al server `dgbpproxy`)
+
+- `proxyinit -p 9005 -k cicciopasticcio -m 1` (quindi dgbpproxy mi deve contattare alla porta `9005` quando riceve connessioni di `xdebug` triggerate da un browser con idekey `cicciopasticcio`)
+
+> con `proxystop -k cicciopasticcio` invece mi de-registrero'
+
+> dopo questo comando, posso anche stoppare il tunner ssh `ssh -L 9001:localhost:9001 -p 1025 dbgpuser@127.0.0.1 -N -v -v`
+
+Ora basta attivare il listener di `xdebug` sul proprio ide e il gioco e' fatto!
+
+Ad esempio con `Visual Studio Code` si puo' utilizzare un file di configurazione cosi':
+
+````json5
+{
+  // proxyinit -p 20000 -k vscdebug -m 1
+  // proxystop -k vscdebug
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for XDebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9005,
+      // server -> local
+      "pathMappings": {
+        "/var/www": "${workspaceRoot}/<pat to project>",
+      }
+    }
+  ]
+}
+````
+
+Per dialogo con server `dbgpproxy` posso usare:
+
+````bash
+### interattivo, con telnet
+telnet dbgpproxy 9001
+proxyinit -p 9005 -k cicciopasticcio -m 1
+
+### One host (sono tutti alternativi)
+
+# funziona, ma non mi da feedback
+echo "proxyinit -p 9005 -k cicciopasticcio -m 1" > /dev/tcp/dbgpproxy/9001
+# mi restituisce anche una risposta
+echo "proxyinit -p 9005 -k cicciopasticcio -m 1" | netcat dbgpproxy 9001
+
+# unregister 
+echo "proxystop -k cicciopasticcio" > /dev/tcp/dbgpproxy/9001
+````
+
+ 
+Attenzione al locale!!! Perche' DBGPPROXY contatta il server, e devo stare attento a come configuro gli host!
+
+
+### Faccio tutto dal mio PC
+
+#### 1 - mappo la dbgpproy:22 (vista dal remoto maintainer: dal suo network dbgpproxy e' la 22)del remoto nella locale 1027
+
+````
+ssh -L 1027:dbgpproxy:22 staging-server-01-remoteuser -N
+````
+
+quindi ora posso considerare il dbgpproxy:22 come la localhost:1027, e di conseguenza effettuare tunnel
+
+````
+Host staging-server-01-dbgpproxy22local1027
+    User remoteuser
+    Port 1024
+    IdentityFile ~/Working/wlogo/Mixed/ssh/remoteuser-staging-server-01
+    LocalForward 1027 dbgpproxy:22
+````
+
+cosi' mi basta lanciare al posto del comando ti cui sopra (piu' comodo) 
+
+````
+ssh staging-server-01-dbgpproxy22local1027 -N
+````
+
+> NOTA: lo stesso varra' per i comandi successivi
+
+#### 2 - dbgpproxy registrera' il client come localhost:9007, 
+
+quindi lo contattera' li, e io lo mappo nella locale 9005 (staro' in ascolto col mio client/ide)
+
+````
+ssh -R 9007:localhost:9005 -i aws-staging -p 1027 logotel@localhost -N 
+````
+
+````
+Host staging-server-01-dbgpproxy9007local9005
+    HostName localhost
+    User logotel
+    Port 1027
+    IdentityFile <path to identity file>
+    RemoteForward 9007 localhost:9005
+````
+
+#### 3 - ora registro il mio client con la mia key
+
+````
+ssh -L 9003:localhost:9001 -i aws-staging -p 1027 logotel@localhost -N
+````
+
+````
+Host staging-server-01-dbgpproxy9001local9003
+    HostName localhost
+    User logotel
+    Port 1027
+    IdentityFile <path to identity file>
+    LocalForward 9003 localhost:9001
+#echo "proxyinit -p 9007 -k cicciopasticcio -m 1" > /dev/tcp/localhost/9003
+#in dbgpproxy vedo: Server:onConnect ('127.0.0.1', 40900) [proxyinit -p 9007 -k cicciopasticcio -m 1
+````
+
+Dopo il comando posso chiudere questa connessione, perche' tanto devo registrare solo una volta.
+
+
+**Usando il server che esegue docker:**
+
+Posso rifare  tutto uguale ma pensando di usare il tunnel tramite l'host su cui gira docker, e non da un container nello stesso network.
+Se ad esempio il container mappa `0000:1025 -> 22`, allora posso modificare il primo tunnel ssh:
+`ssh -L 1027:localhost:1025 staging-server-01 -N`.
+
+
+#### Alternativa al mapping locale
+
+
+Tutto questo risulta piuttosto tedioso, quindi rivediamolo in una chiave piu' comoda con **ProxyCommand**,
+che mi consente di utilizzare direttamente un tunnel con un server intermedio (proxy, o bastion), 
+vedi [qui](https://www.cyberciti.biz/faq/linux-unix-ssh-proxycommand-passing-through-one-host-gateway-server/) 
+(nota che io uso l'opzione `-W`, presente nelle versioni piu' moderne di `OpenSSH`).
+
+````
+# Creo un tunnel per accedere al dbgpproxy:22, 
+# usando il staging-server-01-remoteuser come proxy (intermediario, bastion)
+Host staging-server-01-dbgpproxy
+    HostName dbgpproxy
+    User logotel
+    Port 22
+    IdentityFile <path to identity file>
+    ProxyCommand ssh staging-server-01-remoteuser -W [%h]:%p
+````
+
+In questo modo con `ssh staging-server-01-dbgpproxy` e' come se facessi connessioni dirette al server `dbgpproxy`,
+senza interessarmi del server intermedio (`staging`, o container maintainer in questo caso).
+
+Grazie a questo ad esempio non ho bisogno della mappatura intermedia e temporanea `9003 localhost:9001 ...`, 
+ma posso comunicare con `dbgpproxy` con comandi diretti, ad esempio:
+
+````
+ssh staging-server-01-dbgpproxy 'echo "proxyinit -p 9007 -k cicciopasticcio -m 1" > /dev/tcp/localhost/9001'
+````
+
+Quindi ho diminuito la complessita'!
+
+Ora mi rimane solamente l'apertura remota:
+
+````
+ssh -R 9007:localhost:9005 staging-server-01-dbgpproxy
+````
+
+o piu' semplice con `.ssh/config`:
+
+````
+# Creo un tunnel per accedere al dbgpproxy:22, 
+# usando il staging-server-01-remoteuser come proxy (intermediario, bastion)
+Host staging-server-01-dbgpproxy*
+    HostName dbgpproxy
+    User logotel
+    Port 22
+    IdentityFile <path to identity file>
+    ProxyCommand ssh staging-server-01-remoteuser -W [%h]:%p
+
+Host staging-server-01-dbgpproxy-listen9005
+    RemoteForward 9007 localhost:900
+````
+
+Nota che ho ridefinito il `staging-server-01-dbgpproxy*` aggiungendo l'asterisco in modo da riciclare quando gia' configurato 
+per il `ProxyCommand`.
