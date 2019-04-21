@@ -360,13 +360,13 @@ ssh staging-server-01-dbgpproxy22local1027 -N
 quindi lo contattera' li, e io lo mappo nella locale 9005 (staro' in ascolto col mio client/ide)
 
 ````
-ssh -R 9007:localhost:9005 -i aws-staging -p 1027 logotel@localhost -N 
+ssh -R 9007:localhost:9005 -i aws-staging -p 1027 dbgpUser@localhost -N 
 ````
 
 ````
 Host staging-server-01-dbgpproxy9007local9005
     HostName localhost
-    User logotel
+    User dbgpUser
     Port 1027
     IdentityFile <path to identity file>
     RemoteForward 9007 localhost:9005
@@ -375,13 +375,13 @@ Host staging-server-01-dbgpproxy9007local9005
 #### 3 - ora registro il mio client con la mia key
 
 ````
-ssh -L 9003:localhost:9001 -i aws-staging -p 1027 logotel@localhost -N
+ssh -L 9003:localhost:9001 -i aws-staging -p 1027 dbgpUser@localhost -N
 ````
 
 ````
 Host staging-server-01-dbgpproxy9001local9003
     HostName localhost
-    User logotel
+    User dbgpUser
     Port 1027
     IdentityFile <path to identity file>
     LocalForward 9003 localhost:9001
@@ -412,7 +412,7 @@ vedi [qui](https://www.cyberciti.biz/faq/linux-unix-ssh-proxycommand-passing-thr
 # usando il staging-server-01-remoteuser come proxy (intermediario, bastion)
 Host staging-server-01-dbgpproxy
     HostName dbgpproxy
-    User logotel
+    User dbgpUser
     Port 22
     IdentityFile <path to identity file>
     ProxyCommand ssh staging-server-01-remoteuser -W [%h]:%p
@@ -443,7 +443,7 @@ o piu' semplice con `.ssh/config`:
 # usando il staging-server-01-remoteuser come proxy (intermediario, bastion)
 Host staging-server-01-dbgpproxy*
     HostName dbgpproxy
-    User logotel
+    User dbgpUser
     Port 22
     IdentityFile <path to identity file>
     ProxyCommand ssh staging-server-01-remoteuser -W [%h]:%p
