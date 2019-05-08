@@ -188,6 +188,47 @@ Esempi per chiave asimmetrica `openssl`:
 - `Rsnapshot`, utile per backup: gestisce la sua gerarchia di cartelle e storico con degli hardlink, quindi fondamentalmente mantiene una copia completa dei dati sul daily.0, e solo i file cambiati sui vari daily.1, daily.2, etc. 
 
 
+### Self-Signed Certificates
+
+Per lavorare in locale con **HTTPS** ho bisogno di generare dei `self-signed` certificates da associare a un certo dominio (ad es un wildcards),
+cosi' posso eventualmente testare anche le `CORS`. Di seguito i comandi, ma prima vedi i riferimenti:
+
+- [self-signed-certificates](https://donatstudios.com/Self-Signed-Certificate-On-macOS-Apache), dove ho trovato i comandi
+
+- [https://stackoverflow.com/questions/991758/how-to-get-pem-file-from-key-and-crt-files](how-to-get-pem-file-from-key-and-crt-files) , per generare il .PEM (ovvero ca certificate) 
+
+Io usero' come wildcard `*.enomis.ninja` e i files di output li nomino nella stessa maniera solo per coerenza e tracciabilita':
+
+````bash
+openssl req -newkey rsa:2048 -x509 -nodes \
+    -keyout *.enomis.ninja.key \
+    -new \
+    -out *.enomis.ninja.crt \
+    -subj /CN=*.enomis.ninja \
+    -reqexts SAN \
+    -extensions SAN \
+    -config <(cat /System/Library/OpenSSL/openssl.cnf \
+        <(printf '[SAN]\nsubjectAltName=DNS:*.enomis.ninja')) \
+    -sha256 \
+    -days 3650
+
+// apache
+openssl rsa -in *.enomis.ninja.key -out *.enomis.ninja.nopass.key
+
+// pem
+cat \*.enomis.ninja.crt \*.enomis.ninja.key > *.enomis.ninja.ca.pem
+````
+
+> Con queste configurazioni il DNS `enomis.ninja` non risulta sotto certificato, 
+> in quanto nei comandi sopra e' stata impostata una wildcard per il secondo livello.
+
+
+OTTIMA ALTERNATIVA ai comandi di cui sopra, che spiega come generare direttamente da un file di configurazione (sempre via `openssh`):
+
+- [how-to-get-https-working-on-your-local-development-environment-in-5-minutes](https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec)
+
+
+
 SERVER
 ------
 
