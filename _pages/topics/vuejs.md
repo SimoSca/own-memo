@@ -1,6 +1,6 @@
 ---
 layout:     default
-title:      Javascript
+title:      Vuejs
 permalink:  /topics/vuejs/
 ---
 
