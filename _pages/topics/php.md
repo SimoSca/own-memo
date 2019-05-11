@@ -12,11 +12,23 @@ permalink:  /topics/php/
 
 - [https://jtreminio.com/2012/10/an-introduction-to-pimple-and-service-containers/](https://jtreminio.com/2012/10/an-introduction-to-pimple-and-service-containers/)
 
+
 ### Task Manager
 
 interessante : [http://robo.li/](http://robo.li/), scoperto grazie a questo articolo:
 
 [look-ma-no-nodejs-a-php-front-end-workflow-without-node/](https://www.sitepoint.com/look-ma-no-nodejs-a-php-front-end-workflow-without-node/)
+
+
+### Libraries
+
+- [Laravel Dusk](https://laravel.com/docs/5.8/dusk), per frontend test (browser) ed eventualmente php pipelines
+
+- [Php Meminfo](https://github.com/BitOne/php-meminfo), per analisi dell'utilizzo di memoria di classi e e porzioni PHP
+
+- [Aws Lambda + Php: Bref](https://bref.sh/docs/), come integrare lambda con php: documentazione ben fatta
+
+- [Rector](https://github.com/rectorphp/rector), per svolgere refactor di classi in interi progetti, ad esempio modifiche di Namespaces, nomi di metodi e altro ancora
 
 
 ### PHP e NODE server
@@ -50,7 +62,6 @@ ma ve ne sono altri interessanti come [questo box](https://vagrantcloud.com/jitb
 
 
 ### Composer
-
 
 #### TOKEN
 
