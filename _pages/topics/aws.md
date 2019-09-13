@@ -5,6 +5,12 @@ permalink:  /topics/amazon-aws/
 ---
 
 
+Sections:
+
+- [IAM](#iam)
+- [TROUBLESHOOTS](#troubleshoots)
+
+
 IAM
 ---
 
@@ -33,3 +39,49 @@ Alcune letture utili:
 - [id_credentials_mfa_enable_cliapi.html](https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_credentials_mfa_enable_cliapi.html),
     istruzioni via cli
     
+
+
+TRHOUBLESHOOTS
+--------------
+
+### Istanza ec2: ssh access denied
+
+Dopo aver fatto delle modifiche a filesystem d'esecuzione dell'istanza ec2, 
+e' capitato che al `reboot` non riuscissi piu' ad accedere via ssh... 
+
+In primis avendo a disposizione molti `snapshots`, anzitutto volevo essere certo di poter eventualmente ripristinare la situazione da uno precedente,
+cosi' ho provato a creare un'immagine `IAM` e poi da essa lanciare una nuova istanza `ec2` e... boom! il gioco e' fatto e funzionante!
+(per dettagli vedere [https://www.edureka.co/blog/restore-ec2-from-snapshot/](https://www.edureka.co/blog/restore-ec2-from-snapshot/)) 
+
+
+Ora inizia la parte piu' interessante, ovvero non come svolgere un `restore` da uno `snapshot`, bensi' come **riparare** l'istanza non piu' funzionante!
+
+Anzitutto ricordiamoci una cosa:
+
+> Un istanza ec2 di fatto e' un oggetto `AWS`, sul quale vengono `attached` uno o piu' volumi EBS, di cui uno solge da `root` (`/`)
+
+
+Cosi', se si sa come ripristinare sull'istanza non piu' funzionate (EC2-A):
+
+- accedere alle configurazioni di EC2-A e annotare l'id del volume-ebs (per poterlo identificare nei prossimi passaggin) 
+    e anche la sua partizione di mount (es `/dev/xvda`), che servira' quando alla fine si dovra' ripristinare la macchina stessa
+
+- creare nuova istanza ec2 qualsiasi (EC2-B)
+
+- eseguire detach del volume (per ora attaccato a EC2-A) e attaccarlo a EC2-B
+
+- esegire mount del volume (es `/mnt/restore`)
+ 
+- sistemare il codice in `/mnt/restore/...` cosi' da realizzare revert delle modifiche per fixare il tutto
+
+- eseguire detach da EC2-B e riattach su EC2-A (nel vecchio punto di mount `/dev/xvda`)
+
+
+> `ATTACH`/`DETACH`
+>
+> si va nell'elenco volumi, si identifica quello d'interesse (id) e poi col tasto destro si seleziona attach/detach
+
+> Per il mount:
+> - vedere le partizioni presenti (`lsblk`) e svolgere mount come indicato in [https://devopscube.com/mount-ebs-volume-ec2-instance/](https://devopscube.com/mount-ebs-volume-ec2-instance/)
+> - in caso di problemi di mount attenzione alla partizione usata: con `lsblk` ad esempio `/dev/xvdf1` risulta come blocco di `/dev/xvdf`, 
+> quindi va utilizzato `/dev/xvdf1` e non `/dev/xvdf1`, vedi [https://serverfault.com/questions/632905/cannot-mount-an-existing-ebs-on-aws](https://serverfault.com/questions/632905/cannot-mount-an-existing-ebs-on-aws)
