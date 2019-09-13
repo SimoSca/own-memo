@@ -41,7 +41,7 @@ Alcune letture utili:
     
 
 
-TRHOUBLESHOOTS
+THROUBLESHOOTS
 --------------
 
 ### Istanza ec2: ssh access denied
