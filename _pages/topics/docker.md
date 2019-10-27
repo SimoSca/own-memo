@@ -70,6 +70,13 @@ There's two methods:
 ` (or `docker -H $(pwd)/docker.sock <docker commands>`)
 
 
+### Create/Push Docker images to private registry
+
+See this to implement simple flow:
+
+- [https://dev.to/imichael/automagically-build-and-push-docker-images-to-a-registry-using-gitlab-276p](https://dev.to/imichael/automagically-build-and-push-docker-images-to-a-registry-using-gitlab-276p)
+
+
 
 TOOLS
 -----
