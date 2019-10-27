@@ -60,6 +60,17 @@ Non direttamente correlato, ma molto utile:
 in questo thread e' presente un ottimo esempio in cui mostra i PID
 
 
+#### Execute Remote SOCKET
+
+There's two methods:
+
+- [https://medium.com/better-programming/docker-tips-access-the-docker-daemon-via-ssh-97cd6b44a53](https://medium.com/better-programming/docker-tips-access-the-docker-daemon-via-ssh-97cd6b44a53), for newest docker versions
+
+- [https://medium.com/@dperny/forwarding-the-docker-socket-over-ssh-e6567cfab160](https://medium.com/@dperny/forwarding-the-docker-socket-over-ssh-e6567cfab160): `ssh -nNT -L $(pwd)/docker.sock:/var/run/docker.sock user@someremote` + `export DOCKER_HOST=$(pwd)/docker.sock
+` (or `docker -H $(pwd)/docker.sock <docker commands>`)
+
+
+
 TOOLS
 -----
 
