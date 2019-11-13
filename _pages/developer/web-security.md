@@ -23,6 +23,11 @@ Si usa questo stratagemma poiche' la crittografia antisimmetrica risulta pesante
 Per crittografare vi sono vari algoritmi, taluni invertibili(quali base_64url) altri invece non invertibili(HMAC ad esempio). In questo contesto ho trovato una parte interessante in PHP, ovvero gli **Initialization Vector**. Per specifiche meglio vedere uno dei miei `public/Test/Encryption`.
 
 
+### JWT, JWS e JWE
+
+See [https://medium.facilelogin.com/jwt-jws-and-jwe-for-not-so-dummies-b63310d201a3](https://medium.facilelogin.com/jwt-jws-and-jwe-for-not-so-dummies-b63310d201a3)
+
+
 ### Tokens e JWT (OAuth2)
 
 sono un metodo alternativo, ma non una complete sostituzione, all'uso delle `sessioni`. Per anni i browser per mantenere traccia usavano le sessioni: il server php crea un file con tutte le variabili di sessioni e lo salva, settando tra i Cookies un sessionID. Grazie a questo, se l'utente si ricollega al sito inviandogli i Cookies, qualora il server trovi tra questi il sessionID, recuperera' il file salvato e potra' quindi riabilitare la sessione. Questo permette di eludere il fatto che HTTP sia un protocollo `stateless`, ma al contempo rende il sito attaccabile.
