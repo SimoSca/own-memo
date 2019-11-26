@@ -97,3 +97,14 @@ Articolo interessante che illustra come **Laravel** utilizza alcuni `Trait`,
 e il design concettuale col quale implementarli. Molto bellino:
 
 [https://andy-carter.com/blog/using-laravel-s-eloquent-traits](https://andy-carter.com/blog/using-laravel-s-eloquent-traits)
+
+#### Gestione Exception
+
+- [https://martinfowler.com/articles/replaceThrowWithNotification.html](https://martinfowler.com/articles/replaceThrowWithNotification.html)
+
+- [https://www.alainschlesser.com/structuring-php-exceptions/](https://www.alainschlesser.com/structuring-php-exceptions/)
+
+#### Laravel Multi Tenant
+
+- [https://stackoverflow.com/questions/39917731/single-shared-queue-worker-in-laravel-multi-tenant-app](https://stackoverflow.com/questions/39917731/single-shared-queue-worker-in-laravel-multi-tenant-app)
+
