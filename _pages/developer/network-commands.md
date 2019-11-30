@@ -53,6 +53,19 @@ netstat -nat |grep <ip server> | awk '{print $6}' | sort | uniq -c | sort -n
 nslookup <dns>
 ```` 
 
+### NSLOOKUP Extras
+
+
+`nslookup`, poi:
+
+- server `8.8.8.8` -> cosi' gli dico come risolvere
+
+- www.example.com -> cosi' vedo come risponde
+
+Se voglio vedere l'owner (vediamo i dettagli del proprietario):
+
+`whois noidivittoria.it`
+
 
 ### Secure ssh
 

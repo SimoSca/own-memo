@@ -100,6 +100,10 @@ Cercare un tutorial.
 
 [esempio con trap e nome files temporanei](http://linuxcommand.org/wss0160.php)
 
+### Script Usage
+
+[https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/](https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/)
+
 
 #### Specific commands:
 
