@@ -1,7 +1,7 @@
 ---
 layout:     default
-title:      Vuejs
-permalink:  /topics/curiousity/
+title:      Fixes InternetExplorer
+permalink:  /radings/fixes/
 ---
 
 
