@@ -1,7 +1,7 @@
 ---
 layout:     default
 title:      Fixes InternetExplorer
-permalink:  /radings/fixes/
+permalink:  /readings/fixes/
 ---
 
 
