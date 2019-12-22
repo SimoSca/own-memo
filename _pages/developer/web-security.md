@@ -8,6 +8,11 @@ La sicurezza web, ma non solo, consta di tanti piccoli accorgimenti e prevenzion
 I principali blocchi da affrontare riguardano autenticazione, persistenza e crittografia. Ciascuno ha degli standard che possono aiutare a capire come comportarsi
 
 
+### Secure saltz
+
+Lecture to [https://crackstation.net/hashing-security.htm](https://crackstation.net/hashing-security.htm)
+
+
 ### Crittografia
 
 vi sono sostanzialmente due tipi:
