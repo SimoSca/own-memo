@@ -239,6 +239,7 @@ e invece creare localmente un DNS Server (ovvero un daemon locale, che nelle gui
 
 - [https://www.fourkitchens.com/blog/article/local-development-apache-vhosts-and-dnsmasq/](https://www.fourkitchens.com/blog/article/local-development-apache-vhosts-and-dnsmasq/)
 - [https://passingcuriosity.com/2013/dnsmasq-dev-osx/](https://passingcuriosity.com/2013/dnsmasq-dev-osx/)
+- [https://gist.github.com/ogrrd/5831371](https://gist.github.com/ogrrd/5831371) -> sintetico startup
 
 In sostanza il resolver e' il client che va a contattare il dns server (dnsmasq in questo caso).
 
