@@ -232,6 +232,23 @@ OTTIMA ALTERNATIVA ai comandi di cui sopra, che spiega come generare direttament
 - [how-to-get-https-working-on-your-local-development-environment-in-5-minutes](https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec)
 
 
+### DNS SERVER / DNSMASQ
+
+Utile per sviluppo in locale con utilizzo di DNS: l'idea e' di evitare di continuare a utilizzare il file `/etc/host`,
+e invece creare localmente un DNS Server (ovvero un daemon locale, che nelle guide sotto e' `dnsmasq`) e manimpolare opportunamente i resolver.
+
+- [https://www.fourkitchens.com/blog/article/local-development-apache-vhosts-and-dnsmasq/](https://www.fourkitchens.com/blog/article/local-development-apache-vhosts-and-dnsmasq/)
+- [https://passingcuriosity.com/2013/dnsmasq-dev-osx/](https://passingcuriosity.com/2013/dnsmasq-dev-osx/)
+
+In sostanza il resolver e' il client che va a contattare il dns server (dnsmasq in questo caso).
+
+E' sempre possibile testare la risoluzione con `scutil --dns`.
+
+In generale quindi le parti da configurare sono due: **Resolver** (in `/etc/resolver/`) e in questo caso `dnsmasq` (in `/usr/local/etc.dnsmasq.conf`)
+
+> Per Dnsmasq ricordarsi di riavviare il server con `sudo launchctl stop homebrew.mxcl.dnsmasq && sudo launchctl start homebrew.mxcl.dnsmasq`
+
+
 
 SERVER
 ------
