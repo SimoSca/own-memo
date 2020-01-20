@@ -232,6 +232,78 @@ OTTIMA ALTERNATIVA ai comandi di cui sopra, che spiega come generare direttament
 - [how-to-get-https-working-on-your-local-development-environment-in-5-minutes](https://medium.freecodecamp.org/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec)
 
 
+### Creazione Certificati per Produzione
+
+Qualora abbia bisogno di creare certificati da usare per produzione, ad esempio da mandare ad una `Certificate Authority` (**CA**), 
+posso fare quanto segue:
+
+1) creo un file con preimpostati i parametri che mi servono, es
+
+````
+[ req ]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[ dn ]
+C=GB
+ST=<state>
+L=<city>
+O=<organization>
+OU=IT
+CN =www.<second level>.<domain>.it
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = www.<second level>.<domain>.it
+DNS.2 = <second level>.<domain>.
+DNS.3 = <other->.<second level>.<domain>.
+````
+
+2) sul server genero un **CSR** con questo comando:
+
+````
+openssl rsa:2048 -keyout mysite_private.key -config <( cat csr_details.txt )
+````
+
+Da qui se voglio posso anche cenerare un certificato non validato:
+
+````
+openssl x509 \
+       -signkey /etc/apache2/ssl/sky/main/<mysite_private.key> \
+       -in /etc/apache2/ssl/sky/main/<mysite.csr> \
+       -req -days 365 -out /etc/apache2/ssl/sky/main/<placeholder-mysite.crt>
+````
+
+Letture utili:
+
+- [https://gist.github.com/Soarez/9688998](https://gist.github.com/Soarez/9688998)
+- [https://www.youtube.com/watch?v=sEkw8ZcxtFk](https://www.youtube.com/watch?v=sEkw8ZcxtFk)
+- [https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs)
+
+Altra nota:
+
+````
+To clarify, a "CSR" file is not a key. There are four file-types involved in SSL, and on your server you must have the first two of them: a ".crt" and the corresponding ".key."
+
+.key file:
+This is the actual cryptographic key. Today, it should be 4096 bits long. A brand new key should be created for each re-issue of any certificate, since this is what provides the fundamental security.
+
+.crt (certificate) file:
+This is the cryptographic certificate corresponding to the key.
+
+.csr (certificate signing request) file:
+This file is generated as the first step to "signing" the certificate by a Certifying Authority (CA). Once signing is complete, this file is no longer needed.
+
+ca.crt (Certifying Authority certificate) file:
+This file is the bottom link in the "chain of trust" that convinces web browsers and so forth to accept that your certificate is valid. This is done by "signing" the certificate. This is the file that needs to be kept "profoundly secret."
+````
+
+
 ### DNS SERVER / DNSMASQ
 
 Utile per sviluppo in locale con utilizzo di DNS: l'idea e' di evitare di continuare a utilizzare il file `/etc/host`,
