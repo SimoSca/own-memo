@@ -85,3 +85,51 @@ Cosi', se si sa come ripristinare sull'istanza non piu' funzionate (EC2-A):
 > - vedere le partizioni presenti (`lsblk`) e svolgere mount come indicato in [https://devopscube.com/mount-ebs-volume-ec2-instance/](https://devopscube.com/mount-ebs-volume-ec2-instance/)
 > - in caso di problemi di mount attenzione alla partizione usata: con `lsblk` ad esempio `/dev/xvdf1` risulta come blocco di `/dev/xvdf`, 
 > quindi va utilizzato `/dev/xvdf1` e non `/dev/xvdf1`, vedi [https://serverfault.com/questions/632905/cannot-mount-an-existing-ebs-on-aws](https://serverfault.com/questions/632905/cannot-mount-an-existing-ebs-on-aws)
+
+
+
+Public Bucket S3
+-----------------
+
+> Rendere pubblico un bucket potrebbe essere pericoloso: devi essere sicuro che non ci siano assets sensibili!!!
+
+Per pubblicare un bucket s3, ovvero renderlo accessibile da tutto il web seguire i seguenti passaggi:
+
+0 - accedere al pannello dello specifico bucket s3
+
+1 - `Proprieta' > Hosting siti Web Statici` -> devo abilitare hosting di bucket
+
+2 - `Autorizzazioni` > devo inserire una policy bucket tipo:
+
+````
+{
+    "Version": "2008-10-17",
+    "Id": "AllPublic",
+    "Statement": [
+        {
+            "Sid": "Stmt1380877761162",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "*"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::test-laravel-s3/*"
+        }
+    ]
+}
+````
+
+3 - `Autorizzazioni` > settare opportunamente l'accesso pubblico
+
+
+Eventualmente si puo' omettere il punto **(2)** (inserimento della policy), ma in tal caso visto che il file caricato nel bucket di default non risulta `pubblicato`,
+e' necessario svolgere azioni extra, ad esempio:
+
+- **pubblicare esplicitamente**, andando nella gestione bucket sul file specifico e pubblicandolo quindi dal pannello
+
+- **programmatically**, ad esempio con **Laravel** e il driver `Storage S3`, si puo' caricare e pubblicare in una sola volta con un comando del tipo:
+    ````php
+    Storage::disk('s3')->put('/users/'.Auth::user()->uuid.'/avatars/small/'.$filename, fopen($small, 'r+'), 'public');
+    ````
+  
+  
