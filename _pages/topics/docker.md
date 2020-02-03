@@ -82,3 +82,16 @@ TOOLS
 -----
 
 - [dive](https://github.com/wagoodman/dive), per "navigare" dentro alle immagini
+
+
+
+BUILD IMAGES
+============
+
+Per la build/gestione dell'immagine sono interessanti i seguenti strumenti:
+
+- [gosu](https://github.com/tianon/gosu)
+
+- [go-replace](https://github.com/webdevops/go-replace)
+
+Inoltre a titolo culturale, sapere anche come docker risolve le build con [Build Kit](https://blog.mobyproject.org/introducing-buildkit-17e056cc5317)

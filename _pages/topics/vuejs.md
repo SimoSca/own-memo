@@ -14,3 +14,5 @@ Nozioni importanti da avere in mente quando si parla di `Vue` e del concetto di 
 - [props and data](https://dev.to/proticm/how-to-vue---props-vs-data-o41)
 
 - [utile overview su methods, computed and watchers](https://css-tricks.com/methods-computed-and-watchers-in-vue-js/)
+
+- [High Order Components](High Order Components)

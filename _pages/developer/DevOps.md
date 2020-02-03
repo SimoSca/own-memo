@@ -164,6 +164,8 @@ In previsione di jobs lunghi possono essere affrontati in due modi:
 e di usare poi la combinazione `ctrl + d` per detachare le shell e quindi consentirci di chiudere il terminale di partenza come `nohup`.
 Il vantaggio e' che con `screen` si puo' svolgere un `retach` e quindi recuperare tutte le sessioni detachate precedentemente
 
+- **uso stdin/stodout** [qui](https://jameshfisher.com/2018/03/31/dev-stdout-stdin/). Tenere presente anche `/proc/self/fd` cosi' come `/proc/$$/fd`
+
 
 ### Firewall
 

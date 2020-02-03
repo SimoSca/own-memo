@@ -6,7 +6,11 @@ permalink:  /readings/fixes/
 
 
 
-#condividofix #perchecapitanotutteame?!
+\#condividofix \#perchecapitanotutteame?!
+
+
+Windows 8 + IE problems...
+==========================
 
 
 Settimana scorsa il reparto Dev di un cliente ci ha contattati perche' su una piattaforma che deve comunicare con una nostra community era presente un bug per una specifica casistica di SO e Browser, e non se ne veniva a capo.
@@ -53,3 +57,12 @@ Che sia chiaro, la parte relativa alla spiegazione non prendetela come oro colat
 
 Per quanto mi riguarda questa e' una pietra miliare dei fix, che sicuramente arricchira' il mio bagalio personale e verra' tatuata sul mio "omino del cervello" per essere pronto a riutilizzarla se dovesse ricapitare in futuro... ma mi auguro che per quando arrivera' "il futuro" i popoli avranno finalmente debellato questo antico male che tutt'ora affligge i Dev e che prende il nome di "Internet Explorer".
 
+
+
+
+Compilazione Form
+-----------------
+
+
+Su alcuni pc gli utenti riuscivano a loggarsi, su altri no... dopo mille insidie si scopri' che il problema era dovuto a delle estensioni del browser 
+(tipo lastpass), che svolgevano l'autocomplete di alcuni hiddend fields, e quindi il login non andava mai a buon fine perche' "compilato" in maniera errata.
