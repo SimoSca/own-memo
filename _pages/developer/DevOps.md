@@ -319,7 +319,7 @@ In sostanza il resolver e' il client che va a contattare il dns server (dnsmasq 
 
 E' sempre possibile testare la risoluzione con `scutil --dns`.
 
-In generale quindi le parti da configurare sono due: **Resolver** (in `/etc/resolver/`) e in questo caso `dnsmasq` (in `/usr/local/etc.dnsmasq.conf`)
+In generale quindi le parti da configurare sono due: **Resolver** (in `/etc/resolver/`) e in questo caso `dnsmasq` (in `/usr/local/etc/dnsmasq.conf`)
 
 > Per Dnsmasq ricordarsi di riavviare il server con `sudo launchctl stop homebrew.mxcl.dnsmasq && sudo launchctl start homebrew.mxcl.dnsmasq`
 
