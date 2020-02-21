@@ -117,6 +117,28 @@ Per pubblicare un bucket s3, ovvero renderlo accessibile da tutto il web seguire
         }
     ]
 }
+
+# + permessi, in particolare il PutObjectAcl mi serve per poter rendere pubblico/privato il singolo oggetto (file)
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:DeleteObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::test-laravel-s3/*",
+                "arn:aws:s3:::test-laravel-s3"
+            ]
+        }
+    ]
+}
 ````
 
 3 - `Autorizzazioni` > settare opportunamente l'accesso pubblico

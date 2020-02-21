@@ -61,6 +61,13 @@ Io ho provato questo:
 ma ve ne sono altri interessanti come [questo box](https://vagrantcloud.com/jitb/boxes/box).
 
 
+### TIPS & TRICKS
+
+- [Hunting down memory leaks with PHP Meminfo](https://www.youtube.com/watch?v=NjIlKlFImlo)
+
+- [Tool to analyze memory leaks](https://github.com/BitOne/php-meminfo)
+
+
 ### Composer
 
 #### TOKEN
