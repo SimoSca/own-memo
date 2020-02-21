@@ -182,3 +182,64 @@ in questo modo copiando il file locale su `user2@127.0.0.1(porta 9999):/file_pat
 
 
 
+### JUMP SERVER
+
+o Host Server: utilizzato sostanzialmente come proxy per accedere a un secondo server (o ulteriore livello), 
+quando ad esempio il server non e' all'interno di un network raggiungibile dal client.
+
+In questo esempio suppongo di avere la chain:
+
+````
+Client --> Host1 --> Host2 --> Host3 ( --> HostDb)
+````
+
+dove per ipotesi `Host{N}` e' accessibile con utente `user{N}` tramite chiave `id_rsa_{N}` presente sul server `N-1`; 
+in questa condizione, il client e' considerabile `Host0`.
+
+Se non ci fossero le chiavi, basterebbe usare `ssh -J user1@Host1, user2@Host2 user3@Host3` ma con le chiavi tutto cambia...
+
+ad esempio con un solo jump mi basterebbe lanciare il comando
+
+````
+ssh -J -i id_rsa_1 user1@Host1 -i id_rsa_2 user2@Host2
+````
+
+Ma con tre server purtroppo l'impiego della virgola e la chiave non funziona (tra l'altro il comando diventerebbe lungo e difficile da ricordare),
+pertanto in questo caso e' necessario modificare il file `~/.ssh/config` secondo quanto segue:
+
+````
+Host jump1
+    HostName Host1
+    User user1
+    IdentityFile <path in client host>/id_rsa_1
+# Host 2 e' raggiungibile da Host 1 con id_rsa_2
+Host jump2
+    HostName Host2
+    IdentityFile <another path in host 1>/id_rsa_2 
+    User user2
+    ProxyJump jump1
+# Host 3 e' raggiungibile da Host 2 con id_rsa_3
+Host jump3
+    HostName Host3
+    IdentityFile <another another path in host 2>/id_rsa_3
+    User user3
+    ProxyJump jump2
+# E da jump3 posso accedere al db: eseguo: mysql -u yyyyyyy -pxxxxxx -h HostDB
+````
+
+Con questo setup posso agilmente eseguire i comandi:
+
+````
+# accesso a jump3 (ma posso anche accedere agli intermedi come ad esempio jump2)
+ssh jump3
+# tunnel mysql (udp redirect): access mysql from client
+ssh -L localhost:3306:HostDB:3306 jump3 -N
+# tunnel mysql mounting local socket: access mysql from client
+ssh -L /tmp/sql.sock:HostDB:3306 jump3 -N
+````
+
+Da notare che negli esempi sopra, l'impiego della socket risulta utile se sul client viene utilizzato un software 
+che non prevede l'impiego dei jump server ma che in ogni caso consente di connettere il client mysql direttamente tramite socket, 
+ad esempio `Sequel Pro` per l macbook.
+
+
