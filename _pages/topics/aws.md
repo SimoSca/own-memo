@@ -38,7 +38,81 @@ Alcune letture utili:
     
 - [id_credentials_mfa_enable_cliapi.html](https://docs.aws.amazon.com/en_us/IAM/latest/UserGuide/id_credentials_mfa_enable_cliapi.html),
     istruzioni via cli
-    
+
+
+
+CLOUDFRONT
+----------
+
+- [CloudFront as reverse proxy](https://medium.com/@davidgurevich_11928/cloudfront-as-a-reverse-proxy-fb6a8dcbed96)
+
+- [CloudFront Pricing advantages](https://aws.amazon.com/blogs/networking-and-content-delivery/dynamic-whole-site-delivery-with-amazon-cloudfront/)
+
+- [CloudFront Cache and Distribution params](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesForwardHeaders)
+
+- [Mod Proxy](https://www.digitalocean.com/community/tutorials/how-to-use-apache-as-a-reverse-proxy-with-mod_proxy-on-centos-7), ovvero come utilizzare cloudfront: gestione lato **origin server**
+
+Some Test:
+
+> Supponiamo che il CNAME impostato su cloudfront sia a.com e che l'origin di cloudfront sia b.org; a.com ovviamente e' un CNAME al DNS di cloudfront
+
+inizialmente, ovvero che le configurazioni di defaulti di CloudFront, sull'origin server avevo un problema perche' eventuali
+redirect lato applicativo rendirizzavano ad esempio a `b.org/auth/token`, anziche' a `a.com/auth/token`, esponendo cosi' l'endpoint che
+cloudfront doveva nascondere.
+Facendo poi alcune prove ho visto che nelle configurazioni del `behaviour`, nella sezione degli Headers, e' necessario mettere almeno l' `Host` header in whitelist,
+in questo modo cloudfront riesce a proxare anche quello Header e cosi' i redirect avvengono correttamente.
+
+Altro punto e' relativo all' https... come per molti proxy, visto che i certificati li gestisco direttamente su cloudfront, 
+voglio evitare di fare questo lavoro anche lato server... per questo su cloudfront ho forzato l'origin per essere contattata solo sulla porta 80.
+Con questa configurazione pero' ho il problema che `a.com` e' in HTTPS, ma `b.org` risponde alla porta 80, quindi in HTTP.
+Fortunatamente per ovviare a questo fatto mi e' bastato impostare `HTTPS on` nel VirtualHost di `apache`.
+
+Rimane il fatto che se sul server voglio filtrare per IP, ovvero fare in modo che solo cloudfront possa contattare il server, senza esporlo,
+devo aggiungere tutti gli ip di cloufront, ottenibili con 
+````
+curl https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | select(.service=="CLOUDFRONT") | .ip_prefix'
+curl https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r '.prefixes[] | select(.service=="CLOUDFRONT") | .ip_prefix'  | tr '\n' ' '
+````
+
+ma anche cosi' ho due problemi:
+
+- questa lista deve essere aggiornata periodicamente
+- chiunque sia a conoscenza di `b.org`, puo' creare una propria distribution che punti a tale dominio 
+
+Per la seconda casistica, potrei quantomeno aggiungere in cloufront un custom header contenente un token di convalida e poi verificarlo lato server,
+ovvero se il token e' `X-CUSTOM-TOKEN` con valore `ab12`, allora lato server per accettare le richieste dovrei verificare la presenza e il valore di questo token.
+
+Altra eventualita' e' l'impiego di un loadbalancer (`ELB` o `ALB`), cosi' lato server potrei svolgere un filtro piu' semplice.
+
+
+### Extra
+
+Alcuni tipi di configurazioni `apache` particolari:
+
+**HTTPS if CloudFront**
+
+````
+SetEnvIf User-Agent ^Amazon Cloudfront$ HTTPS=on
+````
+
+**Force Host Header**
+
+Inside `VirtualHost`:
+
+````
+SetEnvIf X-AwsCloudFront-Host ^(.+)$ custom_override_host=$1
+SetEnvIf X-AwsCloudFront-Host ^$ custom_override_host=<my-default-host.com>
+RequestHeader set Host %{custom_override_host}e
+````
+
+**Forward-For**
+
+Ricordarsi che dietro proxy, e' bene loggare l'ip di origine della richiesta, ad esempio con:
+
+````
+LogFormat "%v:%p %h %{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" proxy
+CustomLog "logs/access_log" proxy
+````
 
 
 TROUBLESHOOTS
