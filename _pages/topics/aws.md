@@ -114,6 +114,56 @@ LogFormat "%v:%p %h %{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \
 CustomLog "logs/access_log" proxy
 ````
 
+### Evolutione
+
+Col trick dell' `X-Forwarded-For` funziona, ma non ancora come dovrebbe. 
+In sostanza lo scopo e' che l'applicativo non debba sapere che davanti a lui vi sono uno o piu' proxy 
+per evitare che in esso vengano forzate logiche come il check dell' `X-Forwrded-For` e simili.
+In pratica bisogna eliminare quandomeno la parte di architettura intrinseca per fare in modo che l'`X-Forwarded-For` e il `$_SERVER['REMOTE_ADDR']`
+non vengano influenzati dall'architettura, che in questo caso si traduce nel fare in modo che CloudFront e il Load Balancer dabbano "scomparire" lato applicativo,
+termine riassumibile col concetto di **Trusted Proxies**.
+
+Nel caso specifico di una configurazione `apache`, questo vuol dire utilizzare il modulo `mod_remoteip` per rimuovere dal most right side dell' `X-Forwarded-For`
+i `trusted proxies`, come illustrato in [https://stackoverflow.com/questions/51393782/how-to-get-client-ip-of-requests-via-cloudfront](https://stackoverflow.com/questions/51393782/how-to-get-client-ip-of-requests-via-cloudfront).
+
+Tutto questo avviene per evitare lo `spoof` dell' `X-Forwarded-For`, con questo esempio di configurazione: 
+
+````
+RemoteIPHeader X-Forwarded-For
+RemoteIPTrustedProxyList conf/trusted-proxies.lst
+RemoteIPInternalProxyList conf/internal-trusted-proxies.lst
+#RemoteIPProxyProtocol On #with ELB?
+````
+
+Dove il file `trusted-proxies.lst` potrebbe essere aggiornato periodicamente mediante un cron che esegua il comando che ho inserito sopra,
+e che successivamente ho scoperto essere identico a quello suggerito a [questa pagina](https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html).
+Il file `internal-trusted-proxies.lst` invece serve per rimuovere gli ip di network interno, ad esempio potrei avere un `10.0.1.0/8` o simili se il load balancer usa una subnet interna. 
+
+Infine terminate queste operazioni, sempre in un eventuale script di aggiornamento, non bisogna dimenticare di inserire un reload di apache,
+ad esempio su AMI linux con `systemctl reload httpd` (meglio un reload che un restart, ma magari aggiungere prima un check con `httpd -t`). 
+
+Vedi anche [https://aws.amazon.com/it/premiumsupport/knowledge-center/elb-capture-client-ip-addresses/](https://aws.amazon.com/it/premiumsupport/knowledge-center/elb-capture-client-ip-addresses/).
+
+### Load Balancer (ALB)
+
+L'impiego del loadbalancer con cloudfront richiede alcune accortezze, principalmente relative alla procedura di creazione dello stesso.
+Vediamo:
+
+- ho creato un `ALB` (application load balancer)
+- come tipologia ho usato un `internet-facing`: inizialmente ho usato `internal`, ma poi non me lo faceva selezionare tra le `origin di cloudfront`
+- bisogna impostare almeno due subnet, di cui una con internet gateway
+
+Ora la cosa curiosa relativa alle subnet: io ne ho impostata una con `internet gateway`, quindi definiamola PUBBLICA e una senza, che considero PRIVATA.
+Con questa configurazione cloudfront (o meglio il loadbalancer), a volte riusciva a soddisfare la richesta, altre volte no.
+Dopo qualche ragionamento ho capito che sostanzialmente falliva perche' provava a utilizzare la subnet PRIVATA, 
+quindi ho risolto creando una nuova subnet con `internet gateway` e andandola a sostituire a quella privata.
+
+> TODO: capire meglio perche' con la privata non funzionava.
+  
+Lato web server l'unica cosa degna di nota e' il fatto che l' ALB lo contatta direttamente tramite IP, 
+quindi su apache va a intercettare l'eventuale `<VirtualHost _default_:80> ... </VirtualHost>`.
+
+
 
 TROUBLESHOOTS
 --------------
