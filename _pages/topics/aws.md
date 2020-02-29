@@ -114,7 +114,7 @@ LogFormat "%v:%p %h %{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \
 CustomLog "logs/access_log" proxy
 ````
 
-### Evolutione
+### Evoluzione
 
 Col trick dell' `X-Forwarded-For` funziona, ma non ancora come dovrebbe. 
 In sostanza lo scopo e' che l'applicativo non debba sapere che davanti a lui vi sono uno o piu' proxy 
@@ -137,12 +137,18 @@ RemoteIPInternalProxyList conf/internal-trusted-proxies.lst
 
 Dove il file `trusted-proxies.lst` potrebbe essere aggiornato periodicamente mediante un cron che esegua il comando che ho inserito sopra,
 e che successivamente ho scoperto essere identico a quello suggerito a [questa pagina](https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html).
-Il file `internal-trusted-proxies.lst` invece serve per rimuovere gli ip di network interno, ad esempio potrei avere un `10.0.1.0/8` o simili se il load balancer usa una subnet interna. 
+Il file `internal-trusted-proxies.lst` invece serve per rimuovere gli ip di network interno, ad esempio potrei avere un `10.0.1.0/8` o simili se il load balancer usa una subnet interna.
+
+> Esempio di cron riportato in [_codes/aws/](_codes/aws/) 
 
 Infine terminate queste operazioni, sempre in un eventuale script di aggiornamento, non bisogna dimenticare di inserire un reload di apache,
 ad esempio su AMI linux con `systemctl reload httpd` (meglio un reload che un restart, ma magari aggiungere prima un check con `httpd -t`). 
 
 Vedi anche [https://aws.amazon.com/it/premiumsupport/knowledge-center/elb-capture-client-ip-addresses/](https://aws.amazon.com/it/premiumsupport/knowledge-center/elb-capture-client-ip-addresses/).
+
+> Nota: per lo `spoof` devo anche garantire che effettivamente il server risponda solo ed esclusivamente al loadbalancer,
+> altrimenti perderei il trust. Fortunatamente questo posso realizzarlo dando all' ALB un security group (diciam ELB-sg) 
+> e quindi sul security group dell'istanza EC2 impostare come regola inbound del traffico HTTP(S) l' ELB-sg come unico attendibile. 
 
 ### Load Balancer (ALB)
 
