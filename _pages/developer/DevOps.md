@@ -64,6 +64,16 @@ When scripts are runned from external processes:
 
 
 
+### RunLevels
+
+In un systema linux possiamo avere il concetto di runlevel, ovvero momento in cui vengono eseguiti gli script.
+Per esempio il comando `chkconfig` puo' visualizzare la lista di script che dovrebbero partire in corrispondenza di determinati eventi.
+Per dettagli:
+
+- [https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/s2-services-chkconfig](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/s2-services-chkconfig)
+
+
+
 ### Send Mail
 
 Various links

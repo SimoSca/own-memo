@@ -114,6 +114,10 @@ LogFormat "%v:%p %h %{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \
 CustomLog "logs/access_log" proxy
 ````
 
+> Note dal servizio d'assistenza:
+> - [https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorCustomOrigin.html#RequestCustomIPAddresses](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorCustomOrigin.html#RequestCustomIPAddresses)
+> - [https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html)
+
 ### Evoluzione
 
 Col trick dell' `X-Forwarded-For` funziona, ma non ancora come dovrebbe. 
@@ -168,6 +172,21 @@ quindi ho risolto creando una nuova subnet con `internet gateway` e andandola a 
   
 Lato web server l'unica cosa degna di nota e' il fatto che l' ALB lo contatta direttamente tramite IP, 
 quindi su apache va a intercettare l'eventuale `<VirtualHost _default_:80> ... </VirtualHost>`.
+
+
+### LOAD BALANCER (ALB, ELB)
+
+Per i load balancer ho trovato questa guida che pone un esempio su come gestirlo per avere separazione tra subnet privata e pubblica:
+
+- [https://itellity.wordpress.com/2014/09/11/creating-an-elb-load-balancer-with-private-subnet-instances-in-a-vpc/](https://itellity.wordpress.com/2014/09/11/creating-an-elb-load-balancer-with-private-subnet-instances-in-a-vpc/)
+
+e questo semplice ma efficace video
+
+- [https://www.youtube.com/watch?v=9Ut0cEWV9NQ](https://www.youtube.com/watch?v=9Ut0cEWV9NQ)
+
+Questo ha uno schemino interessante:
+
+- [http://thebluenode.com/exposing-private-ec2-instances-behind-public-elastic-load-balancer-elb-aws](http://thebluenode.com/exposing-private-ec2-instances-behind-public-elastic-load-balancer-elb-aws)
 
 
 
