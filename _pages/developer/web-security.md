@@ -5,7 +5,16 @@ permalink:  /developer/web-security
 
 La sicurezza web, ma non solo, consta di tanti piccoli accorgimenti e prevenzioni, per le quali bisogna mostrare accortezza.
 
-I principali blocchi da affrontare riguardano autenticazione, persistenza e crittografia. Ciascuno ha degli standard che possono aiutare a capire come comportarsi
+I principali blocchi da affrontare riguardano autenticazione, persistenza e crittografia. Ciascuno ha degli standard che possono aiutare a capire come comportarsi.
+
+
+GENERAL
+-------
+
+Some general concept:
+
+- [Certificate Pinning](https://medium.com/@appmattus/android-security-ssl-pinning-1db8acb6621e)
+- **XSS protection** like this php tool: [https://github.com/voku/anti-xss](https://github.com/voku/anti-xss)
 
 
 ### Secure saltz
@@ -27,6 +36,10 @@ Si usa questo stratagemma poiche' la crittografia antisimmetrica risulta pesante
 
 Per crittografare vi sono vari algoritmi, taluni invertibili(quali base_64url) altri invece non invertibili(HMAC ad esempio). In questo contesto ho trovato una parte interessante in PHP, ovvero gli **Initialization Vector**. Per specifiche meglio vedere uno dei miei `public/Test/Encryption`.
 
+
+
+TOKENS
+------
 
 ### JWT, JWS e JWE
 
