@@ -30,6 +30,14 @@ Build con overrides + kubernetes:
 - [https://jean85.github.io/slides/2018-09-symfony-docker-pugmi/#/5/3](https://jean85.github.io/slides/2018-09-symfony-docker-pugmi/#/5/3)
 
 
+#### Named Volume
+
+Come avere un volume comune su piu' container nello stesso docker-compose 
+senza bisogno di scrivere esplicitamente il path di mount in ciascun service: 
+
+- [http://blog.code4hire.com/2018/06/define-named-volume-with-host-mount-in-the-docker-compose-file/](http://blog.code4hire.com/2018/06/define-named-volume-with-host-mount-in-the-docker-compose-file/)
+
+
 #### Processo Principale PID 1
 
 I container vengono eseguiti con un **processo principale** con **ID 1**.
