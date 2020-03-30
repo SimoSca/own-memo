@@ -302,5 +302,78 @@ e' necessario svolgere azioni extra, ad esempio:
     ````php
     Storage::disk('s3')->put('/users/'.Auth::user()->uuid.'/avatars/small/'.$filename, fopen($small, 'r+'), 'public');
     ````
-  
-  
+
+
+
+CloudFormation and S3
+---------------------
+ 
+La necessita' e' di rendere disponibili delle immagini nella firma mail puntano direttamente a una bellissima sottodirectory “tildeimages” del sito,
+e quello che volevo era fare in modo che quelle immagini fossero sempre raggiungibili anche in caso di down del sito.
+
+Ho risolto con CloudFront, creando un origine che punta a un bucket s3 dedicato a ospitare solo queste immagini, e successivamente su CloudFront ho assegnato un nuovo behavior per gestire i path di tipo  “/tildeimages/*”, ed ecco i passaggi:
+
+### Creazione Bucket s3
+
+Creato  un bucket s3 (mysite-static) e caricato I files nel path “s3://mysite-static/firme/tildeimages”. Ho aggiunto “firme” come directory di partenza cosi’ da poter mappare in maniera esplicita le directory mediante il behavior, 
+cosi’ se un domani dovessimo aggiungere altri enpoint da staticizzare potremmo sempre usa questo bucket.
+La cosa importante che sottolineo e’ il fatto di non aver reso pubblico il bucket, 
+ne tantomeno di averlo configurato per rispondere come semplice web server perche’ ho sfruttato gli “Origin Access Identity” di aws (e che fino a poco fa non conoscevo).
+
+
+### CloudFront – Origin
+
+Sinteticamente ho configurato cosi
+
+    - Origin Domani Name: select specific s3 bucket 
+
+- Origin path: /firme
+
+
+- Restrict Bucket Access: yes
+- Origin Access Identity (create or use an existing... depends on you usage)
+- Grant Read Permission on Bucket: (first time you could select Yes, so that will be generated the policy as above)
+                                 in other cases take "No, I Will Update Permissions"
+
+Quindi per garantire l’accesso al bucket senza sforzo ho usato un “Origin Access Identity”, cosi’ da non poterlo raggiungere in alcun modo.
+La cosa interessante e’ che in questa fase se in “Grant Read Permission” si sceglie “Yes, …” allora nel bucket s3 viene creata la policy
+
+Posso laciare gli accessi pubblici bloccati, perche' su cloudfront ho impostato un Origin Access Identity. Ma nelle policy bucket devo avere
+````
+{
+    "Version": "2008-10-17",
+    "Id": "PolicyForCloudFrontPrivateContent",
+    "Statement": [
+        {
+            "Sid": "1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity XXXXXXXXXX"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::mysite-static/*"
+        }
+    ]
+}
+````
+
+Dove XXXXXXX lo trovo nelle Origin Access Identity su CloudFront. 
+
+
+### CloudFront – Beavior
+
+Sinteticamente le principali configurazioni:
+
+- Path Pattern: tildeimages/*
+
+- Origin or Origin Group: (what created previously)
+- Object Caching: selected "Customize" and taked the defaults
+
+
+E questo e’ tutto.
+
+Due note: 
+
+-   inizialmente dopo aver creato il bucket e configurato il tutto, avveniva un redirect all’url del bucket, ma questo e’ un problema noto e che si risolve automaticamente dopo al + un’ora dalla creazione del bucket (https://forums.aws.amazon.com/thread.jspa?threadID=216814).
+-   Con questo sistema non e’ possibile customizzare i Response Headers (ad esempio il Server risulta essere s3 anziche’ l'eventuale server impostato con apache2/nginx), quindi eventualmente bisognerebbe collegare una LambdaEdge, che penso abbia un costo irrisorio calcolando che non penso avremo milioni di requests per recuperare le immagini nella firma mail 😊
+
