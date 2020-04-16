@@ -67,3 +67,53 @@ adb devices
 adb -s 192.168.14.147:5555
 adb connect 192.168.14.147:5555
 ````
+
+
+
+LINUX - MEMORY FULL
+-------------------
+
+All starts from mysql startup errors like
+
+````
+Apr  6 11:42:08 lamp mysqld: InnoDB: Please refer to
+Apr  6 11:42:08 lamp mysqld: InnoDB: http://dev.mysql.com/doc/refman/5.6/en/innodb-troubleshooting-datadict.html
+Apr  6 11:42:08 lamp mysqld: InnoDB: for how to resolve the issue.
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [ERROR] InnoDB: Table dbTmp/tmp_excel_import in the InnoDB data dictionary has tablespace id 1424223, but tablespace with that id or name does not exist. Have you deleted or moved .ibd files? This may also be a table created with CREATE TEMPORARY TABLE whose .ibd and .frm files MySQL automatically removed, but the table still exists in the InnoDB internal data dictionary.
+...
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [Note] InnoDB: 128 rollback segment(s) are active.
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [Note] InnoDB: Waiting for purge to start
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [Note] InnoDB: 5.6.15 started; log sequence number 38477440181906
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [Note] Server hostname (bind-address): '*'; port: 3306
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [Note] IPv6 is available.
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [Note]   - '::' resolves to '::';
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [Note] Server socket created on IP: '::'.
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [ERROR] /opt/mysql/server-5.6/bin/mysqld: Error writing file '/var/run/mysqld/mysqld.pid' (Errcode: 28 - No space left on device)
+Apr  6 11:42:08 lamp mysqld: 2020-04-06 11:42:08 11247 [ERROR] Can't start server: can't create PID file: No space left on device
+````
+
+So I thought that problem was in memory and I've free 1 GB of space, but with `df -h` I found something strange:
+
+````
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/dm-0        18G  18G   16G  0% /
+udev             10M    0   10M   0% /dev
+````
+
+So it's all used, but i've space available... I've supposed that was a problem in fs corruption, so I've tried:
+```` 
+The simplest way to force fsck filesystem check on a root partition eg. /dev/sda1 
+is to create an empty file called forcefsck in the partition's root directory. 
+This empty file will temporarily override any other settings and force fsck to check the filesystem on the next system reboot
+````
+
+But nomore reboot (hang) because mysql break it! So I log to device in recovery mode and remove the file `/etc/rc2.d/S02mysql`
+And added the file `forcefsck`, then rebooted all..
+
+But mysql still doesn't work! Same problem: memory available but all cooupied... after thinking about it the solution:
+
+> there's about X GB reserved to root, and are completely used!
+
+And I see `0%`, so there's really `X Gb` free for "emergency"... this implies that I need to free more space!
+
+That's it!
