@@ -243,3 +243,58 @@ che non prevede l'impiego dei jump server ma che in ogni caso consente di connet
 ad esempio `Sequel Pro` per l macbook.
 
 
+### DNS and RESOLUTION
+
+Trovo il DNS resolver di uno specifico sito con whois, ad esempio vado in [https://www.whois.net/](https://www.whois.net/) e poi estraggo i **Name Server** per dedurre quelli utilizzati dal provider.
+
+Ad esempio con `example.com` trovo `A.IANA-SERVERS.NET`.
+
+
+A questo punto ispeziono con nslookup
+
+````bash
+myserver:~# nslookup 
+> www.example.com
+Server:		62.149.128.4
+Address:	62.149.128.4#53
+
+Non-authoritative answer:
+Name:	www.example.com
+Address: 93.184.216.34
+> server A.IANA-SERVERS.NET
+Default server: A.IANA-SERVERS.NET
+Address: 199.43.135.53#53
+Default server: A.IANA-SERVERS.NET
+Address: 2001:500:8f::53#53
+> www.example.com
+Server:		A.IANA-SERVERS.NET
+Address:	199.43.135.53#53
+
+Name:	www.example.com
+Address: 93.184.216.34
+> set q=txt
+> www.example.com
+Server:		A.IANA-SERVERS.NET
+Address:	199.43.135.53#53
+
+www.example.com	text = "v=spf1 -all"
+> 
+````
+
+dove uso:
+- `server` per specificare il DNS resolver
+- `q=txt` se sono interessato ai record TXT
+
+eventualmente puo' risultare piu' immediato impiegare DIG, ad esempio (non riporto l'output per brevita')
+
+````
+# non specifico il dns resolver
+dig www.example.com
+# specifico il dns resolver
+dig @8.8.8.8 www.example.com
+# specifico il dns resolver e il fatto che voglio i record txt
+dig @8.8.8.8 -t txt www.example.com
+# Altro ma con diverso server name
+dig @A.IANA-SERVERS.NET -t txt www.example.com
+````
+
