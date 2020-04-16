@@ -110,3 +110,44 @@ a questo punto il server-token verifica la firma digitale del token con la sua s
 Questa sarebbe la sua utilita' in linea di principio: quindi il JWT con questa impostazione **serve al server-token per se stesso**: lui crea il token, lui lo verifica, lui lo ricrea se vuole! in aggiunta al JWT-claims potrei aggiungere un tokenId (jit) se salvassi nel DB del server-token o del server-authentication dati importanti: il `jit` mi potrebbe servire per verificare il token e recuperare l'utente dal DB.
 
 Sempre con questo giro, il JWT non serve assolutamente a trasmettere i messaggi tra client e server! quest'ultima potrebbe essere verificata mediante algoritmo simmetrico se client e server si sono scambiati in modo sicuro una secret.
+
+
+
+2FA/MFA
+-------
+
+MFA like google authenticator... there's various types of Algorithms for MFA, so you can read some information here:
+
+- [HOTP/TOTP](https://security.stackexchange.com/questions/35157/how-does-google-authenticator-work)
+
+- [Here an example code](https://medium.com/@tilaklodha/google-authenticator-and-how-it-works-2933a4ece8c2)
+
+You should always store in papero or in other manner the `CODE` provided when you associate the account to your authenticator
+(inteending the recover code).
+
+Generally you can use the qr code.
+
+Very good article related to backup and mfa transfer [https://www.protectimus.com/blog/google-authenticator-backup/](https://www.protectimus.com/blog/google-authenticator-backup/):
+
+- Backup codes
+- Saving screenshots of the secret keys -> could be the QR code!
+- Programmable hardware token
+
+
+Note about `seed`:
+
+> the QR code is the permanent secret key (seed), used to generate one-time passwords according to the TOTP algorithm. The app scans the QR code and saves this secret key. 
+> Then the app will use the secret key and the current time interval to generate one-time passwords.
+> If you save the secret key, you’ll create exactly the same token next time. 
+> That’s why it is so important to store the saved QR codes in a reliable place.
+
+I've tested:
+
+1. saved qr code picture
+
+2. scan that picture with another MFA authenticator app
+
+3. logged in to the service with the code getted from the authenticator app whose seed is obtained via qr code picture scanned
+
+4. and... **all goes right!!!**
+
