@@ -89,7 +89,7 @@ Strumenti utili per svolgere verifiche relative a esposizioni server e/o IP DNS:
 
 - [https://www.shodan.io/](https://www.shodan.io/), e' un port-scanner in cui posso ad esempio chiedergli di ispezionare le porte aperte su un server
 
-- [https://mxtoolbox.com/](https://mxtoolbox.com/SuperTool.aspx?action=dns%3alogotel.it&run=networktools#), 
+- [https://mxtoolbox.com/](https://mxtoolbox.com/SuperTool.aspx?action=dns%3agoogle.it&run=networktools#), 
     utile per avere informazioni sui DNS (dns lookup, dns check, whois, etc). Anche [qui](https://mxtoolbox.com/NetworkTools.aspx).
 
 
@@ -313,6 +313,58 @@ This file is generated as the first step to "signing" the certificate by a Certi
 
 ca.crt (Certifying Authority certificate) file:
 This file is the bottom link in the "chain of trust" that convinces web browsers and so forth to accept that your certificate is valid. This is done by "signing" the certificate. This is the file that needs to be kept "profoundly secret."
+````
+
+Esempio di script:
+
+````bash
+#!/usr/bin/env bash
+
+set -xe
+
+MYSITE="enomis.ninja"
+CONFIG="self-signed-enomis.conf"
+CONFIGROOT="root-csr.conf"
+DEST="/etc/apache2/ssl/enomis/"
+
+### CREATE CUSTOM SELF-SIGNED ###
+
+if [ ! -d $DEST ] ; then mkdir -p $DEST ; fi
+# csr is just for remember in production
+openssl req -new -sha256 -newkey rsa:2048 -nodes -keyout ${DEST}/${MYSITE}.key -config <( cat "$CONFIG" ) -out ${DEST}/${MYSITE}.csr
+# Eventualmente per test locali provare:
+openssl x509 \
+       -signkey ${DEST}/${MYSITE}.key \
+       -in ${DEST}/${MYSITE}.csr \
+       -req -days 365 -out ${DEST}/${MYSITE}.crt
+openssl x509 \
+       -signkey ${DEST}/${MYSITE}.key \
+       -in ${DEST}/${MYSITE}.csr \
+       -req -days 365 -out ${DEST}/${MYSITE}.crt
+# check information
+#openssl x509 -in ${DEST}/${MYSITE}.crt -text -noout
+## Verify:
+#UNIQ_COUNT=`( \
+#    openssl x509 -noout -modulus -in ${DEST}/${MYSITE}.crt | openssl md5 ; \
+#    openssl rsa -noout -modulus -in ${DEST}/${MYSITE}.key | openssl md5 ; \
+#    openssl req -noout -modulus -in ${DEST}/${MYSITE}.csr | openssl md5
+#) | uniq | wc -l`
+## You should find only one row...
+#if [ $UNIQ_COUNT -ne 1 ] ; then echo "Warning" ; fi
+
+
+### CREATE CUSTOM CA ###
+openssl req -x509 -sha256 -days 3650 -newkey rsa:3072 \
+    -config ${CONFIGROOT} -keyout ${DEST}/rootCA.key \
+    -out ${DEST}/rootCA.crt
+# check information
+#openssl x509 -in ${DEST}/rootCA.crt -text -noout
+
+#UNIQ_COUNT=`( \
+#    openssl x509 -noout -modulus -in ${DEST}/rootCA.crt | openssl md5 ; \
+#    openssl rsa -noout -modulus -in ${DEST}/rootCA.key | openssl md5 ; \
+#) | uniq | wc -l`
+#if [ $UNIQ_COUNT -ne 1 ] ; then echo "Warning" ; fi
 ````
 
 
