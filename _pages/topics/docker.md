@@ -23,6 +23,26 @@ Sempre relativamente a questo punto, vedere **users map** (nota anche come __use
 - [https://www.linux.com/blog/learn/2017/8/hardening-docker-hosts-user-namespaces](https://www.linux.com/blog/learn/2017/8/hardening-docker-hosts-user-namespaces)
 
 
+#### Logging
+
+In Docker risulta utile capire come avviene il log in stdout o stderr del main process del container, per eventualmente aggiungere dei logs che possono tornare comodi.
+
+Il container in genere looga in `/proc/1/fd/1` e `/proc/1/fd/2`, mente ad esempio `/dev/stdout` punta a `/proc/self/fd/1` e quindi potrebbe non andar bene per loggare nel processo principale.
+
+Per dettagli leggere questo bellissimo articolo che analizza in dettaglio i file descriptors e le pipe di PHP-FPM: 
+
+[https://rtfm.co.ua/en/linux-php-fpm-docker-stdout-and-stderr-no-an-applications-error-logs/](https://rtfm.co.ua/en/linux-php-fpm-docker-stdout-and-stderr-no-an-applications-error-logs/).
+
+
+#### Permissions/Users
+
+Per la gestione dei comandi del processo principale di docker con specifici utenti possono tornare utili `su-exec` (alpine) e `gosu` (linux).
+
+Qui un esempio con `su-exec` per php-fpm: 
+
+[https://medium.com/@callback.insanity/forwarding-nginx-logs-to-docker-3bb6283a207](https://medium.com/@callback.insanity/forwarding-nginx-logs-to-docker-3bb6283a207).
+
+
 #### Generic Build
 
 Build con overrides + kubernetes:
