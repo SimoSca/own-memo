@@ -100,6 +100,7 @@ Strumenti utili per svolgere verifiche relative a esposizioni server e/o IP DNS:
 
 - [http://www.linuxjournal.com/article/2156?page=0,1](http://www.linuxjournal.com/article/2156?page=0,1)
 - [http://stackoverflow.com/questions/1507816/with-bash-how-can-i-pipe-standard-error-into-another-process](http://stackoverflow.com/questions/1507816/with-bash-how-can-i-pipe-standard-error-into-another-process)
+- [https://www.linuxjournal.com/content/using-named-pipes-fifos-bash](https://www.linuxjournal.com/content/using-named-pipes-fifos-bash)
 
 #### Fifo
 
