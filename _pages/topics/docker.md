@@ -42,6 +42,10 @@ Qui un esempio con `su-exec` per php-fpm:
 
 [https://medium.com/@callback.insanity/forwarding-nginx-logs-to-docker-3bb6283a207](https://medium.com/@callback.insanity/forwarding-nginx-logs-to-docker-3bb6283a207).
 
+e qui un esempio concreto su come creare un link allo stdout e stderr del main process:
+
+[https://github.com/webdevops/Dockerfile/blob/c4a5b7f22cdce0e33ac87a6e146d56549f528d43/docker/base/ubuntu-18.04/conf/bin/config.sh#L21](https://github.com/webdevops/Dockerfile/blob/c4a5b7f22cdce0e33ac87a6e146d56549f528d43/docker/base/ubuntu-18.04/conf/bin/config.sh#L21)
+
 
 #### Generic Build
 
