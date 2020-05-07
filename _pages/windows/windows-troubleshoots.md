@@ -52,7 +52,7 @@ Inoltre ho trovato, ma non testato, altre soluzioni:
 
 [forum ](http://answers.microsoft.com/en-us/windows/forum/windows_7-performance/why-wont-windows-connect-to-the-group-policy/b73107f8-8447-4599-87a5-65ecc6a63aa0?page=2&auth=1)
 
-[vieo 1](https://www.youtube.com/watch?feature=player_embedded&v=4m5KEmckWK4#t=115)
+[video 1](https://www.youtube.com/watch?feature=player_embedded&v=4m5KEmckWK4#t=115)
 
 
 
@@ -67,3 +67,39 @@ In sostanza:
 - Start --> In run type cmd (as administrator) --> Then "CMD" will be displayed --> 
 - `$ netsh int ip reset resetlog.txt`
 - Reboot your computer
+
+
+
+### Google Chrome
+
+#### browser chrome risulta essere gestito da un organizzazione (managed by orgnization)
+
+Nel mio caso e' capitato dopo un'update di AVG durante il quale e' stata installata l'estensione di AVG per Chrome.
+
+Anzitutto cercando "Chrome Who is my administrator" sono atterrato su una pagina che sostanzialmente confermava che il mio account effettivamente non era soggetto a nessuna organizzazione.
+
+Successivamente in `chrome://policy` nella sezione `Chrome Policies` ho trovato il criterio `QuicAllowed` che prima non esisteva.
+
+**Primo Tentavivo**
+
+A quel punto temendo che si trattasse di un malware ho fatto qualche ricerca e ho trovato 
+questo lungo thread [https://www.ilsoftware.it/articoli.asp?tag=Gestito-dalla-tua-organizzazione-in-Chrome-potrebbe-trattarsi-di-un-malware_19055](https://www.ilsoftware.it/articoli.asp?tag=Gestito-dalla-tua-organizzazione-in-Chrome-potrebbe-trattarsi-di-un-malware_19055). 
+Grazie a esso ho risolto secondo quanto segue:
+
+con `regedit` ho rimosso la chiave `HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome` e dopo aver riavviato il pc tutto e' tornato funzionante.
+
+> Precedentemente avevo rimosso delle estensioni installate e sospette, tra cui anche quella di `AVG` (non sospetta, ma prbabilmente e' lei la colpevole).
+> Ho letto che anche `Avira` puo' giocare questo scherzo.
+
+**Secondo Tentativo**
+
+Inizialmente quanto fatto prima sembrava funzionare ma dopo aver completamente spento e riacceso il computer (e non riavviato e basta),
+e' riapparsa nuovamente la chiave di registro eliminata. Cosi' dopo qualche ricerca specifica in imerito a `QuicAllowed`, ho trovato questo 
+[https://support.avg.com/answers?id=9060N000000gNvAQAU](https://support.avg.com/answers?id=9060N000000gNvAQAU)
+e quindi ho provato anzitutto a rimuovere il flag da AVG: `menu > impostazioni > protezione di base > protezione web > rimosso flag "Abilita scansione QUIC/HTTP3"`; 
+successivamente ho spento, riacceso e magicamente quel flag non appariva piu' nelle policy! (tuttavia la chiave di registro e' ancora presente). 
+
+Eventualmente avrei riprovato a eliminare nuovamente la chiave `HKEY_LOCAL_MACHINE\Software\Policies\Google\Chrome`, verificare che AVG non avesse piu' quel flag e riavviato nuovamente il PC.
+
+> NOTA: non e' detto che sia obbligatorio disabilitare quel flag, infatti il messaggio di chrome in se non indica una vulnerabilita'. 
+
