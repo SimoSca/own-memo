@@ -373,7 +373,11 @@ openssl req -x509 -sha256 -days 3650 -newkey rsa:3072 \
 Nel caso in seguito alla condivisione del `csr` venga generato il certificato pubblico ma senza la `keycahin`,
 essa puo' essere ottenuta fornendo il certificato ssl pubblico ad un sito, ad esempio [https://whatsmychaincert.com/](https://whatsmychaincert.com/)
 
-> L'importante e' inserire il certificato pubblico e/o la csr, ma **MAI** la chiave privata!!! 
+> L'importante e' inserire il certificato pubblico e/o la csr, ma **MAI** la chiave privata!!!
+
+4) least but not last
+
+Verificare i cerficato su qualche sito, ad esempio [https://www.sslshopper.com/ssl-checker.html](https://www.sslshopper.com/ssl-checker.html)
 
 ### DNS SERVER / DNSMASQ
 
