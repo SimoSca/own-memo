@@ -368,6 +368,12 @@ openssl req -x509 -sha256 -days 3650 -newkey rsa:3072 \
 #if [ $UNIQ_COUNT -ne 1 ] ; then echo "Warning" ; fi
 ````
 
+3) verifica della chain (OPZIONALE)
+
+Nel caso in seguito alla condivisione del `csr` venga generato il certificato pubblico ma senza la `keycahin`,
+essa puo' essere ottenuta fornendo il certificato ssl pubblico ad un sito, ad esempio [https://whatsmychaincert.com/](https://whatsmychaincert.com/)
+
+> L'importante e' inserire il certificato pubblico e/o la csr, ma **MAI** la chiave privata!!! 
 
 ### DNS SERVER / DNSMASQ
 
