@@ -70,8 +70,8 @@ adb connect 192.168.14.147:5555
 
 
 
-LINUX - MEMORY FULL
--------------------
+LINUX - MEMORY FULL - 1
+-----------------------
 
 All starts from mysql startup errors like
 
@@ -117,3 +117,56 @@ But mysql still doesn't work! Same problem: memory available but all cooupied...
 And I see `0%`, so there's really `X Gb` free for "emergency"... this implies that I need to free more space!
 
 That's it!
+
+
+LINUX - MEMORY FULL - 2
+-----------------------
+
+Version with some other tests...
+
+````
+Filesystem      Size  Used Avail Use% Mounted on
+udev            2.0G     0  2.0G   0% /dev
+tmpfs           396M   41M  355M  11% /run
+/dev/sda1        76G   72G     0 100% /
+tmpfs           2.0G     0  2.0G   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup
+````
+
+allora ho eliminato un file da 12 GB ma dopo un altro df -h
+
+````
+Filesystem      Size  Used Avail Use% Mounted on
+udev            2.0G     0  2.0G   0% /dev
+tmpfs           396M   41M  355M  11% /run
+/dev/sda1        76G   72G     0 100% /
+tmpfs           2.0G     0  2.0G   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup
+````
+
+quindi di fatto lo spazio non si era liberato... in particolare il file eliminato era /var/www/staging/mercurio_api/storage/logs/laravel.log (deleted)
+allora mi sono ricordato che se elimini un file con rm, e questi e' consumato da un altro processo, allora non si elimina... allora ho provato:
+
+````
+lsof | grep mercurio
+````
+
+e l'output conteneva varie righe di questo tipo:
+
+````
+php       28744       www-data  cwd       DIR                8,1        4096     793762 /var/www/staging/mercurio_api
+php       28744       www-data    6w      REG                8,1 12215545856     830848 /var/www/staging/mercurio_api/storage/logs/laravel.log (deleted)
+````
+
+quindi il file era ancora aperto da altro processo a questo punto ho due opzioni:
+
+- riavviare la coda di supervisor (perche' ho supposto che fosse lui a consumare il file)
+
+- eventualmente provare a forzare l'eliminazione mediante il `file descriptor`, ma questo non l'ho provato sinceramente...
+
+
+A quel punto ho riavviato mysql e tutto e' andato bene :)
+
+
