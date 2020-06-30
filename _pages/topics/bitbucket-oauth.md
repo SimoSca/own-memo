@@ -1,6 +1,6 @@
 ---
-title:      OAuth
-permalink:  /topics/oauth/
+title:      Bitbucket OAuth
+permalink:  /topics/bitbucket-oauth/
 ---
 
 

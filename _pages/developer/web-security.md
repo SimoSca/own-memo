@@ -112,6 +112,20 @@ Questa sarebbe la sua utilita' in linea di principio: quindi il JWT con questa i
 Sempre con questo giro, il JWT non serve assolutamente a trasmettere i messaggi tra client e server! quest'ultima potrebbe essere verificata mediante algoritmo simmetrico se client e server si sono scambiati in modo sicuro una secret.
 
 
+AUTHORIZATION HEADER | TOKEN | HASHING | ENCRYPTING
+---------------------------------------------------
+
+Some good lecture:
+
+- [VERY GOOG EXPLANATION OAUTH - TOKEN ACCESS](https://medium.com/@darutk/oauth-access-token-implementation-30c2e8b90ff0)
+
+- [Authorization Types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization), like `Basic`, `Bearer` and so on
+
+- [Tokens on OAuth 0](https://auth0.com/docs/tokens)
+
+- [HTTP AUTHENTICATION FRAMEWORK](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication)
+
+
 
 2FA/MFA
 -------
