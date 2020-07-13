@@ -377,3 +377,34 @@ Due note:
 -   inizialmente dopo aver creato il bucket e configurato il tutto, avveniva un redirect all’url del bucket, ma questo e’ un problema noto e che si risolve automaticamente dopo al + un’ora dalla creazione del bucket (https://forums.aws.amazon.com/thread.jspa?threadID=216814).
 -   Con questo sistema non e’ possibile customizzare i Response Headers (ad esempio il Server risulta essere s3 anziche’ l'eventuale server impostato con apache2/nginx), quindi eventualmente bisognerebbe collegare una LambdaEdge, che penso abbia un costo irrisorio calcolando che non penso avremo milioni di requests per recuperare le immagini nella firma mail 😊
 
+
+
+ACTIONS
+=======
+
+Resize Attached Volume
+----------------------
+
+Vado sul volume (che non e' il root, ma e' una partizione montata in /data) e poi `Modify`, cosi' lo amplio.
+
+Dopo aver confermato in `state` vedo `in-use optimizing (x%)` e ci mette un bel po ad arrivare al 100% (almeno 15 minuti)
+nel mentre posso verificare con `lsblk` e con `df -h` che il resize sta avvenendo, in particolare se tutto torna con lsblk, in ogni caso probabilmente non torna col `df -Th` (con T mi fa vedere anche il type, utile per il punto sotto), 
+quindi devo fare altro...
+
+Altro: guardo il tipo di partizione che devo verificare (ad esempio cat `/etc/fstab` o `df -hT`) e ad esempio vedo che e' `ext4`: in questo caso (`ext4`) provo a lanciare
+
+````sh
+# modificare il volume in base al proprio
+sudo resize2fs /dev/xvdb1 
+````
+
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requesting-ebs-volume-modifications.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requesting-ebs-volume-modifications.html) , resize volume
+[https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html) , update instance stato for new size
+
+#### In pratica:
+
+visto che era una partizione e non il volume di root, ho potuto ampliare senza bisogno di stoppare l'istanza. 
+Il volume ci ha messso circa 45 minuti arrivare da uno statuts "optimizing" allo stato normale in verde (da 50 GB a 150 GB). 
+Una volta terminato con `lsblk` ho visto che era tutto ok, mentre con `df -Th` ho visto che il blocco non era aggiornato, 
+quindi avendo visto che e' ext4 ho eseguito `sudo resize2fs /dev/xvdb` e cosi' anche i blocchi sono stati aggiornati. 
+
