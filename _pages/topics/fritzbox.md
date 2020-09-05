@@ -80,6 +80,3 @@ In questo caso posso guardare filmati, ascoltare musica, etc, ma assolutamente N
 questo vuol dire che non posso caricare nuove canzoni, rimuoverne o altro... 
 e' proprio per questo motivo che mi e' servito abilitarlo come NAS, ovvero per non dover continuamente staccare e riattaccare l'USB dal PC per la gestione dei media.
 
-
-
-
