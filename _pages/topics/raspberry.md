@@ -53,7 +53,7 @@ I passaggi sono quindi
     
 A questo punto suggerisco subito un 
 
-````shell script
+````bash
 apt update
 # Opzionale
 apt upgrade 
@@ -249,7 +249,7 @@ Contestualmente e' utile anche predisporre dei cron:
 A questo punto si puo' pensare di procedere anche con **SAMBA**, che server per rendere alcuni volumi locali accessibili via network
 (ovvero renderli `volumi di rete`).
 
-````shell script
+````bash
 apt install -y samba
 cp /etc/samba/smb.conf /etc/samba/smb_`date +"%Y-%m-%d"`.conf
 ````
@@ -269,14 +269,14 @@ Dove `raspy-nas-4` diventera' il nome che vedo nel file manager (browsing).
 A questo punto posso avviare samba, e configurare la password d'accesso 
 (sostanzialmente quando provo a montare il volume di network in locale, mi richiede "utente" e "password" per garantire che non tutti possano accedere alla risorsa di rete)
 
-````shell script
+````bash
 smbpasswd -a <username>
 service smbd start/restart
 ````
 
 In caso di problemi di network provare ad esempio
 
-````shell script
+````bash
 ufw allow samba #-> not used...
 ````
 
@@ -286,7 +286,7 @@ Per essere tutto visibile da SMART TV, devo installare un server DLNA, ad esempi
 [qui un tutorial](https://mauriziosiagri.wordpress.com/2012/11/18/minidlna-un-server-dlna-leggero-ed-efficace-in-ubuntu-linux/)
 in base al quale ho poi dedotto quanto segue:
 
-````shell script
+````bash
 cp /etc/minidlna.conf /etc/minidlna_`date +"%Y-%m-%d"`.conf
 ln -s /media/nas3/Anime /var/lib/minidlna/Anime
 sudo service minidlna stop
