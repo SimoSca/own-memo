@@ -11,6 +11,10 @@ Nozioni Generali
 
 - `gpg` per criptare e decriptare dati su linux
 
+- [permissions](#permissions)
+
+- [sytemd](#systemd)
+
 
 Permissions
 -----------
@@ -197,3 +201,181 @@ and in this folder there's a file with permission 600, then "other" user CAN DEL
 
 
  
+SYSTEMD
+-------
+
+Systemd is a very powerful system to manage services and dependency.
+
+For basic usage you have just to setup a specific `/etc/stystemd/system/<my>.service` file, 
+or for advanced boot/power-on scopes you can also take advantage of parallel services starting via `socket`, both network and unix socket domain.
+
+In this section it will be treat:
+
+- [Basic Examples](#basic-examples), with extra notes
+- [Unix Socket Domain](#unix-socket-domain)
+
+### Basic Examples
+
+
+#### Example OneShot - 1
+
+Whit a service like this:
+
+````editorconfig
+[Service]
+TimeoutStartSec=0
+Restart=always
+RestartSec=60s
+Type=notify
+NotifyAccess=all
+ExecStart=/enomis-raspy/infrastructure/init_all.sh
+````
+The `init_all.sh` command should be a process without termination.
+
+If process terminates (or exit with some status code), after `RestartSec` seconds the process will retry to start, according to `Restart=always` option.
+
+`systemctl start enomis` will output
+
+````
+Job for enomis.service failed because the service did not take the steps required by its unit configuration.
+See "systemctl status enomis.service" and "journalctl -xe" for details.
+````
+
+#### Example OneShot - 2
+
+Whit a service like this:
+
+````editorconfig
+[Service]
+TimeoutStartSec=0
+Type=notify
+NotifyAccess=all
+ExecStart=/enomis-raspy/infrastructure/init_all.sh
+````
+The `init_all.sh` command should be a process without termination.
+
+`systemctl start enomis` will output
+
+````
+Job for enomis.service failed because the service did not take the steps required by its unit configuration.
+See "systemctl status enomis.service" and "journalctl -xe" for details.
+````
+
+In this case `systemd` doesn't try to restart because there's no `Restart` option, but `systemctl` consider it as a failure
+(same output of previous test).
+
+#### Example OneShot - 3 - It works!
+
+Whit a service like this:
+
+````editorconfig
+[Service]
+TimeoutStartSec=0
+Type=oneshot
+NotifyAccess=all
+ExecStart=/enomis-raspy/infrastructure/init_all.sh
+````
+The `init_all.sh` command should be a process without termination.
+
+`systemctl start enomis` will output nothing and `echo $?` returns 0: that is it works and is right conumed by `systemctl`!
+
+Changing `Type=oneshot` is the solution.
+
+`systemctl status enomis` shows `Active: inactive (dead)`.
+
+Eventually, you can specify **RemainAfterExit=true** so that systemd considers the service as active after the setup action is successfully finished, that is:
+
+````editorconfig
+[Service]
+TimeoutStartSec=0
+Type=oneshot
+RemainAfterExit=true
+NotifyAccess=all
+ExecStart=/enomis-raspy/infrastructure/init_all.sh
+````
+and this time `systemctl status enomis` shows `Active: active (exited) since Sat 2020-11-07 14:17:19 UTC; 15s ago`,
+that is consider as active even if the script is exited!
+
+#### Example Daemon - 1
+
+````editorconfig
+[Service]
+TimeoutStartSec=0
+# the service will be restarted regardless of whether it exited cleanly or not, got terminated abnormally by a signal, or hit a timeout.
+Restart=always
+RestartSec=60s
+# Consider to use "forking" to avid command to stay appended into shell (init_all_systemd.sh is basically a daemon
+Type=notify
+NotifyAccess=all
+KillMode=process
+ExecStart=/enomis-raspy/infrastructure/init_all_systemd.sh
+````
+
+In this case the script runs as daemon, and I have the follows:
+
+- if start via `systemctl start enomis` or `systemctl restart enomis` the script is runned and attached to current shell,
+  this means that that does not background its self and stays attached to the shell.
+    - Performing `ctrl+c` doesn't cause `stop` of comman
+    - I need to run `systemctl stop enomis` to effectively stop the process (see `systemctl status enomis`)
+
+- `reboot` the system works right and `systemctl` starts the service `enomis` as expected
+
+#### Example Daemon - 2
+
+````editorconfig
+[Service]
+TimeoutStartSec=0
+# the service will be restarted regardless of whether it exited cleanly or not, got terminated abnormally by a signal, or hit a timeout.
+Restart=always
+RestartSec=60s
+Type=forking
+PIDFile=/var/run/enomis/enomis.pid
+NotifyAccess=all
+KillMode=process
+ExecStart=/enomis-raspy/infrastructure/init_all_systemd.sh
+````
+In this case systemd expects that the main commands forked itself... and should be the command itself to take care of creting and manging the PID file
+
+````shell
+#!/bin/bash
+
+# Run the following code in background:
+(
+    while keep_running; do
+        do_something
+    done
+) &
+
+# Write pid of the child to the pidfile:
+echo "$!" >/run/daemon.pid
+exit
+````
+
+and you should set some extra options into service, like
+
+````editorconfig
+[Service]
+# ... all previous directives
+ExecReload=/bin/kill -1 -- $MAINPID
+ExecStop=/bin/kill -- $MAINPID
+````
+
+**but this usage is discouraged by `systemd`** because is predominantly used into legacy service.
+
+A well explanation [here](https://unix.stackexchange.com/questions/460321/which-pid-belongs-into-the-systemd-pidfile-section-when-creating-a-shell-script).
+
+#### RECAP
+
+> Using `Restart` with standard commands (intendeed as processes that do something and then terminates) or daemon,
+is very similar to what happens using `supervisord` linux utility.
+
+
+#### REFS
+
+- [Good docker tutorial](https://blog.container-solutions.com/running-docker-containers-with-systemd), NON TRIVIAL
+
+- Some useful site in Google via `systemctl start docker container`
+
+
+
+### Unix Socket Domain
