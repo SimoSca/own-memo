@@ -385,6 +385,8 @@ ACTIONS
 Resize Attached Volume
 ----------------------
 
+Per svolgere resize/enlargement di un volume EBS, ricordarsi che e' lvm e si puo' quindi fare anche senza riavvio!
+
 Vado sul volume (che non e' il root, ma e' una partizione montata in /data) e poi `Modify`, cosi' lo amplio.
 
 Dopo aver confermato in `state` vedo `in-use optimizing (x%)` e ci mette un bel po ad arrivare al 100% (almeno 15 minuti)
