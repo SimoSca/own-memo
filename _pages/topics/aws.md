@@ -400,6 +400,9 @@ Altro: guardo il tipo di partizione che devo verificare (ad esempio cat `/etc/fs
 sudo resize2fs /dev/xvdb1 
 ````
 
+> NOTA:
+> questo comando lo posso lanciare anche mentre il volume e' in stato `in-use - optimizin` e vedere gia' l'effetto, quindi non devo aspettare nulla.
+
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requesting-ebs-volume-modifications.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/requesting-ebs-volume-modifications.html) , resize volume
 [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recognize-expanded-volume-linux.html) , update instance stato for new size
 
