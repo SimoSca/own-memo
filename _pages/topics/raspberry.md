@@ -318,3 +318,126 @@ DOCKER
 
 Compilazione multi architetuttura: tutorial semplice e chiaro [qui](https://ludusrusso.cc/2018/06/29/docker-raspberrypi/).
 
+
+
+Versioning
+==========
+
+### first install
+
+# obtain ifconfig
+apt install net-tools
+cp /etc/fstab /etc/fstab_`date +"%Y-%m-%d"`_original
+# each usb is a "NAS"
+mkdir /media/nas-250G/
+mkdir /media/nas-16G/ 
+chown -R ubuntu:ubuntu /media/nas-*
+
+`/etc/fstab`
+# My Nas
+UUID=832C-83A6	/media/nas-250G	vfat	defaults,uid=ubuntu,gid=ubuntu	0	0
+UUID=0CD4-5C65	/media/nas-16G	vfat	defaults,uid=ubuntu,gid=ubuntu	0	0
+
+````sh
+# 5120 is 5GB (~4/5 minutes)
+dd if=/dev/zero of="/swapfile" bs=1M count="5120" || \
+{ >&2 echo "[ERROR] dd command fails. Ensure provided path exists." ; return 1 ; }
+mkswap /swapfile
+swapon /swapfile
+````
+
+`/etc/fstab`
+# Custom
+/swapfile	none	swap	sw	0	0
+
+
+apt install -y samba
+cp /etc/samba/smb.conf /etc/samba/smb_`date +"%Y-%m-%d"`.conf
+
+[raspy-nas-250GB]
+    comment = Enomis Rapsy 250 GB SMB
+    path = /media/nas-250GB
+    read only = no
+    browsable = yes
+    #writeable = yes #-> forse non serve...
+
+[raspy-nas-16GB]
+    comment = Enomis Rapsy 16 GB SMB
+    path = /media/nas-16GB
+    read only = no
+    browsable = yes
+    #writeable = yes #-> forse non serve...
+
+
+
+apt install -y minidlna
+cp /etc/minidlna.conf /etc/minidlna_`date +"%Y-%m-%d"`.conf
+
+ln -s /media/nas-250G/Anime /var/lib/minidlna/Anime
+ln -s /media/nas-250G/Music /var/lib/minidlna/Music
+
+In `/etc/minidlna.conf`
+# Set custom media server name
+friendly_name=MediaServer EnomisRaspy
+# Enable simlinks usage
+wide_links=yes
+
+service minidlna restart
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+testare nuovi valori:
+sysctl vm.swappiness=10
+sysctl vm.vfs_cache_pressure=50
+
+rendere permanente
+vim /etc/sysctl.conf -> 
+    vm.swappiness=10
+    vm.vfs_cache_pressure=50
+oppure creo file in /etc/sysctl.d/<enomis.conf>
+
+
+
+
+
+
+````sh
+### Device:
+### Ubuntu 18.04 LTS - Ubuntu 20.04 LTS
+
+apt-get install -y docker.io docker-compose
+systemctl enable --now docker
+
+# Docker completion https://docs.docker.com/compose/completion/
+#curl -L https://raw.githubusercontent.com/docker/compose/1.25.4/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+curl -L "https://raw.githubusercontent.com/docker/compose/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')/contrib/completion/bash/docker-compose" -o /etc/bash_completion.d/docker-compose
+
+
+# Abilitato auto-completion per tutti gli utenti:
+`/etc/bash.bashrc` aggiunto: `if [ -f "/etc/profile.d/bash_completion.sh" ] ; then source /etc/profile.d/bash_completion.sh ; fi`
+
+usermod -a -G docker ubuntu
+
+systemctl status docker
+````
+
+Test server:
+
+````shell
+#mkdir -p /enomis/docker/infrastructure
+mkdir -p /enomis/docker/projects/http-hello/
+````
+
+Provato nginx di test in htto-hello con porta 8080 e aperto sul firewall
+
+
+Ora provo acme-dns:
+
+https://github.com/joohoi/acme-dns/
+
+needs two volumes:
+
+- config file, for example `config/config.cfg`
+- sqlite database folder, for example ` dbdata-sqlite3/`
+
+https://github.com/joohoi/acme-dns/
+
