@@ -7,6 +7,8 @@ permalink:  /topics/fritzbox/
 
 Sections:
 
+- [As router only](#router-only) , used in cascade to `Vodafone Station`
+
 - [NAS](#nas)
 
 NAS
@@ -79,4 +81,62 @@ ovvero come strumento per collegarmi ad esempio con Smart Devices, Smart TV, etc
 In questo caso posso guardare filmati, ascoltare musica, etc, ma assolutamente NON POSSO GESTIRE NULLA:
 questo vuol dire che non posso caricare nuove canzoni, rimuoverne o altro... 
 e' proprio per questo motivo che mi e' servito abilitarlo come NAS, ovvero per non dover continuamente staccare e riattaccare l'USB dal PC per la gestione dei media.
+
+
+As router only
+==============
+
+Use FritzBox in cascade to `Vodafone Station`, that is use Vodafone Station as modem to gain internet access (and Vodafone Internet Provider montiros it),
+and maintain routing and controls with My Fritzbox, for example no lost IP mapping/naming configured into FritzBox and maintain the MESH system benefits.
+
+Fritzbox in cascata Vodafone Station
+------------------------------------
+
+
+
+### Tratto da quanto segue:
+
+
+Tratto da https://www.youtube.com/watch?v=8-QXboI3G0k
+
+0. A livello fisico si dovrà usare un cavo Ethernet per collegare una qualsiasi porta Ethernet della Vodafone Station alla porta WAN del FritzBox
+
+1. interfaccia VSR (Vodafone Station Revolution)
+
+    - "internet" > "Host Nat Statico"
+    - Nella configurazione normale `Host Nat Statico` e' disabilitato, ma io lo abilito e da `0.0.0.0` che era lo configurao a `192.168.1.3`
+
+2. interfaccia FritzBox
+
+    - Internet > Dati di accesso > "Provider Internet" seleziono "accesso disponibile via WAN" e poi applico
+    - ottengo un messaggio tipo `Il FRITZ!Box ha ricevuto un nuovo indirizzo IP ed è ora raggiungibile a 192.168.188.1.`
+    - nel mio caso avevo customizzato la `192.168.178.1` quindi devo fare ulteriore passaggio
+    - Rete Locale > Rete , Tab "Impostazioni di rete" e da li nella sezione "Indirizzi IP" clicco su "Configurazione IPV4"
+    - dall'interfaccia appena raggiunta, posso riconfigurare l'indirizzo ipv4 della rete locale a `192.168.178.1`
+    
+
+Fin qui tutto OK, ma di fatto non raggiungevo internet, cosi' guardando nel fritzbox ho visto questa sezione:
+
+![alt text](images/topics/fritzbox/frizbox_view.png)
+
+dove contrariamente all'immagine, alla riga `Internet,IPv4` il pallino era grigio e di fatto non ero connesso a internet.
+Da quella riga però ho ipotizzato che quello doveva essere l'ip del Nat Statico della vodafone station, 
+ovvero che in realtà dato che la Vodafone Station nel collegamento Ethernet aveva dato al FritzBox l'IP `192.168.1.2`,
+allora questi doveva essere l'ip configurato come NAT STATICO, come in questo screenshot:
+
+![alt text](images/topics/fritzbox/vodafone_station_view.png)
+
+Quindi di fatto, almeno nel mio caso, conviene prima collegare gli apparecchi, poi configurare il fritzbox, 
+e solo dopo impostare la Vodafone Station come NAT Statico.
+
+Altri dettagli su configurare la Vodafone Station come Modem Alternativo:
+
+- https://www.vodafone.it/portal/Aziende/Piccole-e-Medie-Aziende/Supporto/Rete-fissa/Telefoni-e-dispositivi/Vodafone-Modem-Libero/Parametri-di-configurazione
+
+
+#### Video
+
+- https://www.youtube.com/watch?v=8-QXboI3G0k , questo spiega bene
+- https://www.youtube.com/watch?v=pKjT4Rd5seQ
+- https://www.youtube.com/watch?v=3eEfcGqX9Oc , questo giusto per vedere i collegamenti
 
