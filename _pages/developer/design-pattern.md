@@ -21,6 +21,7 @@ Termini ed argomenti generici per creazione di codice:
 
 - curried functions: modo per gestire funzioni con + argomenti: vedi [https://blog.carbonfive.com/2015/01/14/gettin-freaky-functional-wcurried-javascript/](https://blog.carbonfive.com/2015/01/14/gettin-freaky-functional-wcurried-javascript/). Es di libreria javascript che la usa e' `Ramda`
 
+- most famous pattern here [https://refactoring.guru/design-patterns/php](https://refactoring.guru/design-patterns/php)
 
 
 Design Pattern
@@ -37,7 +38,7 @@ Indubbiamente importanti! Dato che ve ne sono un'infinita' al piu numerabile, el
 
 Vedi questo tutorial semplice e immediato:
 
-[http://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
+[https://it.phptherightway.com/pages/Design-Patterns.html](http://it.phptherightway.com/pages/Design-Patterns.html)
 
 Altri path interessanti sono visualizzabili al link
 
@@ -85,6 +86,63 @@ per quello potrebbe andar bene un adapter.
 
 
 Vedi [https://www.culttt.com/2015/01/14/command-query-responsibility-segregation-cqrs/](https://www.culttt.com/2015/01/14/command-query-responsibility-segregation-cqrs/)
+
+
+### NOT PATTERNS
+
+Quelli di seguito non sono dei veri e propri pattern, ma use cases che comunque possono essere interessanti, 
+anche e solo a livello accademico.
+
+#### Natural Language Simulation
+
+non so bene quale sia il termine relmente corretto per riferirsi a questo caso (e quindi non so come cercarlo "nell'internet").
+Mi riferisco a una serie i classi che servono per costriuire dei linguaggi naturali, come ad esempio i `query builder` 
+come quello offerto da `Eloquent` (`Laravel`), che simila il costrutto nativo del linguaggio di query `$qb->select()->where()->orWhere()->limit()`.
+Probabilmente il pattern piu' attinente a questa casistica e' il `Builder`.
+
+Un caso pratico interessante potrebbe essere l'uso delle **conditions** infatti quando si costruiscono un'insieme di condizioni dentro agli if,
+stiamo simulando di molto il linguaggio naturale (letto cosi' e fa cosi').
+
+[Qui]((https://pimcore.com/docs/pimcore/current/Development_Documentation/Tools_and_Features/Targeting_and_Personalization/Conditions.html)) un esempio banale di classe di condizione:
+considerando che sostanzialmente ogni condizione deve offrire un booleano, ed inoltre ipotizzando anche l'associativita' con parentesi (`a and not b and (c or d) or e), 
+un esempio di "condition builder" che implementa questo potrebbe essere
+
+````php
+<?php
+$cb = new ConditionsBuilder();
+$cond = $cb->condition(ClassCondA)->and()->not()->condition(ClassCondB)->and()->condition(function(ConditionBuilderInterface $cb2){
+    return $cb2->contition(ClassCondC)->or()->condition(ClassCondD);
+})->or()->condition(ClassCondE);
+$isOk = $cond->check();
+$cb->reset(); // or get new $cb2 = $cb->new(); or clone the actual $cb->clone(); 
+echo $cond;
+````
+
+se poi implementasse un `_toString()` come ipotizzato, diverrebbe fantastico anche al fine di debug.
+
+Poi la cosa ancora migliore sarebbe anche associargli un `Lexer` (lessico) per verificare che la query sia costruita secondo specifiche regole,
+ad esempio due congiunzioni logiche consecutive `->or()->and()->` o che termini con `->not()` dovrebbe essere considerato inconsistente!
+
+Interessante potrebbe essere anche un print dei risultati booleani, cosi' da capire come ogni singola condizione passata fosse true o false (con pretty print ad esempio);
+
+Vedi qui sotto per il Lexer.
+
+> il concetto di `Conditions` potrebbe sposarsi bene anche coi `Validators`, che potrebbero essere i wrapper di un insieme di Conditions;
+
+
+#### Lexer
+
+Qui un esempio base di `Token` (singola componente del linguaggio), `Lexer` e `Parser` che effettivamente puo' essere messo in aggiunta
+a tutti i pacchetti che prevedano una creazione di un builder proprio di linguaggio (query builder ad esempio), cosi' da verificare a priori varie inconsistenze:
+
+- [https://www.codediesel.com/php/building-a-simple-parser-and-lexer-in-php/](https://www.codediesel.com/php/building-a-simple-parser-and-lexer-in-php/)
+
+#### Expression
+
+Sempre ricollegato a questo tema di conversione tra gestione a classi e uso di un linguaggio logico, abbiamo le espressioni,
+ma contrariamente a quanto visto sopra, tutto passare da linguaggio nativo a costrutto in php:
+
+- [https://symfony.com/doc/current/components/expression_language/syntax.html](https://symfony.com/doc/current/components/expression_language/syntax.html)
 
 
 
