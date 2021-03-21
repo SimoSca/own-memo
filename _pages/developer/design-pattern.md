@@ -19,7 +19,7 @@ Termini ed argomenti generici per creazione di codice:
 
 - continuous integration 
 
-- curried functions: modo per gestire funzioni con + argomenti: vedi [https://blog.carbonfive.com/2015/01/14/gettin-freaky-functional-wcurried-javascript/](https://blog.carbonfive.com/2015/01/14/gettin-freaky-functional-wcurried-javascript/). Es di libreria javascript che la usa e' `Ramda`
+- curried functions: modo per gestire funzioni con + argomenti: vedi [https://blog.carbonfive.com/2015/01/14/gettin-freaky-functional-wcurried-javascript/](https://blog.carbonfive.com/2015/01/14/gettin-freaky-functional-wcurried-javascript/). Es di libreria javascript che la usa è `Ramda`
 
 - most famous pattern here [https://refactoring.guru/design-patterns/php](https://refactoring.guru/design-patterns/php)
 
@@ -27,7 +27,7 @@ Termini ed argomenti generici per creazione di codice:
 Design Pattern
 ---------------
 
-Indubbiamente importanti! Dato che ve ne sono un'infinita' al piu numerabile, elenco solo quelli che reputo piu importanti:
+Indubbiamente importanti! Dato che ve ne sono un'infinità al piu numerabile, elenco solo quelli che reputo piu importanti:
 
 - `reactor` , implementato ad esempio nella gemma `EventMachine` di `ruby`
 - `setter injection` e `interface injection`
@@ -73,7 +73,7 @@ DESIGN SPECIFICI
 #### Repository Pattern
 
 Tra le teorie lette, credo che una delle migliori interpretazioni consti nel supporre che questo pattern lavori in ottica di dominio,
-ovvero che i suoi metodi gestiscano le entita', e che quindi esso non debba occuparsi di svolgere direttamente query a DB e serializzazioni:
+ovvero che i suoi metodi gestiscano le entità, e che quindi esso non debba occuparsi di svolgere direttamente query a DB e serializzazioni:
 per quello potrebbe andar bene un adapter.
 
 - [https://deviq.com/repository-pattern/](https://deviq.com/repository-pattern/)
@@ -98,13 +98,13 @@ anche e solo a livello accademico.
 non so bene quale sia il termine relmente corretto per riferirsi a questo caso (e quindi non so come cercarlo "nell'internet").
 Mi riferisco a una serie i classi che servono per costriuire dei linguaggi naturali, come ad esempio i `query builder` 
 come quello offerto da `Eloquent` (`Laravel`), che simila il costrutto nativo del linguaggio di query `$qb->select()->where()->orWhere()->limit()`.
-Probabilmente il pattern piu' attinente a questa casistica e' il `Builder`.
+Probabilmente il pattern più attinente a questa casistica è il `Builder`.
 
 Un caso pratico interessante potrebbe essere l'uso delle **conditions** infatti quando si costruiscono un'insieme di condizioni dentro agli if,
-stiamo simulando di molto il linguaggio naturale (letto cosi' e fa cosi').
+stiamo simulando di molto il linguaggio naturale (letto così e fa così).
 
 [Qui]((https://pimcore.com/docs/pimcore/current/Development_Documentation/Tools_and_Features/Targeting_and_Personalization/Conditions.html)) un esempio banale di classe di condizione:
-considerando che sostanzialmente ogni condizione deve offrire un booleano, ed inoltre ipotizzando anche l'associativita' con parentesi (`a and not b and (c or d) or e), 
+considerando che sostanzialmente ogni condizione deve offrire un booleano, ed inoltre ipotizzando anche l'associatività con parentesi (`a and not b and (c or d) or e), 
 un esempio di "condition builder" che implementa questo potrebbe essere
 
 ````php
@@ -123,7 +123,7 @@ se poi implementasse un `_toString()` come ipotizzato, diverrebbe fantastico anc
 Poi la cosa ancora migliore sarebbe anche associargli un `Lexer` (lessico) per verificare che la query sia costruita secondo specifiche regole,
 ad esempio due congiunzioni logiche consecutive `->or()->and()->` o che termini con `->not()` dovrebbe essere considerato inconsistente!
 
-Interessante potrebbe essere anche un print dei risultati booleani, cosi' da capire come ogni singola condizione passata fosse true o false (con pretty print ad esempio);
+Interessante potrebbe essere anche un print dei risultati booleani, così da capire come ogni singola condizione passata fosse true o false (con pretty print ad esempio);
 
 Vedi qui sotto per il Lexer.
 
@@ -132,8 +132,8 @@ Vedi qui sotto per il Lexer.
 
 #### Lexer
 
-Qui un esempio base di `Token` (singola componente del linguaggio), `Lexer` e `Parser` che effettivamente puo' essere messo in aggiunta
-a tutti i pacchetti che prevedano una creazione di un builder proprio di linguaggio (query builder ad esempio), cosi' da verificare a priori varie inconsistenze:
+Qui un esempio base di `Token` (singola componente del linguaggio), `Lexer` e `Parser` che effettivamente può essere messo in aggiunta
+a tutti i pacchetti che prevedano una creazione di un builder proprio di linguaggio (query builder ad esempio), così da verificare a priori varie inconsistenze:
 
 - [https://www.codediesel.com/php/building-a-simple-parser-and-lexer-in-php/](https://www.codediesel.com/php/building-a-simple-parser-and-lexer-in-php/)
 
