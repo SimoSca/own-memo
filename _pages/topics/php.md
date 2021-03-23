@@ -70,6 +70,12 @@ ma ve ne sono altri interessanti come [questo box](https://vagrantcloud.com/jitb
 
 ### Composer
 
+`composer` is related to semantic versioning and you have to understand the difference between the carte (`^`) and tilde (`~`).
+
+You can see the documentation, but here there's a post that point out the real and practical difference:
+
+- [https://www.javaer101.com/en/article/16332478.html](https://www.javaer101.com/en/article/16332478.html)
+
 #### TOKEN
 
 
