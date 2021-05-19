@@ -298,3 +298,19 @@ dig @8.8.8.8 -t txt www.example.com
 dig @A.IANA-SERVERS.NET -t txt www.example.com
 ````
 
+
+### EPHEMERAL PORT
+
+With `cat /proc/sys/net/ipv4/ip_local_port_range` I can see what ports are ephemeral, that is consumed and released at runtime by the system.
+This concept is in contrast with `well-known ports` (from 0 to 1024) and `registered ports`.
+
+For example if I want to use a non standard port for SFTP, 
+I choose a port outside the ephemeral range (`cat /proc/sys/net/ipv4/ip_local_port_range`) and not yet `registered` (search in google standard registered ports to have a list).
+
+Some refs:
+
+- https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+- https://en.wikipedia.org/wiki/Ephemeral_port
+-
+- https://ma.ttias.be/linux-increase-ip_local_port_range-tcp-port-range/
+- https://www.thegeekdiary.com/how-to-reserve-a-port-range-for-a-third-party-application-in-centos-rhel/
