@@ -78,6 +78,11 @@ openssl rsautl -verify -pubin -inkey rsa_key.pub -in secret.dat
 openssl rsautl -decrypt -inkey rsa_key.pri -in encrypted.txt
 ````
 
+> NOTE:
+> 
+> using standard `ssh-keygen -t rsa [...]` not works because rsa public and private key are in openssh format, 
+> while the commands above expects keys in openssl format. 
+
 ### Authorization and Authentication
 
 The 
