@@ -124,7 +124,7 @@ Da quella riga però ho ipotizzato che quello doveva essere l'ip del Nat Statico
 ovvero che in realtà dato che la Vodafone Station nel collegamento Ethernet aveva dato al FritzBox l'IP `192.168.1.2`,
 allora questi doveva essere l'ip configurato come NAT STATICO, come in questo screenshot:
 
-![alt text](../../assetsimages/topics/fritzbox/vodafone_station_view.png)
+![alt text](../../assets/images/topics/fritzbox/vodafone_station_view.png)
 
 Quindi di fatto, almeno nel mio caso, conviene prima collegare gli apparecchi, poi configurare il fritzbox, 
 e solo dopo impostare la Vodafone Station come NAT Statico.
