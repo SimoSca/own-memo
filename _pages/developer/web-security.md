@@ -37,6 +37,52 @@ Si usa questo stratagemma poiche' la crittografia antisimmetrica risulta pesante
 Per crittografare vi sono vari algoritmi, taluni invertibili(quali base_64url) altri invece non invertibili(HMAC ad esempio). In questo contesto ho trovato una parte interessante in PHP, ovvero gli **Initialization Vector**. Per specifiche meglio vedere uno dei miei `public/Test/Encryption`.
 
 
+Encrypt/Decrypt vs Sign/Verify
+------------------------------
+
+To have a good overview about single key and key-pair generic usage, for example:
+
+- grant that only the receivers can decrypt the message
+- grant that the sender is trusted
+- ca chain
+
+you can view https://dzone.com/articles/encryption-and-signing (or the statisc assets in ![alt text](../../assets/html/developer/web-security/Encryption and Signing - DZone Security.html)).
+
+Relatively the above article, I've performed some simple test using the follows:
+
+````shell
+# NOTA:
+# usare la normale coppia di chiavi create con "ssh-keygen -t rsa" non va bene in quanto per l'encrypt si deve usare il formato openssl e non openssh (con cui vengono create le chiavi). 
+openssl genrsa -out rsa_key.pri 2048; openssl rsa -in rsa_key.pri -out rsa_key.pub -outform PEM -pubout
+
+
+### Esempio di codice per svolgere encrypt con pubblica e decript privata (comunicazione)
+
+# Encrypt usando la chiave pubblica
+echo 'Hi MacGuffin!' | openssl rsautl -encrypt -inkey rsa_key.pub -pubin -out secret.dat 
+# Decrypt usando la chiave privata
+openssl rsautl -decrypt -inkey rsa_key.pri -in secret.dat
+
+
+
+# Esempio di codice per creare signature: in questo caso si cripta con la privata e si decripta con la pubblica (firma digitale o simile)
+echo 'Hi MacGuffin!' | openssl rsautl -sign -inkey rsa_key.pri -out encrypted.txt
+openssl rsautl -verify -pubin -inkey rsa_key.pub -in encrypted.txt 
+
+
+#NOTA: 
+# sono sicuro che tutto funzioni correttamente... ad es. se provo 
+openssl rsautl -verify -pubin -inkey rsa_key.pub -in secret.dat
+# non funziona perche' per creare secret.dat avevo gia' usato la pubblica!
+# similmente per il seguente, ma con la privata:
+openssl rsautl -decrypt -inkey rsa_key.pri -in encrypted.txt
+````
+
+### Authorization and Authentication
+
+The 
+
+
 
 TOKENS
 ------
@@ -72,6 +118,11 @@ da https://securedb.co/community/jwt-vs-jws-vs-jwe/
 
 `JWT` claims possono essere inviati via JWS(ignature) payload o via JWE(ncrypt) payload, pertanto quello che tipicamente trovo come JWT in realta' e' l'implementazione JWS.
 
+Esplicazione di validazione del token:
+
+- https://auth0.com/docs/tokens/json-web-tokens/validate-json-web-tokens
+ 
+
 #### JWS
 
 `JWS` serve come schema per la firma digitale dei contenuti: The server signs the JWT and sends it to the client, say after successful user authentication. The server expects the client to send this JWS back to the server as part of the next request.
@@ -84,10 +135,21 @@ The client can also validate the signature. To do so, the client either needs se
 
 Pertanto posso utilizzare il token sia come auto-segnatura del server, che come metodo per il trasferimento tra client e server, qualora questi condividano una secret.
 
+Explanation about of JWKs:
+
+- https://www.baeldung.com/spring-security-oauth2-jws-jwk
+
+Fully example of jws with jwks in node:
+
+- https://auth0.com/blog/navigating-rs256-and-jwks/
+
 #### JWE
 
 `JWE` scheme encrypts the content instead of signing it. The content being encrypted here are JWT claims. JWE, thus brings Confidentiality. The JWE can be signed and enclosed in a JWS. Now, you get both encryption and signature (thus getting Confidentiality, Integrity, Authentication).
 
+Example not fully working, but to have an idea of the encryption's workflow:
+
+- https://stackoverflow.com/questions/47720701/how-to-generate-and-validate-jwe-in-node-js
 
 ## Riassumo il TUTTO
 
