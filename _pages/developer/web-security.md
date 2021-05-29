@@ -83,6 +83,48 @@ openssl rsautl -decrypt -inkey rsa_key.pri -in encrypted.txt
 > using standard `ssh-keygen -t rsa [...]` not works because rsa public and private key are in openssh format, 
 > while the commands above expects keys in openssl format. 
 
+
+### Root CA / CA chain / Certificate chain / Certificate CA signature
+
+A CA (Certificate Authority) is an entity that issues digital certificates.
+
+A CA Certificate is a certificate signed by issuer authority (with it's private key) and that can be verified with the issuer's authority public key.
+The digital signature used has same logic of JWKs, and you can have a simple idea viewing [https://dzone.com/articles/encryption-and-signing#EncryptionAndSigning-CertificateAndCA](https://dzone.com/articles/encryption-and-signing#EncryptionAndSigning-CertificateAndCA).
+
+In concrete, I create a CSR into server I'm starting the process to obtain a `Server Certificate: The End-Entity`
+(note that while I create the CSR, I create also a PRIVATE KEY).
+After all procedure, the Certificate Authority give me back: 
+
+- a CA Certificate (Server Certificate)
+    - containing subject (me), issuer and a public key (related to my private key)
+    - this certificate is signed by the issuer with private key (in pair with the public key of issuer)
+- intermediate certificates
+    - always signed...
+    - see chain of trusting
+- Root Certificate
+    - this is the only self-signed certificate
+    - the browser TRUST this certificate (for example is in certificate store)
+    - is very important that this certificate is well trusted, to ensure security's chain 
+
+A curious thing is that the `Server Certificate` contains the public key related to my private key:
+I've no created explicitly a public key wit CSR flow, so I think that CSR has all the informations to ensure the 
+authority to create the public key providing the CSR itself 
+(remember that when I create a CSR I gain a private key, that's why I think that CSR could be used to produce a related public key).
+
+To have a better explanation you can read:
+
+- [https://sectigostore.com/blog/what-is-an-ssl-certificate-chain-how-does-it-work/](https://sectigostore.com/blog/what-is-an-ssl-certificate-chain-how-does-it-work/), 
+  well done and clear, but pay attention: the image "SSL CHAIN OF TRUST", the last two blocks related to "The signature can be verified [...]" are incorrects 
+- [https://www.venafi.com/blog/how-do-certificate-chains-work](https://www.venafi.com/blog/how-do-certificate-chains-work)
+- [https://knowledge.digicert.com/solution/SO16297.html](https://knowledge.digicert.com/solution/SO16297.html), just to see the chain's picture
+- [https://blog.keyfactor.com/certificate-chain-of-trust](https://blog.keyfactor.com/certificate-chain-of-trust), another good explanation
+
+At the end... some video:
+
+- [https://www.youtube.com/watch?v=heacxYUnFHA&ab_channel=DaveCrabbe](https://www.youtube.com/watch?v=heacxYUnFHA&ab_channel=DaveCrabbe), fast: only 17min
+- [https://www.youtube.com/watch?v=qXLD2UHq2vk&ab_channel=DaveCrabbe](https://www.youtube.com/watch?v=qXLD2UHq2vk&ab_channel=DaveCrabbe), 21min
+- [https://www.youtube.com/watch?v=q1OF_0ICt9A&ab_channel=MITOpenCourseWare](https://www.youtube.com/watch?v=q1OF_0ICt9A&ab_channel=MITOpenCourseWare), didactic, not seen but seem a math lesson, so could be interesting :)
+
 ### Authorization and Authentication
 
 Is it importanto to note that jwt tokens could be used both for **Authentication** and **Authorization**.
