@@ -85,7 +85,10 @@ openssl rsautl -decrypt -inkey rsa_key.pri -in encrypted.txt
 
 ### Authorization and Authentication
 
-The 
+Is it importanto to note that jwt tokens could be used both for **Authentication** and **Authorization**.
+
+For **Authentication** you colud use some standard protocol like **OpenID**, 
+while for **Authorization** you can use for example **OAuth 2.0** or similar.
 
 
 
