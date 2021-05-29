@@ -46,7 +46,7 @@ To have a good overview about single key and key-pair generic usage, for example
 - grant that the sender is trusted
 - ca chain
 
-you can view https://dzone.com/articles/encryption-and-signing (or the statisc assets in ![alt text](../../assets/html/developer/web-security/Encryption and Signing - DZone Security.html)).
+you can view https://dzone.com/articles/encryption-and-signing (or the statisc assets in [../../assets/html/developer/web-security/Encryption and Signing - DZone Security.html](../../assets/html/developer/web-security/Encryption and Signing - DZone Security.html)).
 
 Relatively the above article, I've performed some simple test using the follows:
 
