@@ -7,7 +7,7 @@ permalink:  /topics/fritzbox/
 
 Sections:
 
-- [As router only](#router-only) , used in cascade to `Vodafone Station`
+- [As router only](#as-router-only) , used in cascade to `Vodafone Station`
 
 - [NAS](#nas)
 
