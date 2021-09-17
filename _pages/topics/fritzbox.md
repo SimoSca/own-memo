@@ -96,24 +96,55 @@ Fritzbox in cascata Vodafone Station
 
 ### Tratto da quanto segue:
 
+--------------------- versione pratica inizio
+
+- parto con fritzbox, tipicamente 192.168.178.1
+
+- collegamento VSR e FB fritzbox
+
+0. A livello fisico si dovrà usare un cavo Ethernet per collegare una qualsiasi porta Ethernet della Vodafone Station alla porta WAN del FritzBox
+
+1. interfaccia FritzBox (connettendomi via WiFi al fritzbox, in genere 192.168.178.1, ma dopo la riconfigurazione potrebbe divenire 192.168.188.1)
+
+    - Internet > Dati di accesso > "Provider Internet" seleziono "accesso disponibile via WAN" e poi applico
+    - ottengo un messaggio tipo `Il FRITZ!Box ha ricevuto un nuovo indirizzo IP ed è ora raggiungibile a 192.168.188.1.`
+    - nel mio caso avevo customizzato la `192.168.178.1` quindi devo fare ulteriore passaggio:
+      - mi collego al pannello fritzbox tramite 192.168.188.1 (ci potrebbero volere un paio di minuti prima di raggiungerlo)
+      - Rete Locale > Rete , Tab "Impostazioni di rete" e da li nella sezione "Indirizzi IP" clicco su "Configurazione IPV4"
+      - dall'interfaccia appena raggiunta, posso riconfigurare l'indirizzo ipv4 della rete locale a `192.168.178.1`
+      - a questo punto il pannello torna raggiungibile da `192.168.178.1`
+    - infine in "Internet" > "Monitor online" vedo "[...] accesso disponibile via WAN, Indirizzo IP: 192.168.1.3" e segno l'ip per configurazione con VSR
+
+2. interfaccia VSR (Vodafone Station Revolution, tipicamente http://192.168.1.1/, anche se sono collegato wifi al fritzbox)
+
+   - "internet" > "Host Nat Statico"
+   - Nella configurazione normale `Host Nat Statico` e' disabilitato, ma io lo abilito e da `0.0.0.0` lo configuro a `192.168.1.3`
+
+nota facio tutto connesso da  
+
+--------------------- versione pratica fine
 
 Tratto da https://www.youtube.com/watch?v=8-QXboI3G0k
 
 0. A livello fisico si dovrà usare un cavo Ethernet per collegare una qualsiasi porta Ethernet della Vodafone Station alla porta WAN del FritzBox
 
-1. interfaccia VSR (Vodafone Station Revolution)
+1. collegarsi alla VSR (Vodafone Station Revolution) via wifi (se serve attivarlo, si pu premere il bottone sulla VSR)
+
+2. interfaccia VSR (Vodafone Station Revolution, tipicamente http://192.168.1.1/)
 
     - "internet" > "Host Nat Statico"
-    - Nella configurazione normale `Host Nat Statico` e' disabilitato, ma io lo abilito e da `0.0.0.0` che era lo configurao a `192.168.1.3`
+    - Nella configurazione normale `Host Nat Statico` e' disabilitato, ma io lo abilito e da `0.0.0.0` lo configuro a `192.168.1.3`
 
-2. interfaccia FritzBox
+3. interfaccia FritzBox (connettendomi via WiFi al fritzbox, in genere 192.168.178.1, ma dopo la riconfigurazione potrebbe divenire 192.168.188.1)
 
     - Internet > Dati di accesso > "Provider Internet" seleziono "accesso disponibile via WAN" e poi applico
     - ottengo un messaggio tipo `Il FRITZ!Box ha ricevuto un nuovo indirizzo IP ed è ora raggiungibile a 192.168.188.1.`
-    - nel mio caso avevo customizzato la `192.168.178.1` quindi devo fare ulteriore passaggio
-    - Rete Locale > Rete , Tab "Impostazioni di rete" e da li nella sezione "Indirizzi IP" clicco su "Configurazione IPV4"
-    - dall'interfaccia appena raggiunta, posso riconfigurare l'indirizzo ipv4 della rete locale a `192.168.178.1`
+    - nel mio caso avevo customizzato la `192.168.178.1` quindi devo fare ulteriore passaggio:
+      - Rete Locale > Rete , Tab "Impostazioni di rete" e da li nella sezione "Indirizzi IP" clicco su "Configurazione IPV4"
+      - dall'interfaccia appena raggiunta, posso riconfigurare l'indirizzo ipv4 della rete locale a `192.168.178.1`
     
+NOTA: se mi connetto alla rete della VSR riesco a raggiungere il pannello della VSR, ma non quello del fritzbox,
+Viceversa se mi connetto prima al pannello del fritzbox poi riesco a raggiungere anche la VSR!
 
 Fin qui tutto OK, ma di fatto non raggiungevo internet, cosi' guardando nel fritzbox ho visto questa sezione:
 
