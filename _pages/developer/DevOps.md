@@ -327,7 +327,7 @@ set -xe
 
 MYSITE="enomis.ninja"
 CONFIG="self-signed-enomis.conf"
-CONFIGROOT="root-csr.conf"
+CONFIGROOT="root-ca.conf"
 DEST="/etc/apache2/ssl/enomis/"
 
 ### CREATE CUSTOM SELF-SIGNED ###
@@ -368,6 +368,31 @@ openssl req -x509 -sha256 -days 3650 -newkey rsa:3072 \
 #    openssl rsa -noout -modulus -in ${DEST}/rootCA.key | openssl md5 ; \
 #) | uniq | wc -l`
 #if [ $UNIQ_COUNT -ne 1 ] ; then echo "Warning" ; fi
+````
+
+Dove il file `root-ca.conf` e' qualcosa di simile a:
+
+````
+[ req ]
+encrypt_key = no
+utf8 = yes
+string_mask = utf8only
+prompt=no
+distinguished_name = root_dn
+x509_extensions = extensions
+[ root_dn ]
+# Country Name (2 letter code)
+countryName = IT
+# Locality Name (for example, city)
+localityName = Cartoonia
+# Organization Name (for example, company)
+0.organizationName = Staging Corp
+# Name for the certificate
+commonName = Staging Root CA
+[ extensions ]
+keyUsage = critical,keyCertSign,cRLSign
+basicConstraints = critical,CA:TRUE
+subjectKeyIdentifier = hash
 ````
 
 3) verifica della chain (OPZIONALE)
