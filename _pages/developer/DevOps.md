@@ -429,3 +429,11 @@ SERVER
 ------
 
 - [https://www.digitalocean.com/community/tutorials/how-to-host-multiple-websites-securely-with-nginx-and-php-fpm-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-host-multiple-websites-securely-with-nginx-and-php-fpm-on-ubuntu-14-04)
+
+### APACHE SSL CERTS SPEEDUP via OCSP
+
+Speedup SSL trust chain via OCSP STAPLING!
+
+- [https://www.youtube.com/watch?v=WXNKQ_otO_g](https://www.youtube.com/watch?v=WXNKQ_otO_g), explanation with picture, simple and well done
+- [https://www.digicert.com/kb/ssl-support/apache-enable-ocsp-stapling-on-server.htm](https://www.digicert.com/kb/ssl-support/apache-enable-ocsp-stapling-on-server.htm), explanation
+- [https://www.ssldragon.com/blog/what-is-ocsp-stapling-and-how-to-use-it/](https://www.ssldragon.com/blog/what-is-ocsp-stapling-and-how-to-use-it/), explanation

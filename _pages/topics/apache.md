@@ -32,3 +32,11 @@ See:
 ### Optimize Apapche Configurations
 
 - [http://www.hostingtalk.it/ottimizzazione-di-apache-dall-analisi-ai-parametri_-c000000ut/](http://www.hostingtalk.it/ottimizzazione-di-apache-dall-analisi-ai-parametri_-c000000ut/)
+
+### APACHE SSL CERTS SPEEDUP via OCSP
+
+Speedup SSL trust chain via OCSP STAPLING!
+
+- [https://www.youtube.com/watch?v=WXNKQ_otO_g](https://www.youtube.com/watch?v=WXNKQ_otO_g), explanation with picture, simple and well done
+- [https://www.digicert.com/kb/ssl-support/apache-enable-ocsp-stapling-on-server.htm](https://www.digicert.com/kb/ssl-support/apache-enable-ocsp-stapling-on-server.htm), explanation 
+- [https://www.ssldragon.com/blog/what-is-ocsp-stapling-and-how-to-use-it/](https://www.ssldragon.com/blog/what-is-ocsp-stapling-and-how-to-use-it/), explanation
