@@ -92,7 +92,7 @@ and maintain routing and controls with My Fritzbox, for example no lost IP mappi
 Fritzbox in cascata Vodafone Station
 ------------------------------------
 
-
+Per riferimenti vedere anche [qui](https://www.fritzbox-forum.com/t8028-vodafone-station-fritz-in-cascata-soluzione-alternativa-al-nat-statico-e-al-dmz-zone).
 
 ### Tratto da quanto segue:
 
