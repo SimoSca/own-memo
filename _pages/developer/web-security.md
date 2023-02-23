@@ -257,9 +257,9 @@ Per gli scopi (ipotizziamo chiavi asimmetriche):
 - il payload e' protetto e puo' essere letto solo da chi ha la chiave privata
 - in questo caso pero' non si puo' verificare la sorgente perche' la chiave pubblica potrebbe essere consegnata a piu' persone (quindi per protezione, in teoria la pubblica non dovrebbe essere)
 
-#### JWKs
+#### JWKS (JSON Web Key Set)
 
-E' un formato per esporre le chiavi pubbliche, in modo che possano essere usate da altri consumer.
+E' un formato per esporre le chiavi pubbliche, in modo che possano essere usate da altri consumer. E' sostanzialmente un array di JWK (JSON Web Key), ovvero un JSON che contiene le informazioni di una chiave pubblica.
 Di base le chiavi pubbliche possono essere esposte per chi dovra' verificare il JWS, mentre le private per chi dovra' decriptare il JWE.
 Dal mio punto di vista NON dovrebbero mai essere esposte le chiavi private, perche' altrimenti chiunque potrebbe decriptare il JWE recuperando la chiave privata esposta...
 
