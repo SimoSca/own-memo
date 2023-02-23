@@ -224,6 +224,52 @@ Questa sarebbe la sua utilita' in linea di principio: quindi il JWT con questa i
 Sempre con questo giro, il JWT non serve assolutamente a trasmettere i messaggi tra client e server! quest'ultima potrebbe essere verificata mediante algoritmo simmetrico se client e server si sono scambiati in modo sicuro una secret.
 
 
+#### JWT, JWS, JWE, JWKs: aggiornamento 20230223
+
+In parole povere, JWS e JWE sono due standard che permettono di firmare e cifrare rispettivamente i dati. JWT e' un formato di dati che usa JWS e JWE per firmare e cifrare i dati.
+
+Inoltre sono presenti le rappresentazioni:
+
+- **Compact**, ovvero il normale token/stringa che siamo abituati a vedere negli urls (ovvero i base-64 separati dai periods "."); di fatto e' questa quella a cui in genere ci si riferisce
+- **JSON serialization**, che e' un plain JSON strutturato con payload e "signatures"; puo' essere `flatten` e non avere l'array "signatures", e avere signature ed header come proprieta' base del json
+
+In `JSON Serialization` e' possibile avere piu' di una signature, per cui si puo' avere un token firmato e cifrato, oppure firmato e firmato, oppure cifrato e cifrato, ecc.
+La cosa importante e' che la signature e' come se fosse pensata per "receipt", quindi la validazione non avviene verificato la firma di ogni elemento "signatures": 
+mi basta che solo una funzioni (quella relativa alla mia chiave). 
+Per meglio capirci, non e' come una "trusted chain", in cui il certificato e' valido solo se tutta la chain di trusting e' valida,
+questo perche' ogni signature e' indipendente dalle altre "sorelle", mentre in una chain di certificati ogni elemento contiene riferimenti (e quindi dipedenze) a quello precedente.
+
+La `JSON Serialization` puo' essere utile se si vuole avere un token che sia firmato/cifrato e verificabile/consumabile da piu' destinatari (recipients), 
+come scritto [qui](https://grimoire.carcano.ch/blog/json-web-token-jwt/#more-448).
+
+
+Per gli scopi (ipotizziamo chiavi asimmetriche):
+
+#### JWS
+
+- il token viene generato con la chiave privata e quindi verificato con la chiave pubblica da chi lo riceve; 
+- serve per avere trusting della sorgente (se la signature e' valida vuol dire che effettivamente e' stato emesso da quella sorgente specifica che io identifico con la pubblica); 
+- non protegge i dati
+
+#### JWE
+
+- il payload del token viene criptato con la chiave pubblica e quindi chi la riceve lo decripta con la chiave privata (quindi in teoria dovrebbe essere chi riceve a generare la coppia di chiavi e mandarmi la pubblica)
+- il payload e' protetto e puo' essere letto solo da chi ha la chiave privata
+- in questo caso pero' non si puo' verificare la sorgente perche' la chiave pubblica potrebbe essere consegnata a piu' persone (quindi per protezione, in teoria la pubblica non dovrebbe essere)
+
+#### JWKs
+
+E' un formato per esporre le chiavi pubbliche, in modo che possano essere usate da altri consumer.
+Di base le chiavi pubbliche possono essere esposte per chi dovra' verificare il JWS, mentre le private per chi dovra' decriptare il JWE.
+Dal mio punto di vista NON dovrebbero mai essere esposte le chiavi private, perche' altrimenti chiunque potrebbe decriptare il JWE recuperando la chiave privata esposta...
+
+Se si ha bisogno di garantire protezione dei dati e trusting della sorgente, allora si dovrebbe usare JWS e JWE, 
+in particolare potrebbe essere il payload del JWE a includere il JWS (nota che decifrare un JWE e' piu' dispendioso/lento di verificare un JWS).
+
+Per ulteriori dettagli leggere [questo pdf](/assets/developer/web-security/jwt-handbook-v0_14_1.pdf).
+
+
+
 AUTHORIZATION HEADER | TOKEN | HASHING | ENCRYPTING
 ---------------------------------------------------
 
@@ -276,4 +322,7 @@ I've tested:
 3. logged in to the service with the code getted from the authenticator app whose seed is obtained via qr code picture scanned
 
 4. and... **all goes right!!!**
+
+
+https://grimoire.carcano.ch/blog/json-web-token-jwt/#more-448
 
