@@ -242,6 +242,8 @@ questo perche' ogni signature e' indipendente dalle altre "sorelle", mentre in u
 La `JSON Serialization` puo' essere utile se si vuole avere un token che sia firmato/cifrato e verificabile/consumabile da piu' destinatari (recipients), 
 come scritto [qui](https://grimoire.carcano.ch/blog/json-web-token-jwt/#more-448).
 
+> Al di la' di altri dettagli, in `jws` l'array e' `signatures`, mentre in `jwe` l'array e' `recipients`.
+
 
 Per gli scopi (ipotizziamo chiavi asimmetriche):
 
