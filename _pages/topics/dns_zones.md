@@ -46,7 +46,7 @@ zone "mysub.example.com" {
 
 > il path del file è arbitrario
 
-ed in particolare il file `mysub.example.com`.hosts:
+ed in particolare il file `mysub.example.com.hosts`:
 
 ````
 $ttl 38400
