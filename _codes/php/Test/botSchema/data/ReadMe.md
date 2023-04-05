@@ -11,7 +11,7 @@ L'utilizzo di una classe contenente api e' stato scelto per poter incapsulare tu
 Start
 ------
 
-Il database e' `logotel_simone_scardoni`, l'utente a cui sono concessi i pieni permessi di lettura/scrittura e' `logotel` con password `123stella`.
+Il database e' `my-site_simone_scardoni`, l'utente a cui sono concessi i pieni permessi di lettura/scrittura e' `my-site` con password `123stella`.
 Questi parametri sono proprieta' private di `BotConnector`.
 
 Riporto di seguito i comandi da eseguire per rendere operativo questo test, sperando di fare cosa gradita.
@@ -21,11 +21,11 @@ Riporto di seguito i comandi da eseguire per rendere operativo questo test, sper
 
 dopo aver effettuato su `mysql` il login come root, lanciare in ordine 
 
-    create database logotel_simone_scardoni;
+    create database my-site_simone_scardoni;
 
-    use logotel_simone_scardoni;
+    use my-site_simone_scardoni;
 
-    GRANT ALL ON logotel_simone_scardoni.* TO 'logotel'@'localhost' IDENTIFIED BY '123stella';
+    GRANT ALL ON my-site_simone_scardoni.* TO 'my-site'@'localhost' IDENTIFIED BY '123stella';
 
 
 La creazione delle tabelle viene poi gestita mediante il metodo `controllaDB` della classe `PasswordStorage`. 

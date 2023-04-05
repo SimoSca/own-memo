@@ -8,7 +8,7 @@ Alcuni servizi/piattatorme che potrebbero tornare utili quando si sviluppa.
 
 ### Check
 
-- [mxtoolbox.com](https://mxtoolbox.com/SuperTool.aspx?action=dns%3alogotel.it&run=networktools), per check su network, spf, etc.
+- [mxtoolbox.com](https://mxtoolbox.com/SuperTool.aspx?action=dns%3amy-site.it&run=networktools), per check su network, spf, etc.
 
 
 ### Logging

@@ -1,5 +1,5 @@
 {
-    "name": "black/logotel-challenge-simo-sca",
+    "name": "black/my-site-challenge-simo-sca",
     "description": "Bot Password Test",
     "authors": [
         {
@@ -9,7 +9,7 @@
     ],
     "autoload":{
         "psr-4":{
-            "Logotel\\": "libs"
+            "MySite\\": "libs"
         }
     }
 }

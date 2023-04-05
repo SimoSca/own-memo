@@ -56,7 +56,7 @@ usermod -a -G docker ubuntu
 Eventually you can force this to avoid GID or UID overlaps between docker images and host server:
 ````
 ### USER AND GROUPS
-# Trick to avoid users conflicts, for example id 1000 could exists before adding the logotel 1000 for docker running in ubuntu server ; adduser forces the indexing...
+# Trick to avoid users conflicts, for example id 1000 could exists before adding the my-site 1000 for docker running in ubuntu server ; adduser forces the indexing...
 RUN sed -i "s#FIRST_UID=.*#FIRST_UID=10000#g ; s#FIRST_GID=.*#FIRST_GID=10000#g" /etc/adduser.conf \
 && adduser --disabled-password --gecos "" enomis
 ````
