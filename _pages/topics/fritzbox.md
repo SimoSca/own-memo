@@ -171,3 +171,20 @@ Altri dettagli su configurare la Vodafone Station come Modem Alternativo:
 - https://www.youtube.com/watch?v=pKjT4Rd5seQ
 - https://www.youtube.com/watch?v=3eEfcGqX9Oc , questo giusto per vedere i collegamenti
 
+
+
+FRITZ Repeater 3000
+-------------------
+
+Per configurare il repeater 3000, basta cliccare sul pulsante WPS del fritzbox e poi sul pulsante WPS del repeater,
+a quel punto si connettono in automatico.
+
+Dopo la prima connessione e' **importante** andare nel pannello del fritzbox `Rete Locale > Mesh` 
+e da li verificare non solo che il repeater sia collegato, ma che abbia anche il simbolo di rete mesh,
+in caso contrario riprovare nuovamente a collegare i due dispositivi premendo sui pulsanti WPS:
+vedi [qui](https://youtu.be/Xf-ItWt8zp0?t=86) per dettagli.
+
+Se non funziona, seguire la sezione `Rete > Connessioni di rete` nel backend del repeater, 
+che se non in mesh dovrebbe contenere una serie di sezioni, tra cui una in cui sostanzialmente dice che per usarlo
+con un fritzbox massimizzandone i benefici (cioe' in mesh, anche se non lo dice) da delle istruzioni su come fare
+(questo sicuramente avviene se ad esempio si fa un ripristino alle condizioni di Fabbrica del repeater).
