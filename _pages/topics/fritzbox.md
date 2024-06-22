@@ -199,3 +199,21 @@ Il FRITZ!Repeater fa parte della rete Mesh e adotta le impostazioni del FRITZ!Bo
 Per una panoramica della rete locale del FRITZ!Box e delle relative impostazioni, accedete all'interfaccia utente del FRITZ!Box (Mesh master). 
 Se desiderate effettuare impostazioni Wi-Fi individuali per il vostro FRITZ!Repeater, disattivate questa opzione nel menu "Accesso rete locale".
 ````
+
+UPNP - Media Server - MyCloud
+-----------------------------
+
+Questo e' un appunto nel caso il server UPNP non venga riconosciuto:
+prima di provare questi passaggi, e' meglio provare a riavviare il dispositivo media server,
+successivamente se non funziona allora provare a riavviare il fritzbox,
+e solo in ultima istanza provare quanto segue.
+
+https://it.avm.de/assistenza/banca-dati-informativa/dok/FRITZ-Box-7590/894_Configurare-le-abilitazioni-porte-automatiche-nel-FRITZ-Box/
+
+1. Cliccare nell'interfaccia utente del FRITZ!Box su "Rete locale".
+2. Cliccare nel menu "Rete locale" su "Rete".
+3. Cliccare sulla scheda di registro "Connessioni di rete".
+4. Cliccare sul pulsante  (Modifica) per il corrispondente dispositivo.
+5. Attivare nella sezione "Abilitazioni" l'opzione "Consentire le abilitazioni porte automatiche per questo dispositivo".
+6. Cliccare su "Applica" per salvare le impostazioni.
+
