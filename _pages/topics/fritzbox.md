@@ -188,3 +188,14 @@ Se non funziona, seguire la sezione `Rete > Connessioni di rete` nel backend del
 che se non in mesh dovrebbe contenere una serie di sezioni, tra cui una in cui sostanzialmente dice che per usarlo
 con un fritzbox massimizzandone i benefici (cioe' in mesh, anche se non lo dice) da delle istruzioni su come fare
 (questo sicuramente avviene se ad esempio si fa un ripristino alle condizioni di Fabbrica del repeater).
+
+Se invece la rete mesh e' gia' attiva, nelle `Connessioni di rete` del repeater dovrebbe esserci una sola sezione
+che riporta qualcosa di questo tipo:
+
+````
+L'applicazione delle impostazioni è attiva.
+
+Il FRITZ!Repeater fa parte della rete Mesh e adotta le impostazioni del FRITZ!Box. 
+Per una panoramica della rete locale del FRITZ!Box e delle relative impostazioni, accedete all'interfaccia utente del FRITZ!Box (Mesh master). 
+Se desiderate effettuare impostazioni Wi-Fi individuali per il vostro FRITZ!Repeater, disattivate questa opzione nel menu "Accesso rete locale".
+````
