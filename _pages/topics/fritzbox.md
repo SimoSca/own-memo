@@ -172,6 +172,8 @@ Altri dettagli su configurare la Vodafone Station come Modem Alternativo:
 - https://www.youtube.com/watch?v=3eEfcGqX9Oc , questo giusto per vedere i collegamenti
 
 
+ALTRO
+=====
 
 FRITZ Repeater 3000
 -------------------
@@ -217,3 +219,50 @@ https://it.avm.de/assistenza/banca-dati-informativa/dok/FRITZ-Box-7590/894_Confi
 5. Attivare nella sezione "Abilitazioni" l'opzione "Consentire le abilitazioni porte automatiche per questo dispositivo".
 6. Cliccare su "Applica" per salvare le impostazioni.
 
+
+VOIP - Telefono
+---------------
+
+Per configurare la telefonia su fritzbox ci istruzioni nella documentazione ufficiale:
+
+- https://it.avm.de/assistenza/banca-dati-informativa/dok/FRITZ-Box-7590/32_Configurare-i-numeri-VoIP-nel-FRITZ-Box/
+- https://it.avm.de/assistenza/banca-dati-informativa/dok/FRITZ-Box-7590/1085_Configurare-un-numero-di-telefonia-mobile-nel-FRITZ-Box/
+
+Tuttavia essendo interessato solo alla configurazione della rete fissa tramite Vodafone, ho trovato una proceduare molto semplice:
+
+- in primis sono andato nella mia area vodafone, e tra le configurazioni inerenti la mia connessione fissa, il pannello mostrava i seguenti:
+   - Parametro PSW VOIP
+   - Parametro dell'endpoint SBC
+   - Nome utente VOIP
+- successivamente nel FritzBox ho cliccato su `Telefonia` > `Propri numeri` > `Nuovo numero`:
+  - dove i provider seleziono `Vodafone`
+  - Numero VoIP: `Nome utente VOIP`
+  - Password: `Parametro PSW VOIP`
+  - Server Proxy: `Parametro dell'endpoint SBC`
+- a quel punto continuo con la procedura guidata, e alla fine il telefono e' configurato (test di connessione positivo).
+
+A quel punto posso testare chiamate e ricezione ad esempio tramite smartphone:
+
+- installo app `Fritz!App Fon` sullo smartphone
+- avviando l'app mentre sono in rete Fritz dovrebbe partire la configurazione automatica
+- a quel punto posso fare chiamate e riceverle
+- NOTA: se volessi gestire questo tool anche fuori casa, posso farlo impostando una connessione VPN
+
+Qui ho anche trovato un video interessante:
+
+- https://www.youtube.com/watch?v=LlOjvV9YLJo
+   - spiega come configurare VOIP
+   - eventualmente come usare Cordless con DECT-GAP
+   - addirittura  app FritzPhone
+   - servizio Tellows (numeri sospetti) -> tramite Blacklist per Fritz!Box
+- utilizzo di app FritzPhone eventualmente
+
+
+IPV6 - Vodafone
+---------------
+
+Al 2024-09-15, ipv6 non risulta supportato ufficialmente da Vodafone.
+
+Ho trovato qualcuno che ha fatto alcune prove, qui lo riporto nel caso voglia provare in futuro:
+
+IPV6 Fritzbox: https://forum.fibra.click/d/39698-inizio-rilascio-ipv6-su-rete-fissa-vodafone/164.
